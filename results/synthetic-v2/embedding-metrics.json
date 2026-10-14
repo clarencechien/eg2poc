@@ -1,0 +1,524 @@
+{
+  "score_sha256": "6dcb16099852dc6c426d3dc3c431a3a20ab53ffd3e5c50e6980c2a4bcd841ec0",
+  "data_manifest_sha256": "4d4df53f467a4c7f8a00f8c545c1ea127b50e55ceeb21efcef623932b6744c9b",
+  "metrics": {
+    "T5-word": {
+      "A": {
+        "auc": 0.49999999999999994,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.5,
+        "n_matched_comparisons": 60
+      },
+      "B768": {
+        "auc": 0.8786111111111111,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.9666666666666667,
+        "n_matched_comparisons": 60
+      },
+      "C_same_classification": {
+        "auc": 0.24305555555555555,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.16666666666666666,
+        "n_matched_comparisons": 60
+      },
+      "C_same_search_query": {
+        "auc": 0.10166666666666668,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.11666666666666667,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_classification": {
+        "auc": 0.31666666666666665,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.26666666666666666,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_search_query": {
+        "auc": 0.6427777777777778,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.65,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_classification": {
+        "auc": 0.4875,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.5666666666666667,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_search_query": {
+        "auc": 0.1777777777777778,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.1,
+        "n_matched_comparisons": 60
+      },
+      "R": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      }
+    },
+    "T6-word": {
+      "A": {
+        "auc": 0.5386666666666666,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 0.6,
+        "n_matched_comparisons": 300
+      },
+      "B768": {
+        "auc": 0.8508777777777778,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 0.92,
+        "n_matched_comparisons": 300
+      },
+      "C_same_classification": {
+        "auc": 0.9943000000000001,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 300
+      },
+      "C_same_search_query": {
+        "auc": 0.9909666666666667,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 0.9966666666666667,
+        "n_matched_comparisons": 300
+      },
+      "C_alt_classification": {
+        "auc": 0.9970333333333333,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 300
+      },
+      "C_alt_search_query": {
+        "auc": 0.9894,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 0.9766666666666667,
+        "n_matched_comparisons": 300
+      },
+      "C_xlang_classification": {
+        "auc": 0.9991777777777778,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 300
+      },
+      "C_xlang_search_query": {
+        "auc": 0.9941666666666668,
+        "n_positive": 300,
+        "n_negative": 300,
+        "n_requested_positive": 300,
+        "matched_win_rate": 0.99,
+        "n_matched_comparisons": 300
+      },
+      "R": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0,
+        "n_requested_positive": 300,
+        "matched_win_rate": null,
+        "n_matched_comparisons": 0
+      }
+    },
+    "T6-sentence": {
+      "A": {
+        "auc": 0.8116,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "B768": {
+        "auc": 0.9828,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "C_same_classification": {
+        "auc": 1.0,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "C_same_search_query": {
+        "auc": 1.0,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "C_alt_classification": {
+        "auc": 1.0,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "C_alt_search_query": {
+        "auc": 1.0,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "C_xlang_classification": {
+        "auc": 1.0,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "C_xlang_search_query": {
+        "auc": 0.998,
+        "n_positive": 50,
+        "n_negative": 50,
+        "n_requested_positive": 50,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 50
+      },
+      "R": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0,
+        "n_requested_positive": 50,
+        "matched_win_rate": null,
+        "n_matched_comparisons": 0
+      }
+    },
+    "T7-word": {
+      "A": {
+        "auc": 0.6599999999999999,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.75,
+        "n_matched_comparisons": 60
+      },
+      "B768": {
+        "auc": 0.9416666666666667,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.9833333333333333,
+        "n_matched_comparisons": 60
+      },
+      "C_same_classification": {
+        "auc": 0.9994444444444444,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_same_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_classification": {
+        "auc": 0.9994444444444444,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "R": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0,
+        "n_requested_positive": 60,
+        "matched_win_rate": null,
+        "n_matched_comparisons": 0
+      }
+    },
+    "T7-sentence": {
+      "A": {
+        "auc": 0.5436111111111112,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.75,
+        "n_matched_comparisons": 60
+      },
+      "B768": {
+        "auc": 0.78,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.75,
+        "n_matched_comparisons": 60
+      },
+      "C_same_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_same_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_search_query": {
+        "auc": 0.9994444444444444,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "R": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0,
+        "n_requested_positive": 60,
+        "matched_win_rate": null,
+        "n_matched_comparisons": 0
+      }
+    },
+    "T8-sentence": {
+      "A": {
+        "auc": 0.9716666666666667,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "B768": {
+        "auc": 0.9302777777777778,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_same_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_same_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_search_query": {
+        "auc": 0.9933333333333333,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.9833333333333333,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "R": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0,
+        "n_requested_positive": 60,
+        "matched_win_rate": null,
+        "n_matched_comparisons": 0
+      }
+    },
+    "T8-paragraph": {
+      "A": {
+        "auc": 0.5713888888888888,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.5,
+        "n_matched_comparisons": 60
+      },
+      "B768": {
+        "auc": 0.45472222222222225,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.38333333333333336,
+        "n_matched_comparisons": 60
+      },
+      "C_same_classification": {
+        "auc": 0.9997222222222222,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_same_search_query": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_classification": {
+        "auc": 0.9991666666666666,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_alt_search_query": {
+        "auc": 0.9622222222222223,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 0.9833333333333333,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_classification": {
+        "auc": 1.0,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "C_xlang_search_query": {
+        "auc": 0.9583333333333333,
+        "n_positive": 60,
+        "n_negative": 60,
+        "n_requested_positive": 60,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 60
+      },
+      "R": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0,
+        "n_requested_positive": 60,
+        "matched_win_rate": null,
+        "n_matched_comparisons": 0
+      }
+    }
+  }
+}
