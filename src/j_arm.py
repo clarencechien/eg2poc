@@ -22,7 +22,7 @@ class JArm:
         import requests
         self.session=requests.Session();self.session.trust_env=False
 
-    def score_j(self, new_text, lang, mode='single', old_text=None):
+    def score_j(self, new_text, lang, mode='single', old_text=None, cache_prompt=None):
         if mode in ('single','docset'):
             question={'instructions':self.plan['single_instructions'][lang],
                       'options':dict(zip('ABCD',self.config['labels_alt'][lang]))}
@@ -33,11 +33,12 @@ class JArm:
             state=f'OLD / 舊版本:\n{old_text}\n\nNEW / 新版本:\n{new_text}';letters=list('AB')
         else:raise ValueError('Unsupported fixed decision type')
         prompt=self.renderer.render(state,question,system=self.system[lang])
-        result=self.read(self.url,prompt,letters,n_probs=self.plan['n_probs'],cache_prompt=self.plan['cache_prompt'],session=self.session)
+        use_cache=self.plan['execution_cache_prompt'] if cache_prompt is None else cache_prompt
+        result=self.read(self.url,prompt,letters,n_probs=self.plan['n_probs'],cache_prompt=use_cache,session=self.session)
         missing=bool(result['missing']) or any(k not in result['probs'] for k in letters)
         # Do not interpret omitted top-k candidates as zero probabilities.
         score=None if missing else (result['probs']['A'] if mode=='paired' else sum(result['probs'][k] for k in 'BCD'))
-        return {'score':score,'mode':mode,'model_size':self.model_size,'prompt_sha256':__import__('hashlib').sha256(prompt.encode()).hexdigest(),**result}
+        return {'score':score,'mode':mode,'model_size':self.model_size,'cache_prompt':use_cache,'prompt_sha256':__import__('hashlib').sha256(prompt.encode()).hexdigest(),**result}
 
 
 def score_j(arm, model_size, mode, new_text, lang, old_text=None):

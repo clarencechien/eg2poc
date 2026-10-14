@@ -1,5 +1,6 @@
 """Same-machine 100-row latency benchmark; run without concurrent inference."""
 import gc
+import argparse
 import json
 import time
 from pathlib import Path
@@ -9,11 +10,12 @@ from .common import read_jsonl,write_jsonl,digest
 
 
 def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--output',default='results/synthetic-v2.1');args=parser.parse_args()
     import torch
     torch.set_num_threads(4)
     plan=json.loads(Path('data/synthetic-v2.1/analysis-plan.json').read_text());config=json.loads(Path('data/synthetic-v2/config.json').read_text())
     mapping={p['pair_id']:p for p in read_jsonl('data/synthetic-v2/pairs.jsonl')};rows=[mapping[pid] for pid in plan['benchmark_pair_ids']]
-    out=Path('results/synthetic-v2.1');out.mkdir(exist_ok=True)
+    out=Path(args.output);out.mkdir(parents=True,exist_ok=True)
     if (out/'benchmark-small-models.jsonl').exists():raise ValueError('Benchmark already exists; keep measured timings')
     embedding=EmbeddingArms(config['embedding'],config['labels_alt']);embedding.prepare(rows)
     embedding.encode([rows[0]['new_text']],config['embedding']['document_template'],batch_size=1)

@@ -1,6 +1,7 @@
 {
   "sha256": {
-    "analysis-plan.json": "6b414a8f2ed9b485d00b0f21ddb26068c9870990a40e0f2f31761eed8fb23599"
+    "analysis-plan.json": "8dbf209f146ab6f62c521604f39fcb13d07f9349b0553c1d522f827b1ba6eb56",
+    "scoring-scope.json": "6023a32e7934ec24f9517d5132c5cbf6b20bf6585437033b4b128ab3f180a006"
   },
   "frozen_before_J_scoring": true
 }

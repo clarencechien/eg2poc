@@ -1,6 +1,7 @@
 """J extension on frozen v2 data, via the existing jevlike fixed decision interface."""
 import argparse
 import hashlib
+import importlib.metadata
 import json
 import os
 import subprocess
@@ -28,16 +29,23 @@ def main():
     plan=json.loads((planroot/'analysis-plan.json').read_text());config=json.loads(Path('data/synthetic-v2/config.json').read_text())
     if digest('data/synthetic-v2/manifest.json')!=plan['data_manifest_sha256']:raise ValueError('J data provenance changed')
     rows=read_jsonl('data/synthetic-v2/pairs.jsonl');docs=read_jsonl('data/synthetic-v2/docsets.jsonl');rowmap={p['pair_id']:p for p in rows}
+    scope=json.loads((planroot/'scoring-scope.json').read_text())
+    active_ids=set(scope['pair_ids']);active_rows=[p for p in rows if p['pair_id'] in active_ids]
     out=Path(args.output)/args.model_size;out.mkdir(parents=True,exist_ok=True)
     model=plan['models'][args.model_size];path=hf_hub_download(model['model_id'],model['file'],revision=model['revision'],local_files_only=True)
-    manifest={'plan_sha256':digest(planroot/'analysis-plan.json'),'model':model,'model_bytes':Path(path).stat().st_size,
+    manifest={'plan_sha256':digest(planroot/'analysis-plan.json'),'scope_sha256':digest(planroot/'scoring-scope.json'),'model':model,'model_bytes':Path(path).stat().st_size,
               'jevlike_revision':plan['jevlike_revision'],'llama_cpp_revision':plan['llama_cpp_revision'],
               'source_sha256':{f:digest(f) for f in ('src/j_arm.py','src/run_v21.py')},'server_binary_sha256':digest(args.server),
-              'model_sha256':digest(path),'device':'cpu','threads':4,'cache_prompt':False,'status':'running'}
+              'model_sha256':digest(path),'device':'cpu','threads':4,'benchmark_cache_prompt':False,'scoring_cache_prompt':plan['execution_cache_prompt'],'status':'running',
+              'packages':{p:importlib.metadata.version(p) for p in ('requests','urllib3','cmake','huggingface_hub')}}
+    expected_blob=Path(path).resolve().name
+    if len(expected_blob)==64 and all(c in '0123456789abcdef' for c in expected_blob):
+        if manifest['model_sha256']!=expected_blob:raise ValueError('Model SHA256 differs from downloaded LFS blob identifier')
+        manifest['model_lfs_sha256_verified']=True
     mp=out/'manifest.json'
     if mp.exists():
         previous=json.loads(mp.read_text())
-        for k in ('plan_sha256','model','jevlike_revision','source_sha256','server_binary_sha256','model_sha256'):
+        for k in ('plan_sha256','scope_sha256','model','jevlike_revision','source_sha256','server_binary_sha256','model_sha256'):
             if previous[k]!=manifest[k]:raise ValueError(f'Cannot resume changed J provenance: {k}')
     manifest['started_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
     def save():mp.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
@@ -60,7 +68,7 @@ def main():
         def infer(text,lang,mode,old=None,allow_cache=True):
             k=key(lang,text,mode,old)
             if allow_cache and k in cached:return cached[k]
-            r={'key':k,**arm.score_j(text,lang,mode,old)}
+            r={'key':k,**arm.score_j(text,lang,mode,old,cache_prompt=plan['execution_cache_prompt'] if allow_cache else False)}
             if allow_cache:append_jsonl(cache_file,r);cached[k]=r
             return r
         warm=rowmap[plan['benchmark_pair_ids'][0]]
@@ -76,15 +84,18 @@ def main():
                 append_jsonl(benchmark_file,r);bench[pid]=r
                 k=key(p['lang'],p['new_text'],'single');cached[k]={'key':k,**r};append_jsonl(cache_file,cached[k])
             if (i+1)%10==0:print(f'{args.model_size} benchmark {i+1}/100',flush=True)
-        unique={key(p['lang'],p['new_text'],'single'):(p['lang'],p['new_text']) for p in rows}
+        unique={key(p['lang'],p['new_text'],'single'):(p['lang'],p['new_text']) for p in active_rows}
         for i,(lang,text) in enumerate(unique.values()):
             infer(text,lang,'single')
             if (i+1)%20==0:print(f'{args.model_size} single {i+1}/{len(unique)}; wall {time.monotonic()-start:.0f}s',flush=True)
-        for i,p in enumerate(rows):
+        for i,p in enumerate(active_rows):
             infer(p['new_text'],p['lang'],'paired',p['old_text'])
-            if (i+1)%20==0:print(f'{args.model_size} paired {i+1}/{len(rows)}; wall {time.monotonic()-start:.0f}s',flush=True)
+            if (i+1)%20==0:print(f'{args.model_size} paired {i+1}/{len(active_rows)}; wall {time.monotonic()-start:.0f}s',flush=True)
         scores=[]
         for p in rows:
+            if p['pair_id'] not in active_ids:
+                scores.append({'pair_id':p['pair_id'],f'J_{args.model_size}_single':None,f'J_{args.model_size}_paired':None,'status':'outside J protocol contrasts; T10 evaluated as concat'})
+                continue
             single=infer(p['new_text'],p['lang'],'single');paired=infer(p['new_text'],p['lang'],'paired',p['old_text'])
             scores.append({'pair_id':p['pair_id'],f'J_{args.model_size}_single':single['score'],f'J_{args.model_size}_paired':paired['score'],
                            'single_prediction_key':single['key'],'paired_prediction_key':paired['key']})
@@ -95,9 +106,9 @@ def main():
             docresults.append({'docset_id':d['docset_id'],'matched_set_id':d['matched_set_id'],'lang':d['lang'],'label':d['label'],f'J_{args.model_size}_single':r['score'],'prediction_key':r['key']})
             if (i+1)%10==0:print(f'{args.model_size} docsets {i+1}/{len(docs)}',flush=True)
         write_jsonl(out/'docset-scores.jsonl',docresults)
-        manifest.update(status='complete',n_pairs=len(scores),n_docsets=len(docresults),unique_predictions=len(cached),
-                        n_missing_single=sum(r[f'J_{args.model_size}_single'] is None for r in scores),
-                        n_missing_paired=sum(r[f'J_{args.model_size}_paired'] is None for r in scores),last_session_seconds=time.monotonic()-start,
+        manifest.update(status='complete',n_pairs=len(scores),n_scored_pairs=len(active_rows),n_outside_scope=len(rows)-len(active_rows),n_docsets=len(docresults),unique_predictions=len(cached),
+                        n_missing_single=sum(r[f'J_{args.model_size}_single'] is None for r in scores if r['pair_id'] in active_ids),
+                        n_missing_paired=sum(r[f'J_{args.model_size}_paired'] is None for r in scores if r['pair_id'] in active_ids),last_session_seconds=time.monotonic()-start,
                         finished_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()))
         manifest['output_sha256']={f:digest(out/f) for f in ('scores.jsonl','docset-scores.jsonl','benchmark.jsonl','predictions.jsonl')};save()
         print(json.dumps({k:manifest[k] for k in ('status','n_pairs','n_docsets','n_missing_single','n_missing_paired','last_session_seconds')},indent=2),flush=True)

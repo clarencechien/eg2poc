@@ -1,5 +1,6 @@
 """J results and same-machine costs, with explicit complete-case coverage."""
 import json
+import argparse
 from pathlib import Path
 import numpy as np
 from sklearn.metrics import roc_auc_score
@@ -13,7 +14,8 @@ def describe(values):
 
 
 def main():
-    out=Path('results/synthetic-v2.1');rows=read_jsonl('data/synthetic-v2/pairs.jsonl')
+    parser=argparse.ArgumentParser();parser.add_argument('--output',default='results/synthetic-v2.1');args=parser.parse_args()
+    out=Path(args.output);rows=read_jsonl('data/synthetic-v2/pairs.jsonl')
     baseline={r['pair_id']:r for r in read_jsonl('results/synthetic-v2/scores.jsonl')}
     base_metrics=json.loads(Path('results/synthetic-v2/metrics.json').read_text())
     plan=json.loads(Path('data/synthetic-v2.1/analysis-plan.json').read_text())
@@ -55,7 +57,7 @@ def main():
         summaries[size]={'status':'complete','model':manifest['model'],'model_bytes':manifest['model_bytes'],'metrics':metrics,'by_language':langs,'common_case_vs_D2_alt':compare,
                          'T8_with_ambiguous_T9_assumed_negative':{a:matched(rows,scores,'T8-sentence',a,include_t9=True) for a in arms},
                          'docset_auc':docauc,'docset_n_positive':sum(d['label']==1 for d in valid),'docset_n_negative':sum(d['label']==0 for d in valid),
-                         'missing_single':manifest['n_missing_single'],'missing_paired':manifest['n_missing_paired'],
+                         'missing_single':manifest['n_missing_single'],'missing_paired':manifest['n_missing_paired'],'n_scored_pairs':manifest['n_scored_pairs'],'n_outside_scope':manifest['n_outside_scope'],
                          'option_mass':describe([r['option_mass'] for r in predictions]),'last_session_seconds':manifest['last_session_seconds']}
         benchmark=read_jsonl(root/'benchmark.jsonl')
         if [r['pair_id'] for r in benchmark]!=plan['benchmark_pair_ids']:raise ValueError('J benchmark row order differs')
@@ -85,7 +87,7 @@ def main():
     for size,info in summaries.items():
         lines+=['',f'## {size.upper()}','',f"狀態：{info['status']}。"]
         if info['status']!='complete':lines.append(info['reason']);continue
-        lines += [f"單邊缺值 {info['missing_single']}/1690；配對缺值 {info['missing_paired']}/1690。權重 {info['model_bytes']/1e9:.2f} GB，revision `{info['model']['revision']}`。",'',
+        lines += [f"單邊缺值 {info['missing_single']}/{info['n_scored_pairs']}；配對缺值 {info['missing_paired']}/{info['n_scored_pairs']}。另有 {info['n_outside_scope']} 筆不屬 J 配對評估範圍（T0/T1/T2、T10 個別段落），未跑且保留 null；T10 改評全部 80 組 concat。權重 {info['model_bytes']/1e9:.2f} GB，revision `{info['model']['revision']}`。",'',
                   '| 配對 | single AUROC (正/負) | paired AUROC (正/負) | 共同樣本 J−D2-alt single |','|---|---|---|---|']
         for c in CONTRASTS:
             ms,mp=[info['metrics'][c][f'J_{size}_{k}'] for k in ('single','paired')]

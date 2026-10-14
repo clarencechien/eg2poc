@@ -1,0 +1,302 @@
+{
+  "purpose": "Infrastructure smoke on two authored fixtures, NOT experiment or formal 100-row cost benchmark",
+  "nli_temporarily_paused": true,
+  "model": {
+    "model_id": "unsloth/gemma-4-E2B-it-GGUF",
+    "revision": "0314792d7f1f7e229411f620751375812bb9faf2",
+    "file": "gemma-4-E2B-it-Q8_0.gguf",
+    "quantization": "Q8_0",
+    "backend": "llama.cpp b11371 CPU"
+  },
+  "results": [
+    {
+      "score": null,
+      "mode": "single",
+      "model_size": "e2b",
+      "cache_prompt": false,
+      "prompt_sha256": "74095e9b95f8a7319a1cb1bdb98665a0ef5ad815129906a858bdb9d72ef334b6",
+      "probs": {
+        "A": 0.9999999949892528,
+        "B": 3.216813561978087e-09,
+        "C": 1.7939335669647242e-09
+      },
+      "missing": [
+        "D"
+      ],
+      "latency_ms": 5168.722425999476,
+      "option_mass": 0.99999440217389,
+      "first_token": "A",
+      "first_token_id": 236776,
+      "prompt_tokens": 169,
+      "tokens_cached": 169,
+      "raw_logprobs": {
+        "A": -5.602852525044e-06,
+        "B": -19.554880142211914,
+        "C": -20.13886070251465
+      },
+      "top_tokens": [
+        {
+          "token": "A",
+          "logprob": -5.602852525044e-06
+        },
+        {
+          "token": "",
+          "logprob": -13.000136375427246
+        },
+        {
+          "token": "ए",
+          "logprob": -13.133150100708008
+        },
+        {
+          "token": "```",
+          "logprob": -14.024287223815918
+        },
+        {
+          "token": "أ",
+          "logprob": -15.610011100769043
+        },
+        {
+          "token": "А",
+          "logprob": -16.08957290649414
+        },
+        {
+          "token": "Ａ",
+          "logprob": -16.20086669921875
+        },
+        {
+          "token": "a",
+          "logprob": -16.50699806213379
+        },
+        {
+          "token": "Α",
+          "logprob": -16.674283981323242
+        },
+        {
+          "token": "<|channel>",
+          "logprob": -17.260799407958984
+        }
+      ],
+      "server_prompt_ms": 5160.353,
+      "server_predicted_ms": 0.001,
+      "server_prompt_n": 169,
+      "server_cache_n": 0
+    },
+    {
+      "score": null,
+      "mode": "single",
+      "model_size": "e2b",
+      "cache_prompt": true,
+      "prompt_sha256": "74095e9b95f8a7319a1cb1bdb98665a0ef5ad815129906a858bdb9d72ef334b6",
+      "probs": {
+        "A": 0.999999994699108,
+        "B": 3.5653695784918047e-09,
+        "C": 1.735522391081736e-09
+      },
+      "missing": [
+        "D"
+      ],
+      "latency_ms": 129.2650629993659,
+      "option_mass": 0.9999946408826703,
+      "first_token": "A",
+      "first_token_id": 236776,
+      "prompt_tokens": 169,
+      "tokens_cached": 169,
+      "raw_logprobs": {
+        "A": -5.364432581700385e-06,
+        "B": -19.452003479003906,
+        "C": -20.17196273803711
+      },
+      "top_tokens": [
+        {
+          "token": "A",
+          "logprob": -5.364432581700385e-06
+        },
+        {
+          "token": "",
+          "logprob": -13.037803649902344
+        },
+        {
+          "token": "ए",
+          "logprob": -13.137627601623535
+        },
+        {
+          "token": "```",
+          "logprob": -13.956340789794922
+        },
+        {
+          "token": "أ",
+          "logprob": -15.541471481323242
+        },
+        {
+          "token": "А",
+          "logprob": -16.05359649658203
+        },
+        {
+          "token": "Ａ",
+          "logprob": -16.141366958618164
+        },
+        {
+          "token": "a",
+          "logprob": -16.682641983032227
+        },
+        {
+          "token": "Α",
+          "logprob": -16.711946487426758
+        },
+        {
+          "token": "<|channel>",
+          "logprob": -17.166545867919922
+        }
+      ],
+      "server_prompt_ms": 122.757,
+      "server_predicted_ms": 0.001,
+      "server_prompt_n": 1,
+      "server_cache_n": 168
+    },
+    {
+      "score": 4.701825761979744e-07,
+      "mode": "single",
+      "model_size": "e2b",
+      "cache_prompt": false,
+      "prompt_sha256": "9bd0d819eb02b04666f1697a6aa05966d1ac2a9a553237c66699023697e06930",
+      "probs": {
+        "A": 0.9999995298174237,
+        "B": 4.0221358239686953e-07,
+        "C": 6.033891258899641e-08,
+        "D": 7.630081212108467e-09
+      },
+      "missing": [],
+      "latency_ms": 6250.893295000424,
+      "option_mass": 0.9999957018089732,
+      "first_token": "A",
+      "first_token_id": 236776,
+      "prompt_tokens": 208,
+      "tokens_cached": 208,
+      "raw_logprobs": {
+        "A": -4.768382950715022e-06,
+        "B": -14.726286888122559,
+        "C": -16.623292922973633,
+        "D": -18.691171646118164
+      },
+      "top_tokens": [
+        {
+          "token": "A",
+          "logprob": -4.768382950715022e-06
+        },
+        {
+          "token": "",
+          "logprob": -12.487765312194824
+        },
+        {
+          "token": "B",
+          "logprob": -14.726286888122559
+        },
+        {
+          "token": "```",
+          "logprob": -15.660374641418457
+        },
+        {
+          "token": "<|channel>",
+          "logprob": -15.86730670928955
+        },
+        {
+          "token": "Ａ",
+          "logprob": -15.893549919128418
+        },
+        {
+          "token": "ए",
+          "logprob": -16.57674789428711
+        },
+        {
+          "token": "C",
+          "logprob": -16.623292922973633
+        },
+        {
+          "token": "a",
+          "logprob": -17.298351287841797
+        },
+        {
+          "token": "Α",
+          "logprob": -17.42269515991211
+        }
+      ],
+      "server_prompt_ms": 6245.626,
+      "server_predicted_ms": 0.001,
+      "server_prompt_n": 208,
+      "server_cache_n": 0
+    },
+    {
+      "score": 5.135123261243646e-07,
+      "mode": "single",
+      "model_size": "e2b",
+      "cache_prompt": true,
+      "prompt_sha256": "9bd0d819eb02b04666f1697a6aa05966d1ac2a9a553237c66699023697e06930",
+      "probs": {
+        "A": 0.9999994864876739,
+        "B": 4.2979629832355135e-07,
+        "C": 7.357886015586414e-08,
+        "D": 1.013716764494908e-08
+      },
+      "missing": [],
+      "latency_ms": 158.28901500026404,
+      "option_mass": 0.9999946722541821,
+      "first_token": "A",
+      "first_token_id": 236776,
+      "prompt_tokens": 208,
+      "tokens_cached": 208,
+      "raw_logprobs": {
+        "A": -5.841272468387615e-06,
+        "B": -14.65995979309082,
+        "C": -16.42491340637207,
+        "D": -18.407062530517578
+      },
+      "top_tokens": [
+        {
+          "token": "A",
+          "logprob": -5.841272468387615e-06
+        },
+        {
+          "token": "",
+          "logprob": -12.253561019897461
+        },
+        {
+          "token": "B",
+          "logprob": -14.65995979309082
+        },
+        {
+          "token": "```",
+          "logprob": -15.574019432067871
+        },
+        {
+          "token": "Ａ",
+          "logprob": -15.770137786865234
+        },
+        {
+          "token": "<|channel>",
+          "logprob": -15.793113708496094
+        },
+        {
+          "token": "ए",
+          "logprob": -16.31415367126465
+        },
+        {
+          "token": "C",
+          "logprob": -16.42491340637207
+        },
+        {
+          "token": "a",
+          "logprob": -16.86022186279297
+        },
+        {
+          "token": "<channel|>",
+          "logprob": -17.288442611694336
+        }
+      ],
+      "server_prompt_ms": 153.095,
+      "server_predicted_ms": 0.001,
+      "server_prompt_n": 1,
+      "server_cache_n": 207
+    }
+  ],
+  "max_cached_uncached_score_delta": 4.332974992639024e-08
+}

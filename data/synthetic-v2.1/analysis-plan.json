@@ -49,7 +49,7 @@
   "single_score": "sum(normalized option probabilities B,C,D); missing any option => null; no zero imputation",
   "paired_score": "normalized option probability A; missing any option => null",
   "prompt_source": "jevlike.decide.prompt.TemplateRenderer and jevlike.decide.client.read_option_probs unchanged; no local template rewrite",
-  "n_probs": 40,
+  "n_probs": 256,
   "temperature": "0, jevlike existing reader; no calibration",
   "cache_prompt": false,
   "benchmark_pair_ids": [
@@ -171,5 +171,11 @@
     "No Gemini generation or independent adjudication.",
     "Q8 quantization, not full precision; input option mass and missing candidates retained.",
     "Date-change pairs retain original status prose, so contradictory prose versus dates can affect semantic models."
+  ],
+  "execution_cache_prompt": true,
+  "cache_policy_note": "Cost benchmark and its warmup use cache_prompt=false. Full J scoring uses the existing jevlike prefix cache for throughput; no label, question, or threshold changes. Frozen before any J scoring.",
+  "preflight_amendments": [
+    "Before any J corpus scoring, two separate infrastructure fixtures showed the upstream default top-40 omitted option D in English. Increase existing reader n_probs to 256; both fixtures then returned all four options. No prompt, labels, examples, or hypothesis thresholds changed.",
+    "Full-scoring prefix cache enabled before J corpus scoring; same-fixture cached/uncached score differences recorded in infrastructure-smoke.json. Formal 100-row timing remains cache_prompt=false."
   ]
 }
