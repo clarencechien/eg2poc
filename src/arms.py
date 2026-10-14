@@ -71,8 +71,8 @@ class EmbeddingArms:
     def score_b(self, old_text, new_text, dimensions=768):
         return cosine_distance(self.cache[old_text][:dimensions], self.cache[new_text][:dimensions])
 
-    def score_c(self, old_text, new_text, lang, prefix):
-        labels = self.labels[lang, prefix]
+    def score_c(self, old_text, new_text, lang, prefix, labels_set=None):
+        labels = self.labels[(lang, prefix) if labels_set is None else (labels_set, lang, prefix)]
         old_p, old_max = probabilities(self.cache[old_text], labels, self.config["temperature"])
         new_p, new_max = probabilities(self.cache[new_text], labels, self.config["temperature"])
         return cosine_distance(old_p, new_p), int(old_max != new_max)
@@ -114,6 +114,17 @@ class NLIArm:
         if len(indices) != 1 or len(mapping) != 3:
             raise ValueError("Official model config must identify a three-way NLI contradiction class")
         self.contradiction = indices[0]
+        self.entailment = next(int(i) for i, label in mapping.items() if str(label).lower() == "entailment")
+
+    def label_probabilities(self, pairs):
+        """Directional (premise, hypothesis) probabilities; never reverse labels."""
+        x = self.tokenizer([p[0] for p in pairs], [p[1] for p in pairs],
+                           padding=True, truncation=False, return_tensors="pt")
+        limit = min(self.tokenizer.model_max_length, getattr(self.model.config, "max_position_embeddings", 512))
+        if x["input_ids"].shape[1] > limit:
+            raise ValueError("NLI label input exceeds context; no silent truncation")
+        with self.torch.inference_mode():
+            return self.model(**x).logits.softmax(-1).tolist()
 
     def score(self, old_text, new_text):
         return self.score_batch([(old_text, new_text)])[0]
@@ -128,6 +139,42 @@ class NLIArm:
         with self.torch.inference_mode():
             probs = self.model(**x).logits.softmax(-1)[:, self.contradiction]
         return probs.reshape(-1, 2).max(dim=1).values.tolist()
+
+
+def score_d2(old_probs, new_probs, entailment, contradiction):
+    """Four hypotheses in fixed state order; a zero vector is missing, not zero."""
+    old, new = np.asarray(old_probs), np.asarray(new_probs)
+    a, b = old[:, entailment] - old[:, contradiction], new[:, entailment] - new[:, contradiction]
+    try:
+        paired = cosine_distance(a, b)
+    except ValueError:
+        paired = None
+    return {"paired": paired, "argmax": int(a.argmax() != b.argmax()),
+            "single": float(new[1:, entailment].max())}
+
+
+def score_r(old_text, new_text, lang, regex):
+    import re
+    from datetime import date
+    values = []
+    for text in (old_text, new_text):
+        for key in ("planned", "deadline"):
+            matches = re.findall(regex[lang][key], text, flags=re.IGNORECASE)
+            if len(matches) != 1:
+                return None
+            try:
+                values.append(date.fromisoformat(matches[0]))
+            except ValueError:
+                return None
+    old_p, old_d, new_p, new_d = values
+    return int(new_p > new_d and old_p <= old_d)
+
+
+def score_docset(values, threshold):
+    if len(values) != 3 or any(v is None or not np.isfinite(v) for v in values):
+        return {"max": None, "mean": None, "trigger": None}
+    return {"max": float(max(values)), "mean": float(np.mean(values)),
+            "trigger": None if threshold is None else int(max(values) > threshold)}
 
 
 class LLMArm:

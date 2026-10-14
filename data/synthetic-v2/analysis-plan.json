@@ -1,0 +1,76 @@
+{
+  "version": "synthetic-v2",
+  "scope": "rule synthetic only; no independent LLM or human adjudication",
+  "freeze_before_scoring": true,
+  "seed": 20261014,
+  "labels_frozen": {
+    "labels_same": {
+      "zh": [
+        "專案按計畫進行，進度符合時程，預計如期交付。",
+        "專案進度落後，交付日期延後，無法依原定時程完成。",
+        "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+        "專案已取消，不再繼續執行，也不會交付原定成果。"
+      ],
+      "en": [
+        "The project is on track and progressing as planned. Delivery is expected on schedule.",
+        "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+        "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+        "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+      ]
+    },
+    "labels_alt": {
+      "zh": [
+        "專案運作正常，各項里程碑均能準時達成。",
+        "專案出現延誤，成果將晚於約定時間送達。",
+        "專案陷入停滯，外部相依問題使後續作業受限。",
+        "專案正式終止，原先規劃的成果已遭放棄。"
+      ],
+      "en": [
+        "The project meets its milestones. Delivery remains on schedule.",
+        "The project is slipping. Its delivery will arrive late.",
+        "The project is stalled. An unresolved dependency prevents further progress.",
+        "The project is terminated. The planned output has been abandoned."
+      ]
+    },
+    "labels_xlang": {
+      "zh": [
+        "The project is on track and progressing as planned. Delivery is expected on schedule.",
+        "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+        "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+        "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+      ],
+      "en": [
+        "專案按計畫進行，進度符合時程，預計如期交付。",
+        "專案進度落後，交付日期延後，無法依原定時程完成。",
+        "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+        "專案已取消，不再繼續執行，也不會交付原定成果。"
+      ]
+    }
+  },
+  "primary_controls": "Each positive control_ids explicitly references the same base and strength; T8 sentence has an ambiguous T9 sensitivity, main confirmed-negative table excludes T9.",
+  "protocol_interpretation": [
+    "Section 3 forbids all label overlap but section 4 explicitly requires C-same overlap; apply the no-overlap constraint to C-alt only.",
+    "Word denotes local phrase substitution; equal character counts are enforced only for T5/T4.",
+    "T10 constructed three-signal review policy, not independently established semantic status drift; H6 remains exploratory.",
+    "D2 paired success cannot establish old text is unnecessary; only D2 single evaluates H4.",
+    "H1 relative criterion and absolute <=0.60 lexical criterion can conflict; report both, no causal proof.",
+    "Gemini rewrites, independent review, E, B2 and optional D2-DM not run."
+  ],
+  "combo": "max(R, D2_single); if R is None use D2_single; only T5, T6-word, T8-sentence",
+  "hypotheses": {
+    "H1": "xlang >= same - 0.10 for both T6/T7 word, each prefix",
+    "H2": "alt between same and xlang",
+    "H3": "D2 paired T8 sentence/paragraph >= 0.85",
+    "H4": "D2 single T6/T7 word and T8 sentence/paragraph >= 0.80",
+    "H5": "R T5/T4 >= 0.95",
+    "H6": "exploratory T10 AUROC >=0.80 and positive any-paragraph trigger <0.30",
+    "H7": "C across-skeleton AUROC range <0.10; LLM comparison unrun"
+  },
+  "noise": "T1 + T3-word; T10 thresholds from T3 only, positive trigger uses any of three paragraphs > p95",
+  "limitations": [
+    "All slots/templates authored by one generator; no independent samples or real-document accuracy.",
+    "T10 rule is defined in metadata, not given to models; tests generic projection on a stipulated policy.",
+    "AUROC uses matched-base negative pools, not independent sampling; also report within-pair win rate and ties."
+  ],
+  "temperature_note": "0.045 inherited, not independently endorsed by official model documentation"
+}

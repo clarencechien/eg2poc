@@ -1,0 +1,2 @@
+# Optional local J/jevlike CPU backend. Main inference environment stays pinned separately.
+cmake==4.1.3
