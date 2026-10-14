@@ -1,0 +1,2 @@
+{"base_id": "fixture-en", "doc_id": "invented-fixture", "para_id": 0, "lang": "en", "text": "The delivery is on track. The deadline is May 31 and shipment is planned for May 10.", "source_kind": "test_fixture", "reviewed": false}
+{"base_id": "fixture-zh", "doc_id": "invented-fixture", "para_id": 0, "lang": "zh", "text": "交付進度符合計畫。截止日期為五月三十一日，預計五月十日出貨。", "source_kind": "test_fixture", "reviewed": false}

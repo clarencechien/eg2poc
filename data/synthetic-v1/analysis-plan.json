@@ -1,0 +1,33 @@
+{
+  "primary_negative_categories": [
+    "T1",
+    "T2",
+    "T3",
+    "T4"
+  ],
+  "excluded_from_auc": [
+    "T0",
+    "T9"
+  ],
+  "primary_positive_categories": [
+    "T5",
+    "T6",
+    "T7",
+    "T8"
+  ],
+  "scores": [
+    "A",
+    "B768",
+    "B256",
+    "C_classification",
+    "C_search_query",
+    "D_NLI"
+  ],
+  "temperature": 0.045,
+  "holdout": "T7; do not select settings or regenerate based on scores",
+  "ties": "absolute AUROC gap <0.05",
+  "language_analysis": "secondary tables restrict both positive and negative samples to the same language",
+  "noise_threshold": "maximum of the three T0 rerun p95 values",
+  "synthetic_scope": "descriptive only, no independent LLM generator/checker, no population confidence claims",
+  "frozen_before_primary_scoring": true
+}

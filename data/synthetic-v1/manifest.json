@@ -1,0 +1,31 @@
+{
+  "seed": 20261014,
+  "base_count": 180,
+  "pair_count": 770,
+  "category_counts": {
+    "T0": 100,
+    "T1": 60,
+    "T2": 60,
+    "T3": 90,
+    "T4": 60,
+    "T5": 60,
+    "T6": 150,
+    "T7": 60,
+    "T8": 90,
+    "T9": 40
+  },
+  "language_counts": {
+    "zh": 385,
+    "en": 385
+  },
+  "generator": "rule",
+  "source": "synthetic templates authored for this pilot; not real documents",
+  "independent_llm_validation": false,
+  "holdout": "T7 frozen before scoring; no tuning",
+  "ground_truth": "explicit constructed states and deadlines; author checked, not independent",
+  "strength_note": "word denotes a short lexical edit; sentence/paragraph may change several tokens",
+  "dependence": "Repeated base across strengths; translations and shared templates are correlated",
+  "base_sha256": "b03579a365f1d9fac35d60e474aee0e441d16364daf0261d6a4270ffa68249f8",
+  "pairs_sha256": "46ed39da44ae2ea45eb3294bb0211d2c3129e2f699d7a5369bbccf12882d1fe9",
+  "generator_sha256": "0cca76e6dc41832f22ab68862341b74d0b679c51319820222fdfb6efec085661"
+}

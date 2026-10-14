@@ -1,0 +1,24 @@
+{
+  "timestamp_utc": "2026-10-14T08:43:23.079685+00:00",
+  "unit_tests": {
+    "passed": 14,
+    "failed": 0
+  },
+  "pip_check": "passed",
+  "install_script_repeat": "passed",
+  "diagnostic_a": {
+    "pairs": 20,
+    "languages": [
+      "zh",
+      "en"
+    ],
+    "status": "completed",
+    "formal_evidence": false
+  },
+  "formal_pairs": 0,
+  "eg2_inference": "not_run_download_proxy_403",
+  "nli_inference": "not_run_weight_CDN_proxy_403",
+  "llm_calls": 0,
+  "unavailable_weights_hostname": "us.aws.cdn.hf.co",
+  "git_diff_check": "passed"
+}

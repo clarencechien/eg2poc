@@ -1,0 +1,6 @@
+{
+  "n_pairs": 770,
+  "max_nli_pair_tokens": 192,
+  "context_limit": 512,
+  "truncated_pairs": 0
+}
