@@ -51,7 +51,8 @@ def main():
         cost=benchmark_cost(root,manifest,plan)
         if cost is not None:costs[f'J_{size}']=cost
         if manifest['status']!='complete':
-            summaries[size]={'status':manifest['status'],'reason':manifest.get('error','完整品質評估尚未完成；已完成的 100 筆成本測試另列。')};continue
+            reason='完整品質評估尚未完成；100 筆成本測試已完成，另列。' if cost is not None else '完整品質評估與 100 筆成本測試均尚未完成。'
+            summaries[size]={'status':manifest['status'],'reason':manifest.get('error',reason)};continue
         for name,expected in manifest['output_sha256'].items():
             if digest(root/name)!=expected:raise ValueError(f'J scored output changed: {size}/{name}')
         validate(out,size)
@@ -98,8 +99,11 @@ def main():
             if a.startswith('C_'):costs[a]['projection_only_ms']=describe([r['projection_only_ms'] for r in values])
     report={'models':summaries,'hypotheses':hypotheses,'costs':costs,'plan_sha256':digest('data/synthetic-v2.1/analysis-plan.json')}
     (out/'summary.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+    from .plot_v21 import plot_comparison
+    has_figure=plot_comparison(report,base_metrics,out)
     lines=['# v0.2.1：jevlike J arm 合成試驗','', '依 `main@fb62b10` 的規格追加 J。資料、標籤與配對關係沿用已凍結的 synthetic-v2；沒有新增 Gemini 呼叫。','',
            '目前模型狀態：'+ '；'.join(f"{size.upper()}={info['status']}" for size,info in summaries.items())+'。未完成的品質指標不填零。','',
+           '主表 AUROC 是同底稿專屬負例池的排序指標，不是逐對勝率或分類準確率；中英分層另列。','',
            'J 使用 `jevlike@9838918533cf3d88dc975ef19d38122b07df47f7` 的既有四選一／布林題介面，未改 prompt 模板。llama.cpp 固定 b11371（99b95488），CPU、4 threads、Q8_0。','',
            '## 主表：專屬負例配對 AUROC','', '| 配對 | C-alt class | D2-alt paired | D2-alt single | J-E2B single | J-E4B single | R |','|---|---|---|---|---|---|---|']
     for c in CONTRASTS:
@@ -125,7 +129,7 @@ def main():
                 m=info['by_language'][lang][c][f'J_{size}_single'];lines.append(f"| {c} | {fmt(m['auc'])} | {m['n_positive']}/{m['n_negative']} |")
     lines+=['','## 成本：同一台 CPU、同一批 100 筆','', '| arm | 平均端到端 ms | p95 ms | 平均 prefill ms | 平均輸入 tokens | 模型 | prewarm 後可否固定預算 |','|---|---|---|---|---|---|---|']
     for a in ('C_alt_classification','D2_alt_single','J_e2b','J_e4b'):
-        if a not in costs:lines.append(f'| {a} | 未跑 | — | — | — | — | — |');continue
+        if a not in costs:lines.append(f'| {a} | 尚無完整測量 | — | — | — | — | — |');continue
         m=costs[a];model=f"{m['parameters']/1e6:.1f}M / float32" if 'parameters' in m else f"{m['model_bytes']/1e9:.2f} GB / Q8_0"
         note='標籤／old 已預算；new embedding 仍隨長度變動' if a.startswith('C_') else ('4 組 premise/hypothesis，單批 forward；仍隨長度變動' if a.startswith('D2_') else '每題一次 prefill；隨輸入長度變動')
         lines.append(f"| {a} | {fmt(m['latency_ms']['mean'])} | {fmt(m['latency_ms']['p95'])} | {fmt(m.get('prefill_ms',{}).get('mean'))} | {fmt(m['input_tokens']['mean'])} | {model} | {note} |")
@@ -135,12 +139,14 @@ def main():
             '- T10 使用三個信號同時成立才待審的人工政策，沒有兩個獨立 prompt 判讀，政策也沒送入模型；H11 只能探索。',
             '- `summary.json` 保存中英分層、共同有效樣本比較、候選 option mass 與成本分布；各模型 `predictions.jsonl` 保存每題延遲、token、原始字母 logprob、缺選項及 prompt hash。',
             '- `data/synthetic-v2.1/analysis-plan.json` 保存評分前凍結的題目、標籤順序、模型 revision、100 筆 benchmark IDs。模型 SHA256、引擎 SHA256 與程式 SHA256 見各模型 manifest。','']
+    if has_figure:lines+=['![AUROC and measured CPU latency](fig/j-quality-cost.png)','']
     (out/'report.md').write_text('\n'.join(lines))
     cost_start=lines.index('## 成本：同一台 CPU、同一批 100 筆')
     cost_end=lines.index('## 限制與可追溯性')
     summary=lines[:lines.index('J 缺少候選選項時保留 null。不同 arm 若有效樣本不同，主表不能直接比較；下方提供每格正／負樣本數及 J／D2 共同有效樣本上的差。所有結論限於合成骨架內。')]
     summary+=['J 缺選項記 null；有效樣本數、共同樣本比較與 H8–H11 見完整報告。T10 是未獨立覆核的合成政策任務，不能外推真實文件。','']
     summary+=lines[cost_start:cost_end]+['[完整結果、H8–H11、限制](report.md)','']
+    if has_figure:summary+=['![AUROC and measured CPU latency](fig/j-quality-cost.png)','']
     (out/'summary.md').write_text('\n'.join(summary))
     print(json.dumps({'hypotheses':hypotheses,'costs':costs},ensure_ascii=False,indent=2))
 

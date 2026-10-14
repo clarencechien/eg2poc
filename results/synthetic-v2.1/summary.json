@@ -1,15 +1,586 @@
 {
   "models": {
     "e2b": {
-      "status": "running",
-      "reason": "完整品質評估尚未完成；已完成的 100 筆成本測試另列。"
+      "status": "complete",
+      "model": {
+        "model_id": "unsloth/gemma-4-E2B-it-GGUF",
+        "revision": "0314792d7f1f7e229411f620751375812bb9faf2",
+        "file": "gemma-4-E2B-it-Q8_0.gguf",
+        "quantization": "Q8_0",
+        "backend": "llama.cpp b11371 CPU"
+      },
+      "model_bytes": 5048352864,
+      "metrics": {
+        "T5-word": {
+          "J_e2b_single": {
+            "auc": 0.6886111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T6-word": {
+          "J_e2b_single": {
+            "auc": 0.8895,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "J_e2b_paired": {
+            "auc": 0.9939,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 0.9866666666666667,
+            "n_matched_comparisons": 300
+          }
+        },
+        "T6-sentence": {
+          "J_e2b_single": {
+            "auc": 0.9976,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          }
+        },
+        "T7-word": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T7-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T8-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T8-paragraph": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        }
+      },
+      "by_language": {
+        "zh": {
+          "T5-word": {
+            "J_e2b_single": {
+              "auc": 0.7877777777777778,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T6-word": {
+            "J_e2b_single": {
+              "auc": 0.9419111111111111,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            },
+            "J_e2b_paired": {
+              "auc": 0.9988444444444444,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            }
+          },
+          "T6-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            }
+          },
+          "T7-word": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T7-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-paragraph": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          }
+        },
+        "en": {
+          "T5-word": {
+            "J_e2b_single": {
+              "auc": 0.8577777777777778,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T6-word": {
+            "J_e2b_single": {
+              "auc": 0.9612888888888889,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            },
+            "J_e2b_paired": {
+              "auc": 0.9921777777777778,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 0.9733333333333334,
+              "n_matched_comparisons": 150
+            }
+          },
+          "T6-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            }
+          },
+          "T7-word": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T7-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-paragraph": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          }
+        }
+      },
+      "common_case_vs_D2_alt": {
+        "T5-word": {
+          "J_e2b_single": {
+            "auc": 0.6886111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.5119444444444444,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 0.6333333333333333,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.17666666666666664
+        },
+        "T6-word": {
+          "J_e2b_single": {
+            "auc": 0.8895,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "D2_alt_single": {
+            "auc": 0.9218222222222222,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "J_minus_D2": -0.03232222222222225
+        },
+        "T6-sentence": {
+          "J_e2b_single": {
+            "auc": 0.9976,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "D2_alt_single": {
+            "auc": 0.9896,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "J_minus_D2": 0.008000000000000007
+        },
+        "T7-word": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.9663888888888889,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.03361111111111115
+        },
+        "T7-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.9955555555555555,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.004444444444444473
+        },
+        "T8-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.951111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.04888888888888898
+        },
+        "T8-paragraph": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.0
+        }
+      },
+      "T8_with_ambiguous_T9_assumed_negative": {
+        "J_e2b_single": {
+          "auc": 1.0,
+          "n_positive": 60,
+          "n_negative": 120,
+          "n_requested_positive": 60,
+          "matched_win_rate": 1.0,
+          "n_matched_comparisons": 120
+        },
+        "J_e2b_paired": {
+          "auc": 1.0,
+          "n_positive": 60,
+          "n_negative": 120,
+          "n_requested_positive": 60,
+          "matched_win_rate": 1.0,
+          "n_matched_comparisons": 120
+        }
+      },
+      "docset_auc": 0.7725,
+      "docset_n_positive": 40,
+      "docset_n_negative": 40,
+      "missing_single": 0,
+      "missing_paired": 0,
+      "n_scored_pairs": 1230,
+      "n_outside_scope": 460,
+      "option_mass": {
+        "n": 2540,
+        "mean": 0.9998997461335394,
+        "p50": 0.9999961329147784,
+        "p95": 1.0000000022653748
+      },
+      "last_session_seconds": 14212.260954803
     },
     "e4b": {
-      "status": "not run",
-      "reason": "No completed local run"
+      "status": "running",
+      "reason": "完整品質評估與 100 筆成本測試均尚未完成。"
     }
   },
-  "hypotheses": {},
+  "hypotheses": {
+    "e2b": {
+      "H8_numeric": true,
+      "H8_complete": true,
+      "H9_numeric": false,
+      "H9_complete": true,
+      "H10_tie_on_common_cases": true,
+      "H10_J_stronger_all": false,
+      "H11_numeric_exploratory": false,
+      "H11_complete": true
+    }
+  },
   "costs": {
     "J_e2b": {
       "latency_ms": {

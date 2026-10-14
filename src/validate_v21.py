@@ -40,6 +40,13 @@ def validate(root, size):
     scores = indexed(read_jsonl(root / 'scores.jsonl'), 'pair_id')
     doc_scores = indexed(read_jsonl(root / 'docset-scores.jsonl'), 'docset_id')
     predictions = indexed(read_jsonl(root / 'predictions.jsonl'), 'key')
+    snapshot = root / 'single-stage'
+    if snapshot.exists():
+        recorded = json.loads((snapshot / 'manifest.json').read_text())
+        for name, expected in recorded['output_sha256'].items():
+            require(digest(snapshot / name) == expected, 'Published single-stage snapshot changed')
+        for prediction in read_jsonl(snapshot / 'predictions.jsonl'):
+            require(predictions[prediction['key']] == prediction, 'Completed output differs from published single prediction')
     require(set(scores) == set(pairs), 'Scored pair IDs differ from frozen input')
     require(set(doc_scores) == set(docs), 'Scored document IDs differ from frozen input')
     active = set(scope['pair_ids'])
