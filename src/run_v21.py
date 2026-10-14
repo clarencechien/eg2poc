@@ -33,10 +33,16 @@ def main():
     active_ids=set(scope['pair_ids']);active_rows=[p for p in rows if p['pair_id'] in active_ids]
     out=Path(args.output)/args.model_size;out.mkdir(parents=True,exist_ok=True)
     model=plan['models'][args.model_size];path=hf_hub_download(model['model_id'],model['file'],revision=model['revision'],local_files_only=True)
+    version=subprocess.run([args.server,'--version'],check=True,capture_output=True,text=True)
+    server_version=(version.stdout+version.stderr).strip()
+    if plan['llama_cpp_revision'][:7] not in server_version:raise ValueError('llama-server build differs from pinned revision')
+    with open(path,'rb') as model_file:model_sha256=hashlib.file_digest(model_file,'sha256').hexdigest()
+    shared_libraries={p.name:digest(p) for p in Path(args.server).parent.glob('lib*.so')}
     manifest={'plan_sha256':digest(planroot/'analysis-plan.json'),'scope_sha256':digest(planroot/'scoring-scope.json'),'model':model,'model_bytes':Path(path).stat().st_size,
               'jevlike_revision':plan['jevlike_revision'],'llama_cpp_revision':plan['llama_cpp_revision'],
               'source_sha256':{f:digest(f) for f in ('src/j_arm.py','src/run_v21.py')},'server_binary_sha256':digest(args.server),
-              'model_sha256':digest(path),'device':'cpu','threads':4,'benchmark_cache_prompt':False,'scoring_cache_prompt':plan['execution_cache_prompt'],'status':'running',
+              'server_version':server_version,'shared_library_sha256':shared_libraries,
+              'model_sha256':model_sha256,'device':'cpu','threads':4,'benchmark_cache_prompt':False,'scoring_cache_prompt':plan['execution_cache_prompt'],'status':'running',
               'packages':{p:importlib.metadata.version(p) for p in ('requests','urllib3','cmake','huggingface_hub')}}
     expected_blob=Path(path).resolve().name
     if len(expected_blob)==64 and all(c in '0123456789abcdef' for c in expected_blob):
@@ -45,7 +51,7 @@ def main():
     mp=out/'manifest.json'
     if mp.exists():
         previous=json.loads(mp.read_text())
-        for k in ('plan_sha256','scope_sha256','model','jevlike_revision','source_sha256','server_binary_sha256','model_sha256'):
+        for k in ('plan_sha256','scope_sha256','model','jevlike_revision','source_sha256','server_binary_sha256','shared_library_sha256','model_sha256'):
             if previous[k]!=manifest[k]:raise ValueError(f'Cannot resume changed J provenance: {k}')
     manifest['started_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
     def save():mp.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')

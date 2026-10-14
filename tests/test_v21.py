@@ -50,4 +50,9 @@ class V21Tests(unittest.TestCase):
         scores['negative']['A']=None
         self.assertIsNone(matched(rows,scores,'T5-word','A')['auc'])
 
+    def test_combo_evaluation_is_limited_to_registered_contrasts(self):
+        result=matched([],{},'T6-sentence','final_same')
+        self.assertIsNone(result['auc'])
+        self.assertIn('not applicable',result['status'])
+
 if __name__=='__main__':unittest.main()

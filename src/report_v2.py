@@ -15,6 +15,9 @@ COMBOS=[f'final_{s}' for s in SETS]
 
 
 def matched(rows, scores, contrast, arm, lang=None, skeleton=None, include_t9=False):
+    if arm.startswith('final_') and contrast not in ('T5-word','T6-word','T8-sentence'):
+        return {'auc':None,'n_positive':0,'n_negative':0,'n_requested_positive':0,
+                'matched_win_rate':None,'n_matched_comparisons':0,'status':'not applicable per protocol section 6'}
     category,strength=contrast.split('-')
     mapping={r['pair_id']:r for r in rows}
     positives=[p for p in rows if p['category']==category and p['strength']==strength and
@@ -57,6 +60,18 @@ def main():
     primary={c:{a:matched(rows,scores,c,a) for a in arms} for c in CONTRASTS}
     languages={lang:{c:{a:matched(rows,scores,c,a,lang=lang) for a in arms} for c in CONTRASTS} for lang in ('zh','en')}
     skeletons={sk:{c:{a:matched(rows,scores,c,a,skeleton=sk) for a in arms} for c in CONTRASTS} for sk in ('weekly','adr','ticket','meeting','prd')}
+    hard_changes={c:{} for c in CONTRASTS}
+    for c in CONTRASTS:
+        category,strength=c.split('-')
+        selected=[p for p in rows if p['category']==category and p['strength']==strength]
+        for a in C_ARMS+[f'D2_{s}' for s in SETS]:
+            values=[scores[p['pair_id']][a+'_argmax'] for p in selected if scores[p['pair_id']][a+'_argmax'] is not None]
+            hard_changes[c][a]=float(np.mean(values)) if values else None
+    by_form={}
+    for lang in ('zh','en'):
+        for form in sorted({p['subcategory'] for p in rows if p['category']=='T6' and p['lang']==lang}):
+            selected=[p for p in rows if p['category']!='T6' or p['subcategory']==form]
+            by_form[f'{lang}/{form}']={a:matched(selected,scores,'T6-word',a,lang=lang) for a in ARMS}
     t9={a:matched(rows,scores,'T8-sentence',a,include_t9=True) for a in ARMS}
     pooled={}
     for c in CONTRASTS:
@@ -98,7 +113,7 @@ def main():
         hypotheses['H4'][s]=all(primary[c][f'D2_{s}_single']['auc']>=.80 for c in ('T6-word','T7-word','T8-sentence','T8-paragraph'))
     for a in C_ARMS:
         hypotheses['H7']['skeleton_ranges'][a]={c:max(skeletons[sk][c][a]['auc'] for sk in skeletons)-min(skeletons[sk][c][a]['auc'] for sk in skeletons) for c in ('T6-word','T7-word','T8-sentence','T8-paragraph')}
-    metrics={'primary':primary,'by_language':languages,'by_skeleton':skeletons,'by_generator':{'rule':primary,'llm':None},'T8_with_ambiguous_T9_assumed_negative':t9,'pooled_secondary':pooled,
+    metrics={'primary':primary,'by_language':languages,'by_skeleton':skeletons,'by_negation_form':by_form,'argmax_change_rates':hard_changes,'by_generator':{'rule':primary,'llm':None},'T8_with_ambiguous_T9_assumed_negative':t9,'pooled_secondary':pooled,
              'noise':noise,'docsets':docmetrics,'ablations':ablations,'hypotheses':hypotheses}
     (out/'metrics.json').write_text(json.dumps(metrics,ensure_ascii=False,indent=2)+'\n')
     # Correct the interpretation of v1 using its own fixed scores, without rerunning.
@@ -123,6 +138,11 @@ def main():
            '## 主表：同底稿專屬負例 AUROC','']
     lines+=table(primary,['A','B768','D1']+C_ARMS)
     lines+=['']+table(primary,D_ARMS+['R'])
+    hard_arms=['C_same_classification','C_alt_classification','C_xlang_classification']+[f'D2_{s}' for s in SETS]
+    lines+=['','### 副分數：正例 argmax 改變比例','',
+            '分布距離 AUROC 高不等於四分類正確或 argmax 有改變；此表也不是分類準確率。','',
+            '| 配對 | '+' | '.join(hard_arms)+' |','|---|'+'---|'*len(hard_arms)]
+    for c in CONTRASTS:lines.append('| '+c+' | '+' | '.join(fmt(hard_changes[c][a]) for a in hard_arms)+' |')
     lines+=['','## 固定組合：max(R, D2_single)','']+table(primary,COMBOS,('T5-word','T6-word','T8-sentence'))
     lines+=['','## Q1、Q2：標籤用詞與語言','', '| 配對／前綴 | same | alt | xlang | same−xlang | same−alt | H1 | H2 |','|---|---|---|---|---|---|---|---|']
     for k,v in ablations.items():lines.append('| '+k+' | '+' | '.join(fmt(v[x]) for x in ('same','alt','xlang','same_minus_xlang','same_minus_alt'))+f" | {hypotheses['H1'][k]} | {hypotheses['H2'][k]} |")
@@ -141,7 +161,7 @@ def main():
     for a,m in noise.items():lines.append('| '+a+' | '+' | '.join(fmt(m[k]) for k in ('mean','p50','p95'))+' | '+' | '.join(fmt(m['positive_above_p95'][c]) for c in ('T6-word','T7-word','T8-sentence'))+' |')
     lines+=['','底線為 T1 + T3-word，共 360 筆；T0 僅重編碼一次檢查浮點決定性，見 determinism.json。','',
             '## v1 日期前提的核對','',
-            'v0.2 文件稱「三個語意 arm 全盲」，但 v1 實際分數不支持此概括。以下重算使用各類原始資料；A/B/C 的高分也不能證明有日期推理，因 v1 日期負例改一字、正例改三字，編輯幅度未受控。','',
+            'v0.2 文件稱「三個語意 arm 全盲」，但 v1 實際分數不支持此概括。以下重算使用各類原始資料；A/B/C 的高分也不能證明有日期推理，因 v1 日期負例改一字、正例改三至四字，編輯幅度未受控。','',
             '| v1 arm | T5/T4 AUROC | T4 mean | T5 mean |','|---|---|---|---|']
     for a,m in v1.items():lines.append(f"| {a} | {fmt(m['T5_vs_T4_auc'])} | {fmt(m['T4_mean'])} | {fmt(m['T5_mean'])} |")
     lines+=['','## T9 敏感度分析','', '| arm | T3 confirmed | T3+T9 assumed negative |','|---|---|---|']
