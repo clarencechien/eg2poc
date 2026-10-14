@@ -1,6 +1,6 @@
 # Handoff v0.2：EG2 狀態偵測 — 「C 是語意還是詞彙」與「標籤投影一步到位」
 
-版本 v0.2 · 2026-10-14 · 承接 `results/synthetic-v1`（v0.1 規格見 `docs/protocol-v0.1.md`）
+版本 v0.2.1 · 2026-10-14（v0.2.1 追加 §11 J arm，以 jevlike 取代 E） · 承接 `results/synthetic-v1`（v0.1 規格見 `docs/protocol-v0.1.md`）
 交接對象：Claude Code 或任何能跑 Python 的 agent。既有程式在 `src/`，沿用其 config、revision 釘死、資料凍結與缺值不填零的規矩。
 
 ## 0. 一句話
@@ -141,7 +141,7 @@ A、B768、D1 = NLI(old, new) 雙向取 contradiction 最大值。不調整。
 ## 9. 不做
 
 - 不調 B 的任何設定；不為 H1 失敗找補救。
-- 不跑 E（LLM 天花板）、不跑 B2。
+- 不跑 E（LLM 天花板，由 §11 的 J arm 取代）、不跑 B2。
 - 不在看過 T7 或 T10 分數後改標籤文字或擾動詞表；要改就開 synthetic-v3。
 - 不宣稱真實專案的準確率；所有結論前綴「在合成骨架內」。
 
@@ -149,6 +149,50 @@ A、B768、D1 = NLI(old, new) 雙向取 contradiction 最大值。不調整。
 
 - `data/synthetic-v2/{base,pairs,docsets}.jsonl`、`manifest.json`、`analysis-plan.json`
 - `config.json` 新增三組標籤與 R 的日期 regex
-- `src/arms.py` 新增 `score_c(labels_set)`、`score_d2(labels_set)`、`score_r`、`score_docset`
+- `src/arms.py` 新增 `score_c(labels_set)`、`score_d2(labels_set)`、`score_r`、`score_docset`、`score_j(model_size)`
 - `results/synthetic-v2/{scores,docset-scores}.jsonl`、`report.md`、`summary.md`、`fig/`
 - README 更新：v0.1 結論三條（§1）、v0.2 新增 arm 與判讀規則、Gemini 版本變更紀錄
+
+## 11. v0.2.1 追加：J arm = jevlike（Gemma 4 typed decision）
+
+### 11.1 為什麼加
+
+Phase 1 三個 arm 全盲的 T5（日期改到超期）需要「讀值 + 比較」，這是 Google Decision Maker 表裡只有 Gemma 4 後端才有的能力，而 Clarence 手上已有 jevlike（repo `clarencechien/jevlike`，Gemma 4 單次 prefill 讀 logit 的 typed decision）。E arm 原本是外部 LLM 天花板，改由 J 取代：本地跑、不花 API 錢、而且是產品線實際會用的元件。
+
+### 11.2 定義
+
+- 模型兩級：**Gemma 4 E2B、E4B**（26B 不在 Phase 1 跑；CPU 環境跑不動 E4B 就只跑 E2B，E4B 寫「未跑」並註明原因）。
+- 使用 jevlike **既有的固定型別**（照 repo 實際型別，不擴寫成任意 schema）。需要的題只有兩種形狀：
+  - 布林題：「這段文字描述的專案目前是否卡關／延後／取消？」
+  - 選擇題：四類狀態（on track／延後／卡關／取消）擇一。
+- **J-single（主分數）**：只給 new 段落，不給 old。分數 = 「非 on track」三類的機率總和（布林題則直接取 true 機率）。與 D2 單邊分數並排。
+- **J-paired（副分數）**：context 同時放 old 與 new，問「狀態是否改變」布林題；只在 jevlike 現有型別能表達時跑，否則寫「未跑」。
+- 標籤文字沿用 §4.2 三組（same／alt／xlang），但 J 只跑 **alt** 一組（避免 J 的題目數爆炸；xlang 對生成模型意義不同，不做）。
+- 每題記延遲（prefill 時間）與輸入 token 數，供 §11.4 成本表。
+
+### 11.3 判讀規則（寫死）
+
+| # | 假說 | 成立 | 不成立 |
+|---|---|---|---|
+| H8 | J-single（E2B）在 T6/T7/T8 配對 ≥ 0.85 | 狀態類別題落在階梯 E2B 級 | 需 E4B；E4B 也不到就記錄，Phase 2 再上 26B |
+| H9 | J-single 在 **T5/T4 配對** ≥ 0.85（三個語意 arm 全盲的那格） | Gemma 4 能自己算超期，R 規則可降為備援 | 值推理仍要靠 R；J 與 R 的分工維持 §6 |
+| H10 | J-single 與 D2-single 在 T6/T7/T8 差 < 0.05 | NLI 夠用，J 只留給 T5 類與 T10 | J 明顯較強 → 架構改為「NLI 前置篩選 + J 只處理篩出的段落」 |
+| H11 | J-single 在 T10 文件集（三段 concat 為一個 context）≥ 0.80 | 瀰散型由 J 承接 | 瀰散型對 J 也是盲區，記錄不解釋 |
+
+### 11.4 成本表（必填）
+
+| arm | 每筆平均延遲 | 模型大小 | 可否預算（prewarm 後 O(1)） |
+|---|---|---|---|
+| C（EG2） | | 270M | 是 |
+| D2（NLI） | | ~280M | 否（每標籤一次 forward，4 次） |
+| J E2B | | 2B | 否（每題一次 prefill） |
+| J E4B | | 4B | 否 |
+
+同一台機器、同一批 100 筆量，不可引用別處數字。
+
+### 11.5 執行與交付
+
+- §8 第 5 步之後加：跑 J-single（E2B → E4B），再跑 J-paired、T10 concat。
+- `src/arms.py` 新增 `score_j(model_size, mode)`，透過 jevlike 既有介面呼叫，不在本 repo 重寫 prompt 格式。
+- 報表 §6.1 主表加 J-E2B、J-E4B 兩欄；§11.4 成本表進 summary.md。
+- jevlike 的模型 ID、revision、量化精度寫進 manifest，與 EG2/NLI 同規格釘死。
