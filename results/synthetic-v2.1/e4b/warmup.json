@@ -1,0 +1,73 @@
+{
+  "key": "7f3e1cfa6cc5f1de1855a6132d2ab81ef87bc90f4f967be85c9a4ed53cc0aad7",
+  "score": 0.9727740537039993,
+  "mode": "single",
+  "model_size": "e4b",
+  "cache_prompt": false,
+  "prompt_sha256": "0e1ed6f64d6ab8c4d8bbb149419d47c3628e9d610d524c623bd37b815efe2935",
+  "probs": {
+    "B": 0.9589262104026205,
+    "A": 0.027225946296000784,
+    "D": 0.007099686579538369,
+    "C": 0.006748156721840388
+  },
+  "missing": [],
+  "latency_ms": 16228.341803001967,
+  "option_mass": 0.9998429805173162,
+  "first_token": "B",
+  "first_token_id": 236799,
+  "prompt_tokens": 202,
+  "tokens_cached": 202,
+  "raw_logprobs": {
+    "B": -0.04209818318486214,
+    "A": -3.6037418842315674,
+    "D": -4.947861671447754,
+    "C": -4.998642921447754
+  },
+  "top_tokens": [
+    {
+      "token": "B",
+      "logprob": -0.04209818318486214
+    },
+    {
+      "token": "A",
+      "logprob": -3.6037418842315674
+    },
+    {
+      "token": "D",
+      "logprob": -4.947861671447754
+    },
+    {
+      "token": "C",
+      "logprob": -4.998642921447754
+    },
+    {
+      "token": "b",
+      "logprob": -10.601519584655762
+    },
+    {
+      "token": "F",
+      "logprob": -10.622183799743652
+    },
+    {
+      "token": "N",
+      "logprob": -10.680262565612793
+    },
+    {
+      "token": "$\\",
+      "logprob": -10.734559059143066
+    },
+    {
+      "token": "E",
+      "logprob": -11.014784812927246
+    },
+    {
+      "token": "H",
+      "logprob": -11.95035457611084
+    }
+  ],
+  "server_prompt_ms": 16219.418,
+  "server_predicted_ms": 0.001,
+  "server_prompt_n": 202,
+  "server_cache_n": 0
+}
