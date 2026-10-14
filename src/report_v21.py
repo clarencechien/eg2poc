@@ -6,6 +6,7 @@ import numpy as np
 from sklearn.metrics import roc_auc_score
 from .common import read_jsonl,digest
 from .report_v2 import CONTRASTS,matched,fmt
+from .run_v2 import verify_data
 
 
 def describe(values):
@@ -13,20 +14,45 @@ def describe(values):
             'p50':float(np.median(values)) if values else None,'p95':float(np.percentile(values,95)) if values else None}
 
 
+def benchmark_cost(root, manifest, plan):
+    path=root/'benchmark.jsonl'
+    if not path.exists():return None
+    data=path.read_bytes()
+    records=[json.loads(line) for line in data[:data.rfind(b'\n')+1].splitlines()]
+    if len(records)<100:return None
+    if [r['pair_id'] for r in records]!=plan['benchmark_pair_ids']:raise ValueError('J benchmark row order differs')
+    return {'latency_ms':describe([r['latency_ms'] for r in records]),
+            'prefill_ms':describe([r['server_prompt_ms'] for r in records if r['server_prompt_ms'] is not None]),
+            'input_tokens':describe([r['prompt_tokens'] for r in records if r['prompt_tokens'] is not None]),
+            'model_bytes':manifest['model_bytes'],'quantization':'Q8_0'}
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',default='results/synthetic-v2.1');args=parser.parse_args()
     out=Path(args.output);rows=read_jsonl('data/synthetic-v2/pairs.jsonl')
+    verify_data(Path('data/synthetic-v2'))
+    plan_root=Path('data/synthetic-v2.1')
+    frozen=json.loads((plan_root/'manifest.json').read_text())
+    for name,expected in frozen['sha256'].items():
+        if digest(plan_root/name)!=expected:raise ValueError(f'J frozen input changed: {name}')
     baseline={r['pair_id']:r for r in read_jsonl('results/synthetic-v2/scores.jsonl')}
     base_metrics=json.loads(Path('results/synthetic-v2/metrics.json').read_text())
     plan=json.loads(Path('data/synthetic-v2.1/analysis-plan.json').read_text())
+    if plan['data_manifest_sha256']!=digest('data/synthetic-v2/manifest.json'):raise ValueError('J data manifest changed')
     summaries={};costs={};hypotheses={};combined={pid:dict(r) for pid,r in baseline.items()}
     for size in ('e2b','e4b'):
         root=out/size
         if not (root/'manifest.json').exists():
             summaries[size]={'status':'not run','reason':'No completed local run'};continue
         manifest=json.loads((root/'manifest.json').read_text())
+        if manifest['plan_sha256']!=digest(plan_root/'analysis-plan.json') or manifest['scope_sha256']!=digest(plan_root/'scoring-scope.json'):
+            raise ValueError('J scoring plan differs from recorded run')
+        cost=benchmark_cost(root,manifest,plan)
+        if cost is not None:costs[f'J_{size}']=cost
         if manifest['status']!='complete':
-            summaries[size]={'status':manifest['status'],'reason':manifest.get('error','Incomplete local run')};continue
+            summaries[size]={'status':manifest['status'],'reason':manifest.get('error','完整品質評估尚未完成；已完成的 100 筆成本測試另列。')};continue
+        for name,expected in manifest['output_sha256'].items():
+            if digest(root/name)!=expected:raise ValueError(f'J scored output changed: {size}/{name}')
         scores={r['pair_id']:r for r in read_jsonl(root/'scores.jsonl')}
         for pid,r in scores.items():combined[pid].update({k:v for k,v in r.items() if k.startswith('J_')})
         arms=[f'J_{size}_single',f'J_{size}_paired']
@@ -59,15 +85,10 @@ def main():
                          'docset_auc':docauc,'docset_n_positive':sum(d['label']==1 for d in valid),'docset_n_negative':sum(d['label']==0 for d in valid),
                          'missing_single':manifest['n_missing_single'],'missing_paired':manifest['n_missing_paired'],'n_scored_pairs':manifest['n_scored_pairs'],'n_outside_scope':manifest['n_outside_scope'],
                          'option_mass':describe([r['option_mass'] for r in predictions]),'last_session_seconds':manifest['last_session_seconds']}
-        benchmark=read_jsonl(root/'benchmark.jsonl')
-        if [r['pair_id'] for r in benchmark]!=plan['benchmark_pair_ids']:raise ValueError('J benchmark row order differs')
-        costs[f'J_{size}']={'latency_ms':describe([r['latency_ms'] for r in benchmark]),
-                          'prefill_ms':describe([r['server_prompt_ms'] for r in benchmark if r['server_prompt_ms'] is not None]),
-                          'input_tokens':describe([r['prompt_tokens'] for r in benchmark if r['prompt_tokens'] is not None]),
-                          'model_bytes':manifest['model_bytes'],'quantization':'Q8_0'}
     smallpath=out/'benchmark-small-models.jsonl'
     if smallpath.exists():
         records=read_jsonl(smallpath);smallmanifest=json.loads((out/'benchmark-small-models-manifest.json').read_text())
+        if smallmanifest['plan_sha256']!=digest(plan_root/'analysis-plan.json'):raise ValueError('Small-model timing plan differs')
         for a,pk in (('C_alt_classification','embedding_parameters'),('D2_alt_single','nli_parameters')):
             values=[r for r in records if r['arm']==a]
             if [r['pair_id'] for r in values]!=plan['benchmark_pair_ids']:raise ValueError('Small-model cost benchmark differs')
@@ -76,6 +97,7 @@ def main():
     report={'models':summaries,'hypotheses':hypotheses,'costs':costs,'plan_sha256':digest('data/synthetic-v2.1/analysis-plan.json')}
     (out/'summary.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     lines=['# v0.2.1：jevlike J arm 合成試驗','', '依 `main@fb62b10` 的規格追加 J。資料、標籤與配對關係沿用已凍結的 synthetic-v2；沒有新增 Gemini 呼叫。','',
+           '目前模型狀態：'+ '；'.join(f"{size.upper()}={info['status']}" for size,info in summaries.items())+'。未完成的品質指標不填零。','',
            'J 使用 `jevlike@9838918533cf3d88dc975ef19d38122b07df47f7` 的既有四選一／布林題介面，未改 prompt 模板。llama.cpp 固定 b11371（99b95488），CPU、4 threads、Q8_0。','',
            '## 主表：專屬負例配對 AUROC','', '| 配對 | C-alt class | D2-alt paired | D2-alt single | J-E2B single | J-E4B single | R |','|---|---|---|---|---|---|---|']
     for c in CONTRASTS:

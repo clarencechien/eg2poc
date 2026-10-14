@@ -52,6 +52,9 @@ def main():
     data,out=Path(args.data),Path(args.output);input_manifest=verify_data(data)
     run=json.loads((out/'manifest.json').read_text())
     if run['status']!='complete':raise ValueError('Inference incomplete')
+    if run['inputs']!=input_manifest['sha256']:raise ValueError('Dataset differs from the scored input hashes')
+    for name,expected in run['output_sha256'].items():
+        if digest(out/name)!=expected:raise ValueError(f'Scored output changed: {name}')
     rows=read_jsonl(data/'pairs.jsonl');results=read_jsonl(out/'scores.jsonl');scores={r['pair_id']:r for r in results}
     assert len(scores)==len(rows)==len(results)
     for r in results:

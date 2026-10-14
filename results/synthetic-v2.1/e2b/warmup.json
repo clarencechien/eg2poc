@@ -1,0 +1,73 @@
+{
+  "key": "7f3e1cfa6cc5f1de1855a6132d2ab81ef87bc90f4f967be85c9a4ed53cc0aad7",
+  "score": 0.9999789103952794,
+  "mode": "single",
+  "model_size": "e2b",
+  "cache_prompt": false,
+  "prompt_sha256": "0e1ed6f64d6ab8c4d8bbb149419d47c3628e9d610d524c623bd37b815efe2935",
+  "probs": {
+    "B": 0.9999587558869023,
+    "A": 2.108960472064055e-05,
+    "C": 1.5292761462447724e-05,
+    "D": 4.86174691463855e-06
+  },
+  "missing": [],
+  "latency_ms": 6224.804305000362,
+  "option_mass": 0.9999980902713431,
+  "first_token": "B",
+  "first_token_id": 236799,
+  "prompt_tokens": 202,
+  "tokens_cached": 202,
+  "raw_logprobs": {
+    "B": -4.315469413995743e-05,
+    "A": -10.766732215881348,
+    "C": -11.088132858276367,
+    "D": -12.234114646911621
+  },
+  "top_tokens": [
+    {
+      "token": "B",
+      "logprob": -4.315469413995743e-05
+    },
+    {
+      "token": "A",
+      "logprob": -10.766732215881348
+    },
+    {
+      "token": "C",
+      "logprob": -11.088132858276367
+    },
+    {
+      "token": "D",
+      "logprob": -12.234114646911621
+    },
+    {
+      "token": "",
+      "logprob": -13.59412956237793
+    },
+    {
+      "token": "```",
+      "logprob": -15.195713996887207
+    },
+    {
+      "token": "<|channel>",
+      "logprob": -15.315325736999512
+    },
+    {
+      "token": "F",
+      "logprob": -16.54586410522461
+    },
+    {
+      "token": "E",
+      "logprob": -16.548364639282227
+    },
+    {
+      "token": "招",
+      "logprob": -16.945680618286133
+    }
+  ],
+  "server_prompt_ms": 6214.747,
+  "server_predicted_ms": 0.001,
+  "server_prompt_n": 202,
+  "server_cache_n": 0
+}
