@@ -2,6 +2,7 @@
 
 目前狀態：**已完成 v0.2 的 1,690 組規則合成比較與 80 個文件集；v0.2.1 J 正在執行。**
 最新結果見 [v0.2 摘要](results/synthetic-v2/summary.md)、[完整報告](results/synthetic-v2/report.md)；
+J E2B 的全部 1,230 筆 new-only 已完成，見 [階段快照](results/synthetic-v2.1/e2b/single-stage/report.md)；paired／T10 與 E4B 仍在後續流程。
 770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
@@ -10,8 +11,8 @@
 
 | 用途 | 模型 | 固定 revision | 狀態 |
 |---|---|---|---|
-| B/C | `google/embeddinggemma-2` | `914f7f89142e33e77833254d9c9b90c3cef7303b` | 770 組推論完成，文字塔 271,002,624 參數、float32 |
-| D | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | 770 組雙向推論完成；**NLI 替代，不是 Decision Maker** |
+| B/C | `google/embeddinggemma-2` | `914f7f89142e33e77833254d9c9b90c3cef7303b` | v0.2 的 1,690 組完成，文字塔 271,002,624 參數、float32 |
+| D1/D2 | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | v0.2 的 1,690 組完成；**NLI 替代，不是 Decision Maker** |
 | 生成／覆核／E | 原規格 `gemini-3.5-flash` | 不適用 | 官方公告已停用並自動轉到 3.6；尚未選擇替代、沒有 API 呼叫 |
 
 EG2：CPU float32；`config_kwargs={"vision_config": null, "audio_config": null}`。

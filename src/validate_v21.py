@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .common import digest, read_jsonl
 from .run_v21 import key
+from .run_v2 import verify_data
 
 
 def require(condition, message):
@@ -23,6 +24,13 @@ def validate(root, size):
     root = Path(root) / size
     manifest = json.loads((root / 'manifest.json').read_text())
     require(manifest['status'] == 'complete', f'{size} is incomplete')
+    verify_data(Path('data/synthetic-v2'))
+    plan_root = Path('data/synthetic-v2.1')
+    frozen = json.loads((plan_root / 'manifest.json').read_text())
+    for name, expected in frozen['sha256'].items():
+        require(digest(plan_root / name) == expected, f'Frozen input changed: {name}')
+    require(manifest['plan_sha256'] == digest(plan_root / 'analysis-plan.json'), 'Run used a different plan')
+    require(manifest['scope_sha256'] == digest(plan_root / 'scoring-scope.json'), 'Run used a different scope')
     for name, expected in manifest['output_sha256'].items():
         require(digest(root / name) == expected, f'Output hash changed: {name}')
     plan = json.loads(Path('data/synthetic-v2.1/analysis-plan.json').read_text())
