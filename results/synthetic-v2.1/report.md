@@ -39,7 +39,7 @@ No completed local run
 | J_e2b | 7235.885 | 10330.065 | 7208.342 | 190.780 | 5.05 GB / Q8_0 | 每題一次 prefill；隨輸入長度變動 |
 | J_e4b | 未跑 | — | — | — | — | — |
 
-所有 arm 先做一次不計時 warmup，再逐段測量；J 關閉 prompt cache，避免共用模板快取量被當成模型速度。D2 四個標籤以一批計算，token 數是四組總和；J 題目包含標籤與模板，token 數自然不同。EG2 的 old 向量與 label 已預算，時間包含 new embedding；僅有既有向量的投影運算可視為固定維度成本。
+所有 arm 先做一次不計時 warmup，再逐段測量；J 的 100 筆成本測試關閉 prompt cache。這 100 筆預測沿用於品質評估，其餘品質推論啟用既有 prefix cache；兩者逐題標記，不能把品質推論的延遲混入成本表。D2 四個標籤以一批計算，token 數是四組總和；J 題目包含標籤與模板，token 數自然不同。EG2 的 old 向量與 label 已預算，時間包含 new embedding；僅有既有向量的投影運算可視為固定維度成本。
 
 ## 限制與可追溯性
 

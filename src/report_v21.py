@@ -7,6 +7,7 @@ from sklearn.metrics import roc_auc_score
 from .common import read_jsonl,digest
 from .report_v2 import CONTRASTS,matched,fmt
 from .run_v2 import verify_data
+from .validate_v21 import validate
 
 
 def describe(values):
@@ -53,6 +54,7 @@ def main():
             summaries[size]={'status':manifest['status'],'reason':manifest.get('error','完整品質評估尚未完成；已完成的 100 筆成本測試另列。')};continue
         for name,expected in manifest['output_sha256'].items():
             if digest(root/name)!=expected:raise ValueError(f'J scored output changed: {size}/{name}')
+        validate(out,size)
         scores={r['pair_id']:r for r in read_jsonl(root/'scores.jsonl')}
         for pid,r in scores.items():combined[pid].update({k:v for k,v in r.items() if k.startswith('J_')})
         arms=[f'J_{size}_single',f'J_{size}_paired']
@@ -127,7 +129,7 @@ def main():
         m=costs[a];model=f"{m['parameters']/1e6:.1f}M / float32" if 'parameters' in m else f"{m['model_bytes']/1e9:.2f} GB / Q8_0"
         note='標籤／old 已預算；new embedding 仍隨長度變動' if a.startswith('C_') else ('4 組 premise/hypothesis，單批 forward；仍隨長度變動' if a.startswith('D2_') else '每題一次 prefill；隨輸入長度變動')
         lines.append(f"| {a} | {fmt(m['latency_ms']['mean'])} | {fmt(m['latency_ms']['p95'])} | {fmt(m.get('prefill_ms',{}).get('mean'))} | {fmt(m['input_tokens']['mean'])} | {model} | {note} |")
-    lines+=['','所有 arm 先做一次不計時 warmup，再逐段測量；J 關閉 prompt cache，避免共用模板快取量被當成模型速度。D2 四個標籤以一批計算，token 數是四組總和；J 題目包含標籤與模板，token 數自然不同。EG2 的 old 向量與 label 已預算，時間包含 new embedding；僅有既有向量的投影運算可視為固定維度成本。','',
+    lines+=['','所有 arm 先做一次不計時 warmup，再逐段測量；J 的 100 筆成本測試關閉 prompt cache。這 100 筆預測沿用於品質評估，其餘品質推論啟用既有 prefix cache；兩者逐題標記，不能把品質推論的延遲混入成本表。D2 四個標籤以一批計算，token 數是四組總和；J 題目包含標籤與模板，token 數自然不同。EG2 的 old 向量與 label 已預算，時間包含 new embedding；僅有既有向量的投影運算可視為固定維度成本。','',
             '## 限制與可追溯性','', '- J 單邊分類衡量目前是否為風險狀態，不等於一般狀態漂移。資料沒有完整涵蓋「原本已卡關但本次未變」或解除風險的反例。',
             '- 日期跨期正例只改日期，原文「進度領先」仍保留，形成文字敘述與日期值之間的衝突；模型對此的表現不能單獨代表一般日期推理能力。',
             '- T10 使用三個信號同時成立才待審的人工政策，沒有兩個獨立 prompt 判讀，政策也沒送入模型；H11 只能探索。',
