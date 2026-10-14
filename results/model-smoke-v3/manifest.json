@@ -1,0 +1,123 @@
+{
+  "diagnostic": true,
+  "synthetic": false,
+  "coverage_issues": [
+    "base count 2; target 150–200",
+    "document count 1; target ≥20",
+    "Each document must supply 5–10 selected paragraphs",
+    "Some base paragraphs are outside 80–400 characters",
+    "Some bases lack real repository provenance",
+    "zh bases below 75",
+    "en bases below 75",
+    "T1/zh below 30 pairs",
+    "T1/en below 30 pairs",
+    "T2/zh below 30 pairs",
+    "T2/en below 30 pairs",
+    "T3/zh below 30 pairs",
+    "T3/en below 30 pairs",
+    "T4/zh below 30 pairs",
+    "T4/en below 30 pairs",
+    "T5/zh below 30 pairs",
+    "T5/en below 30 pairs",
+    "T6/zh below 30 pairs",
+    "T6/en below 30 pairs",
+    "T7/zh below 30 pairs",
+    "T7/en below 30 pairs",
+    "T8/zh below 30 pairs",
+    "T8/en below 30 pairs",
+    "T0 below 100 pairs",
+    "T6-zh-沒有 below 15 pairs",
+    "T6-zh-不再 below 15 pairs",
+    "T6-zh-尚未 below 15 pairs",
+    "T6-zh-取消 below 15 pairs",
+    "T6-zh-暫停 below 15 pairs",
+    "Missing T3/word",
+    "Missing T3/paragraph",
+    "Missing T6/word",
+    "Missing T6/paragraph",
+    "Missing T8/word",
+    "Missing T8/paragraph",
+    "T5 rule/llm not balanced: [2, 0]",
+    "T6 rule/llm not balanced: [2, 0]",
+    "T7 rule/llm not balanced: [2, 0]"
+  ],
+  "packages": {
+    "numpy": "2.3.5",
+    "scikit-learn": "1.8.0",
+    "matplotlib": "3.10.8",
+    "torch": "2.14.1+cpu",
+    "transformers": "5.19.0",
+    "sentence-transformers": "6.1.0"
+  },
+  "pairs_sha256": "b18b687afdc8091114cf9cb141798a54a14fba26002c96dbb1ee3f405a56a008",
+  "base_sha256": "95621f2f9b3cf812be9acd5713c2c34c6162450fb62057761030d89a9a48d239",
+  "config_sha256": "b202a2c06c39999b2768041fe637fc4d0ac8699a24d6a3faf64130e2081bb325",
+  "config": {
+    "seed": 20261014,
+    "embedding": {
+      "model_id": "google/embeddinggemma-2",
+      "revision": "914f7f89142e33e77833254d9c9b90c3cef7303b",
+      "official_source": "https://huggingface.co/google/embeddinggemma-2",
+      "verified": true,
+      "document_template": "title: none | text: {text}",
+      "classification_template": "task: classification | query: {text}",
+      "search_query_template": "task: search result | query: {text}",
+      "temperature": 0.045,
+      "batch_size": 8,
+      "max_seq_length": null,
+      "config_kwargs": {
+        "vision_config": null,
+        "audio_config": null
+      }
+    },
+    "nli": {
+      "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+      "official_source": "https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "verified": true,
+      "batch_size": 4
+    },
+    "gemini": {
+      "model_id": null,
+      "official_source": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash",
+      "verified": false,
+      "thinking_level": "minimal",
+      "max_output_tokens": 512,
+      "max_calls": 2000,
+      "max_total_tokens": 500000,
+      "max_usd": 1.0,
+      "max_usd_per_million_tokens": null,
+      "requested_model_id": "gemini-3.5-flash",
+      "requested_model_status": "Official docs: deprecated; requests automatically routed to gemini-3.6-flash. Replacement not selected or run."
+    },
+    "labels": {
+      "zh": [
+        "專案按計畫進行，進度符合時程，預計如期交付。",
+        "專案進度落後，交付日期延後，無法依原定時程完成。",
+        "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+        "專案已取消，不再繼續執行，也不會交付原定成果。"
+      ],
+      "en": [
+        "The project is on track and progressing as planned. Delivery is expected on schedule.",
+        "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+        "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+        "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+      ]
+    }
+  },
+  "requested_arms": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "status": "completed",
+  "arm_status": {
+    "B2": "未跑：optional token-level arm",
+    "A": "completed",
+    "C": "completed",
+    "B": "completed",
+    "D": "completed: NLI substitute, not Decision Maker"
+  },
+  "elapsed_seconds": 80.65714569400006
+}

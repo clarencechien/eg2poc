@@ -1,0 +1,1268 @@
+{
+  "all": {
+    "T5": {
+      "A": {
+        "auc": 0.5,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6": {
+      "A": {
+        "auc": 0.3125,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-沒有": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-不再": {
+      "A": {
+        "auc": 0.375,
+        "n_positive": 1,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-尚未": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-取消": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-暫停": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-en": {
+      "A": {
+        "auc": 0.25,
+        "n_positive": 1,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T7": {
+      "A": {
+        "auc": 0.4375,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T8": {
+      "A": {
+        "auc": 0.5,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    }
+  },
+  "rule": {
+    "T5": {
+      "A": {
+        "auc": 0.5,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6": {
+      "A": {
+        "auc": 0.3125,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-沒有": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-不再": {
+      "A": {
+        "auc": 0.375,
+        "n_positive": 1,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-尚未": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-取消": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-暫停": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-en": {
+      "A": {
+        "auc": 0.25,
+        "n_positive": 1,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T7": {
+      "A": {
+        "auc": 0.4375,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T8": {
+      "A": {
+        "auc": 0.5,
+        "n_positive": 2,
+        "n_negative": 8
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    }
+  },
+  "llm": {
+    "T5": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-沒有": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-不再": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-尚未": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-取消": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-zh-暫停": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T6-en": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T7": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    },
+    "T8": {
+      "A": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B768": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B256": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "B2": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_classification": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "C_search_query": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "D_NLI": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      },
+      "E": {
+        "auc": null,
+        "n_positive": 0,
+        "n_negative": 0
+      }
+    }
+  }
+}

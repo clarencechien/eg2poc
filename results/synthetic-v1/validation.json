@@ -1,0 +1,20 @@
+{
+  "timestamp_utc": "2026-10-14T09:07:20.717190+00:00",
+  "scope": "synthetic_rule_pilot",
+  "unit_tests_passed": 18,
+  "pairs_scored": 770,
+  "finite_scores_per_pair": 6,
+  "independent_llm_review": false,
+  "llm_calls": 0,
+  "elapsed_seconds": 741.7664906509999,
+  "source_hashes": {
+    "src/arms.py": "8006649dcb9d39480b6645696d2ff89f2174771f1d82d9db757870b3f4f7a571",
+    "src/run.py": "696878d3af6d4d39dc4e3a8ce61b7835f8b59d1bab812b9353abaa15e381a4ff",
+    "src/gen_synthetic.py": "0cca76e6dc41832f22ab68862341b74d0b679c51319820222fdfb6efec085661",
+    "data/synthetic-v1/analysis-plan.json": "4d01366de8858cc6b65fc8ea25ac54249d2783efde90288c24a82ddceb1e42d0"
+  },
+  "noise_runs": 3,
+  "noise_pairs_per_run": 100,
+  "author_extreme_sample_review": 45,
+  "nli_truncation": 0
+}
