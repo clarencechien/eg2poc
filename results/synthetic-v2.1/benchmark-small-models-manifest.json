@@ -1,0 +1,33 @@
+{
+  "plan_sha256": "8dbf209f146ab6f62c521604f39fcb13d07f9349b0553c1d522f827b1ba6eb56",
+  "embedding_model": {
+    "model_id": "google/embeddinggemma-2",
+    "revision": "914f7f89142e33e77833254d9c9b90c3cef7303b",
+    "official_source": "https://huggingface.co/google/embeddinggemma-2",
+    "verified": true,
+    "document_template": "title: none | text: {text}",
+    "classification_template": "task: classification | query: {text}",
+    "search_query_template": "task: search result | query: {text}",
+    "temperature": 0.045,
+    "batch_size": 8,
+    "max_seq_length": null,
+    "config_kwargs": {
+      "vision_config": null,
+      "audio_config": null
+    }
+  },
+  "nli_model": {
+    "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+    "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+    "official_source": "https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+    "verified": true,
+    "batch_size": 4
+  },
+  "embedding_parameters": 271002624,
+  "nli_parameters": 278811651,
+  "n_rows_each": 100,
+  "cpu_threads": 4,
+  "dtype": "float32",
+  "method": "Sequential paragraphs after one untimed warmup. EG2 old vectors/labels prewarmed, new embedding measured; NLI four label pairs in one batch. No concurrent inference.",
+  "source_sha256": "297e9139adc3d72bae8206b067522e695cd2197be82dbcad6764a786a0124fbe"
+}

@@ -1,7 +1,8 @@
 # EG2 project status drift — synthetic experiments
 
-目前狀態：**已完成 770 組中英規則合成資料的 A／EG2／C／NLI 試驗。**
-結果見 [results/report.md](results/report.md)，完整分析見 [合成試驗報告](results/synthetic-v1/summary.md)。
+目前狀態：**已完成 v0.2 的 1,690 組規則合成比較與 80 個文件集；v0.2.1 J 正在執行。**
+最新結果見 [v0.2 摘要](results/synthetic-v2/summary.md)、[完整報告](results/synthetic-v2/report.md)；
+770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
 
@@ -125,7 +126,7 @@ API ledger 位於 `results/api-ledger.jsonl`，生成、覆核、E **不可並�
 本輪先完成 [v0.2 原規格](docs/protocol-v0.2-original.md)，再接
 [main@fb62b10 的 v0.2.1](docs/protocol-v0.2.md)。使用者允許不用 Gemini，
 因此所有底稿與擾動均由規則生成；LLM 改寫、獨立覆核與真實文件測試未執行。
-目前 frozen 資料／程式已推送，模型完整結果仍在執行，請以各 run 的 manifest 狀態為準。
+v0.2 已完成並驗證全部分數；J E2B／E4B 依序執行中，請以各 run 的 manifest 狀態為準。
 
 - 420 段底稿、1,690 組比較；五骨架各中英 42 段。每個 T6 否定形式有 30 個不同底稿。
 - 主表改成同底稿專屬負例。T4/T5 各改一個日期字元；T8 另附把不確定 T9 當負例的敏感度表。

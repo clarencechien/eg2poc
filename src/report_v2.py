@@ -174,7 +174,7 @@ def main():
     summary=['# v0.2 合成試驗摘要','', '在合成骨架內，完成 420 段底稿、1,690 組比較、40 對文件集；全部規則生成，沒有 Gemini 呼叫或獨立標註。','']
     summary+=table(primary,['B768','C_same_classification','C_alt_classification','C_xlang_classification','D1','D2_same_paired','D2_same_single','R'],('T5-word','T6-word','T7-word','T8-sentence','T8-paragraph'))
     summary+=['',f"H1（兩種前綴、T6/T7 word）數值條件：{sum(hypotheses['H1'].values())}/4 通過；H2：{sum(hypotheses['H2'].values())}/4 通過。",f"H3：{json.dumps(hypotheses['H3'])}；H4：{json.dumps(hypotheses['H4'])}；H5：{hypotheses['H5']}。",'',
-              'H6 只有合成政策任務結果；H7 缺少 LLM 改寫對照。所有推論僅限本批模板；T8 主表排除不確定的 T9，完整報告另有含 T9 的敏感度表。','',
+              f"H6 只有合成政策任務結果；H7 的 C-xlang/SearchQuery 在 T8 paragraph 跨骨架 AUROC 範圍為 {hypotheses['H7']['skeleton_ranges']['C_xlang_search_query']['T8-paragraph']:.3f}（門檻 <0.10），且缺少 LLM 改寫對照。所有推論僅限本批模板；T8 主表排除不確定的 T9，完整報告另有含 T9 的敏感度表。",'',
               '配對 D2 的高 AUROC 不等於單邊偵測已經成立；即使 single 在本資料高分，也未測「原本就處於風險但本次未變」等必要反例。','',
               '[完整報告](report.md) · [配對與分層數值](metrics.json) · [圖](fig/paired-auroc.png) · [v1 日期重分析](v1-date-reanalysis.json)','']
     (out/'summary.md').write_text('\n'.join(summary))

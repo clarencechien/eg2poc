@@ -1,29 +1,20 @@
-# EG2 合成資料試驗結果
+# EG2 實驗結果
 
-已完成 770 組中英規則合成資料比較，全部六個分數皆有效，CPU float32 執行約 12.4 分鐘。
+v0.2 已完成 420 段底稿、1,690 組比較及 40 對正／負文件集。全部是規則模板合成資料，沒有 Gemini 呼叫或獨立覆核。
+v0.2.1 的 J（jevlike / Gemma 4 E2B、E4B）正在依序執行。
 
-**本結果只適用這批合成模板；沒有真實文件或 Gemini 獨立生成／覆核。**
+- [v0.2 摘要](synthetic-v2/summary.md)、[完整 Q1–Q7／H1–H7 報告](synthetic-v2/report.md)、[資料設計覆核](synthetic-v2/data-audit.md)。
+- [v0.2.1 模型、成本與執行紀錄](synthetic-v2.1/)。
+- [v0.1 歷史結果](synthetic-v1/summary.md)；[v1 日期對照重新分析](synthetic-v2/v1-date-reanalysis.json)。
 
-| 擾動 | A diff | B768 | C Classification | C SearchQuery | D NLI |
-|---|---|---|---|---|---|
-| 日期跨期限 | 0.333 | 0.426 | 0.645 | 0.502 | 0.885 |
-| 否定翻轉 | 0.637 | 0.584 | 0.909 | 0.881 | 0.979 |
-| 反義 holdout | 0.505 | 0.461 | 0.890 | 0.954 | 0.940 |
-| 新增阻礙 | 0.672 | 0.714 | 0.988 | 0.972 | 0.521 |
+在這批合成骨架內，C 的跨語言標籤未使 T6/T7 word 的 AUROC 明顯退步。
+D2-alt single 在 T6 word／T7 word／T8 sentence 的 AUROC 分別為 0.922／0.966／0.951；
+日期 T5/T4 只有 0.512，R 為 1.000。
+T10 的 D2-alt single 三段取最大值為 0.545；T10 採人工定義的三信號政策，僅能探索。
 
-AUROC 越高越好。每列負例為相同的 270 筆 T1–T4；B2、E 未跑，D 是 NLI 替代而非 Decision Maker。
+v0.1 的日期合併負例結果不能支持跨截止日推理：改用 T5/T4 對照，NLI AUROC 為 0.485。
+v1 的負例改一字，正例改三至四字，A/B/C 的高分亦受到編輯幅度混淆。原始分數與凍結資料均保留。
 
-- B 在否定與反義偏弱；短詞否定子集僅 0.375。T8 總分 0.714，未達原 H1 的 0.85。
-- C 的兩種前綴明顯改善本合成集表現，值得保留續測。這是機率分布距離的效果：Classification 在 T7 的 argmax 移動率其實是 0%，不能拿 argmax 當成同一方法。
-- D 在否定／反義分別為 0.979／0.940，但新增阻礙僅 0.521，不能單靠它覆蓋所有變更。
-- 日期項目 D=0.885，是本輪對 H5「所有方法 <0.70」的反例；只記錄現象，不追加猜測解釋。
-- Q6 最大噪音 p95 約 6.5e-13；實際擾動遠高於數值噪音，問題是類別區分能力。
-
-建議下一步保留 C 與 D 的比較，不只使用 B 作狀態判斷；尚未測試串接後的效果，也不能在沒有另一生成器的情況下排除模板指紋。
-
-完整 Q1–Q8、H1–H7、語言／強度分析：[summary.md](synthetic-v1/summary.md)。
-原始分數：[scores.jsonl](synthetic-v1/scores.jsonl)；每類極端例句：[report.md](synthetic-v1/report.md)。
-結果圖：[auc-summary.png](synthetic-v1/fig/auc-summary.png)。
-重跑方式：[README](../README.md)。先前受網路阻擋的紀錄已保留為 initial-attempt-report.md。
-
-18 項測試通過；合成資料與原分析計畫保持不變。T9 中 12 筆只刪中性安排句，全部 T9 原已排除 AUROC。
+AUROC 是排序指標，不是四分類準確率。C 分布距離高分不代表 argmax 已變；
+single 高分也未涵蓋「原本有風險但本次未變」的必要反例。
+[重跑方式](../README.md)與各結果目錄的 manifest 保存版本、雜湊及執行狀態。
