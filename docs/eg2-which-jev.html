@@ -511,6 +511,23 @@ button, summary { transition: transform var(--dur-fast) var(--ease-out); }
   --stamp-no: hsl(10 60% 66%);
 }
 pre { font-family: var(--mono); }
+.calls pre { font-size: .82rem; line-height: 1.6; }
+.calls pre .cm { color: var(--mist); }
+.calls pre .hi { color: var(--accent); font-weight: 500; }
+.calls h3 { margin-top: var(--sp-5); }
+.diagram svg { min-width: 40rem; max-width: 46rem; }
+.diagram .box { fill: var(--card); stroke: var(--rule-hard); stroke-width: 1; }
+.diagram .box.model { fill: var(--accent-soft); stroke: var(--accent); }
+.diagram .box.ext { fill: none; stroke: var(--accent); stroke-dasharray: 4 3; }
+.diagram text { fill: var(--ink-2); font-family: var(--mono); font-size: 11px; }
+.diagram text.lane { fill: var(--accent); font-size: 12px; letter-spacing: .08em; }
+.diagram text.k { fill: var(--ink); font-weight: 500; }
+.diagram text.dim { fill: var(--mist); }
+.diagram .arr { stroke: var(--ink-2); stroke-width: 1.2; fill: none; marker-end: url(#ah); }
+.diagram .arr.once { stroke: var(--accent); stroke-dasharray: 4 3; }
+.diagram .brace { stroke: var(--accent); stroke-width: 1.2; fill: none; }
+.diagram .sep { stroke: var(--rule); stroke-width: 1; }
+figcaption { font-family: var(--mono); font-size: var(--fs-xs); color: var(--mist); margin-top: var(--sp-2); }
 .chip.no { background: var(--stamp-no); }
 .verdict { font-family: var(--mono); font-size: var(--fs-xs); letter-spacing: .08em; color: var(--mist); }
 .cert { border: 1px solid var(--rule-hard); border-radius: var(--radius); padding: var(--sp-5); background: var(--card); margin-block: var(--sp-6); }
@@ -618,7 +635,140 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 </div>
 <p class="verdict">同一台 4 核 CPU、同一批 100 筆、關閉 prompt cache。這是無 GPU 的下限；到 GB10 上整張表要重量，比例不能用 CPU 數字換算，小模型的固定開銷佔比會變。</p>
 
-<p class="eyebrow">項目 05 · 裁決</p>
+<p class="eyebrow">項目 05 · 三種呼叫長什麼樣</p>
+<h2>差別不在模型大小，在 text 和選項有沒有見過面</h2>
+<p>同一個題目——「這段文字的專案狀態是 A 如期／B 延後／C 卡關／D 取消」——100 筆資料，三種引擎各自怎麼呼叫。先看圖，再看 pseudo code。</p>
+
+<figure class="diagram chart wide reveal">
+<svg viewBox="0 0 640 400" role="img" aria-label="三種呼叫的輸入輸出結構：LLM 與 jevlike 把 text 和選項放進同一個 prompt，EG2 各自編碼後在模型外做矩陣乘法">
+<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0.5 L7.5 4 L0 7.5 z" fill="currentColor" style="color:var(--ink-2)"/></marker></defs>
+
+<!-- lane 1: LLM -->
+<text class="lane" x="12" y="22">LLM CALL</text>
+<rect class="box" x="12" y="34" width="190" height="64" rx="3"/>
+<text class="k" x="22" y="52">prompt</text>
+<text x="22" y="68">[text] + [題目] + [選項說明]</text>
+<text class="dim" x="22" y="84">text 與選項在同一個 context</text>
+<path class="arr" d="M202 66 H236"/>
+<rect class="box model" x="238" y="40" width="112" height="52" rx="3"/>
+<text class="k" x="250" y="62">prefill</text>
+<text x="250" y="78">選項與 text 互看</text>
+<path class="arr" d="M350 66 H380"/>
+<rect class="box model" x="382" y="40" width="96" height="52" rx="3"/>
+<text class="k" x="394" y="62">decode</text>
+<text x="394" y="78">8–12 tokens</text>
+<path class="arr" d="M478 66 H508"/>
+<rect class="box" x="510" y="40" width="118" height="52" rx="3"/>
+<text class="k" x="520" y="62">{"status":"C"}</text>
+<text class="dim" x="520" y="78">parse 可能壞</text>
+<text class="dim" x="12" y="118">100 筆 = 100 × (prefill + decode)　信心：無</text>
+
+<line class="sep" x1="12" y1="132" x2="628" y2="132"/>
+
+<!-- lane 2: jevlike -->
+<text class="lane" x="12" y="154">JEVLIKE CALL</text>
+<rect class="box" x="12" y="166" width="190" height="64" rx="3"/>
+<text class="k" x="22" y="184">prompt</text>
+<text x="22" y="200">[text] + [題目] + [A B C D]</text>
+<text class="dim" x="22" y="216">text 與選項在同一個 context</text>
+<path class="arr" d="M202 198 H236"/>
+<rect class="box model" x="238" y="172" width="112" height="52" rx="3"/>
+<text class="k" x="250" y="194">prefill</text>
+<text x="250" y="210">選項與 text 互看</text>
+<path class="arr" d="M350 198 H380"/>
+<rect class="box ext" x="382" y="172" width="96" height="52" rx="3"/>
+<text class="k" x="394" y="194">讀 logits</text>
+<text x="394" y="210">只看 A B C D</text>
+<path class="arr" d="M478 198 H508"/>
+<rect class="box" x="510" y="172" width="118" height="52" rx="3"/>
+<text class="k" x="520" y="194" style="font-size:10px">p=[.02 .11 .85 .02]</text>
+<text class="dim" x="520" y="210">有校準的機率</text>
+<text class="dim" x="12" y="250">100 筆 = 100 × prefill（decode 歸零）　多一題 = 再 100 次</text>
+
+<line class="sep" x1="12" y1="264" x2="628" y2="264"/>
+
+<!-- lane 3: EG2 -->
+<text class="lane" x="12" y="286">EG2 CALL</text>
+<rect class="box" x="12" y="296" width="110" height="34" rx="3"/>
+<text class="k" x="22" y="318">4 個標籤描述</text>
+<path class="arr once" d="M122 313 H156"/>
+<rect class="box model" x="158" y="296" width="70" height="34" rx="3"/>
+<text class="k" x="168" y="318">encode</text>
+<path class="arr once" d="M228 313 H262"/>
+<rect class="box" x="264" y="296" width="80" height="34" rx="3"/>
+<text class="k" x="274" y="318">L  4×768</text>
+<text class="dim" x="12" y="344">prewarm，算一次永久留用</text>
+
+<rect class="box" x="12" y="352" width="110" height="34" rx="3"/>
+<text class="k" x="22" y="374">text ×100</text>
+<path class="arr" d="M122 369 H156"/>
+<rect class="box model" x="158" y="352" width="70" height="34" rx="3"/>
+<text class="k" x="168" y="374">encode</text>
+<path class="arr" d="M228 369 H262"/>
+<rect class="box" x="264" y="352" width="80" height="34" rx="3"/>
+<text class="k" x="274" y="374">X  100×768</text>
+
+<path class="arr" d="M344 313 H376 V352 H396"/>
+<path class="arr" d="M344 369 H396"/>
+<rect class="box ext" x="398" y="340" width="86" height="40" rx="3"/>
+<text class="k" x="408" y="357">X @ Lᵀ</text>
+<text x="408" y="372">模型外面</text>
+<path class="arr" d="M484 360 H518"/>
+<rect class="box" x="520" y="340" width="108" height="40" rx="3"/>
+<text class="k" x="530" y="357">P  100×4</text>
+<text class="dim" x="530" y="372">softmax(S/0.045)</text>
+<text class="dim" x="398" y="396">text 與標籤從未同框，只剩 cosine</text>
+</svg>
+<figcaption>實線＝每批都跑；虛線＝只跑一次。藍框＝模型內的 forward；虛線框＝模型外的讀取或矩陣運算。</figcaption>
+</figure>
+
+<div class="calls">
+<h3>1 · LLM call：生成文字</h3>
+<pre><code><span class="cm"># 每筆一個 prompt，text 與題目同框，然後把答案「寫」出來</span>
+for text in texts_100:
+    prompt = f"{text}\n請判斷專案狀態，回答 JSON：{{\"status\": \"A|B|C|D\"}}"
+    out    = llm.generate(prompt)      <span class="cm"># prefill + 逐 token decode</span>
+    status = parse_json(out)           <span class="cm"># 可能多話、可能不照格式、沒有信心值</span></code></pre>
+
+<h3>2 · jevlike call：讀第一個 token 的機率，不生成</h3>
+<pre><code><span class="cm"># 每筆一個 prompt，text 與選項同框，但只做一次 forward、讀四格 logit</span>
+for text in texts_100:
+    prompt = f"{text}\n請判斷專案狀態：\nA. 如期  B. 延後  C. 卡關  D. 取消\n答案："
+    logits = llm.prefill(prompt)                       <span class="cm"># 不 decode</span>
+    p      = softmax([logits[tok("A")], logits[tok("B")],
+                      logits[tok("C")], logits[tok("D")]])
+    status, conf = argmax(p), calibrate(p)             <span class="cm"># 有信心值</span>
+<span class="cm"># 多一題 = 再 100 次 prefill；prefix cache 只省題目模板那段</span></code></pre>
+
+<h3>3 · EG2 call：沒有 prompt，比對在模型外面</h3>
+<pre><code><span class="cm"># ── prewarm：標籤各自 encode 一次，永久留用 ──</span>
+labels = ["專案如期進行…", "專案延後…", "專案卡關…", "專案已取消…"]
+L = eg2.encode(labels, prefix="task: classification | query: ")   <span class="cm"># 4 × 768</span>
+L = whiten_and_normalize(L)
+
+<span class="cm"># ── 每批：text 各自 encode，不知道標籤存在、不知道其他 99 筆存在 ──</span>
+X = eg2.encode(texts_100, prefix="title: none | text: ")           <span class="cm"># 100 × 768</span>
+
+<span class="hi">S = X @ L.T</span>                        <span class="cm"># 100 × 4 的 cosine，一次矩陣乘法，模型不參與</span>
+P = softmax(S / 0.045)             <span class="cm"># 溫度校準</span>
+status = argmax(P, axis=1)
+<span class="cm"># 多一題 = L 多一列；encode 不重跑</span></code></pre>
+</div>
+
+<div class="table-scroll">
+<table>
+<thead><tr><th></th><th>text 與選項同一個 context？</th><th class="nowrap">輸出</th><th class="nowrap">多一題的代價</th></tr></thead>
+<tbody>
+<tr><td>LLM</td><td>是，attention 互看</td><td>文字，要 parse</td><td class="nowrap">100 × (prefill + decode)</td></tr>
+<tr><td>jevlike</td><td>是，attention 互看</td><td>4 個機率</td><td class="nowrap">100 × prefill</td></tr>
+<tr><td>EG2</td><td><strong>否</strong>，各自變向量，只剩 cosine</td><td>4 個機率</td><td class="nowrap">0（L 多一列）</td></tr>
+</tbody>
+</table>
+</div>
+<p>jevlike 和 LLM 的差別在<strong>輸出端</strong>：不 decode、直接讀 logit，所以快、穩、有信心值，但模型看到的東西一樣，能推理的程度一樣。EG2 和前兩者的差別在<strong>輸入端</strong>：text 和標籤從來沒見過面。這是它快 30 到 67 倍、多一題零成本的原因，也是它只能答「像不像」的原因。「日期超期了但文字還寫領先」這種題，jevlike 的 attention 可以把「2027-01-30」和「截止 2026-11-28」對起來看；EG2 的 <code>x</code> 裡那兩個日期已經被壓成 768 個數字的一部分，<code>L</code> 裡的「延後」描述根本沒有日期可以對。</p>
+<p>Google 的 Decision Maker 就是把第二張圖和第三張圖包在同一個 <code>evaluate()</code> 後面：<code>prewarm()</code> 對 EG2 後端是算 <code>L</code>，對 Gemma 4 後端是算 KV cache 前綴；<code>evaluate()</code> 對 EG2 是 <code>X @ Lᵀ</code>，對 Gemma 4 是一次 prefill 讀 logit。API 一樣，底下看不看得到選項不一樣——這也是它的 pitfalls 要分後端寫的原因。</p>
+
+<p class="eyebrow">項目 06 · 裁決</p>
 <h2>所以它是 Jev，又不是</h2>
 <p><strong>是 Jev。</strong>TypeSafe 的 Jev API 本來就有兩種引擎，Jev-Gemma 讀生成模型的 logit、Jev-Embed 算 bi-encoder 內積；Google 自己的 Decision Maker 把 EmbeddingGemma 列為後端一號。EG2 投影回答的題型（Choice、Boolean、Score）、輸出的形狀（校準過的機率分布）、用法（選項 prewarm 之後每次一個 forward），跟 jevlike 完全是同一件事。這份檢定證明了：在四個粗類、狀態翻轉這種題上，它的準確度跟 Gemma 4 讀 logit 打平，速度快 30 到 67 倍。</p>
 <p><strong>又不是。</strong>jevlike 讀 logit 的時候，模型已經把題目和選項一起讀過，可以推理；EG2 的段落和標籤是分開編碼的，決策只剩下 cosine 距離。所以它只能回答「像不像」，回答不了「是不是」。三條邊界，三個實驗各自量到一條：</p>
@@ -629,7 +779,7 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 </ul>
 <p class="pull">尺是用來量的，不是用來判的。量得準的地方，它比任何判斷器都便宜；要判的地方，它從來就不該站在那裡。</p>
 
-<p class="eyebrow">項目 06 · 階梯多一格</p>
+<p class="eyebrow">項目 07 · 階梯多一格</p>
 <h2>第 0 格，與分工規則</h2>
 <p>jevlike v3 定的階梯是 E2B → E4B → 26B，四類題 E2B 就夠、六類 26B 真的強。這份檢定在底下補一格，並且把「哪題給哪格」的規則從猜測變成量過的：</p>
 <ol class="ladder">
@@ -640,7 +790,7 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 </ol>
 <p>在這批資料上的管線長這樣：<strong>第 0 格篩，第 1 格抽值，第 2 格只讀篩出來的</strong>。Google 文件說 bi-encoder 遇到「除非」「例外」要把題拆成原子布林題、邏輯放回程式碼——那正是第 0 格加第 1 格的分工，這份檢定只是把它量出數字。</p>
 
-<p class="eyebrow">項目 07 · 本檢定不保證的事</p>
+<p class="eyebrow">項目 08 · 本檢定不保證的事</p>
 <h2>合成骨架內成立，骨架外待驗</h2>
 <p>這張證書上的每一個數字前面都該加「在合成骨架內」。實作者自己的資料覆核列了這些：</p>
 <ul>
