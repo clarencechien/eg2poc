@@ -1,0 +1,14 @@
+{
+  "C_same_classification": 0.005560318144314945,
+  "C_same_search_query": 0.005132007419149883,
+  "C_alt_classification": 0.008916801071533684,
+  "C_alt_search_query": 0.011654970703894634,
+  "C_xlang_classification": 0.003027100138386092,
+  "C_xlang_search_query": 0.008427603417767066,
+  "D2_same_paired": 0.01860702433717242,
+  "D2_same_single": 0.5106740385293961,
+  "D2_alt_paired": 0.22606399418634876,
+  "D2_alt_single": 0.7236522555351257,
+  "D2_xlang_paired": 0.05066941108628691,
+  "D2_xlang_single": 0.3200206309556961
+}

@@ -49,5 +49,87 @@
       "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
       "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
     ]
+  },
+  "labels_same": {
+    "zh": [
+      "專案按計畫進行，進度符合時程，預計如期交付。",
+      "專案進度落後，交付日期延後，無法依原定時程完成。",
+      "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+      "專案已取消，不再繼續執行，也不會交付原定成果。"
+    ],
+    "en": [
+      "The project is on track and progressing as planned. Delivery is expected on schedule.",
+      "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+      "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+      "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+    ]
+  },
+  "labels_alt": {
+    "zh": [
+      "專案運作正常，各項里程碑均能準時達成。",
+      "專案出現延誤，成果將晚於約定時間送達。",
+      "專案陷入停滯，外部相依問題使後續作業受限。",
+      "專案正式終止，原先規劃的成果已遭放棄。"
+    ],
+    "en": [
+      "The project meets its milestones. Delivery remains on schedule.",
+      "The project is slipping. Its delivery will arrive late.",
+      "The project is stalled. An unresolved dependency prevents further progress.",
+      "The project is terminated. The planned output has been abandoned."
+    ]
+  },
+  "labels_xlang": {
+    "zh": [
+      "The project is on track and progressing as planned. Delivery is expected on schedule.",
+      "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+      "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+      "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+    ],
+    "en": [
+      "專案按計畫進行，進度符合時程，預計如期交付。",
+      "專案進度落後，交付日期延後，無法依原定時程完成。",
+      "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+      "專案已取消，不再繼續執行，也不會交付原定成果。"
+    ]
+  },
+  "date_regex": {
+    "zh": {
+      "planned": "預計交付日[為：:]?\\s*(\\d{4}-\\d{2}-\\d{2})",
+      "deadline": "截止日[期為：:]*\\s*(\\d{4}-\\d{2}-\\d{2})"
+    },
+    "en": {
+      "planned": "Planned delivery:\\s*(\\d{4}-\\d{2}-\\d{2})",
+      "deadline": "Deadline:\\s*(\\d{4}-\\d{2}-\\d{2})"
+    }
+  },
+  "v2": {
+    "nli_batch_size": 24,
+    "label_order": [
+      "on_track",
+      "delayed",
+      "blocked",
+      "cancelled"
+    ],
+    "perturbation_lexicon": {
+      "zh": [
+        "沒有",
+        "不再",
+        "尚未",
+        "取消",
+        "暫停",
+        "落後"
+      ],
+      "en": [
+        "no",
+        "no longer",
+        "not yet",
+        "cancel",
+        "pause",
+        "behind"
+      ]
+    },
+    "generator": "rule",
+    "independent_review": false,
+    "llm_status": "Not run: user explicitly waived Gemini for synthetic-v2."
   }
 }

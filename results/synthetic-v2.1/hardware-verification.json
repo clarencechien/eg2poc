@@ -1,0 +1,64 @@
+{
+  "captured_utc": "2026-10-15T00:45:24.036287+00:00",
+  "capture_scope": "Post-run verification in the same execution environment; not a retrospective runtime utilization measurement.",
+  "original_record": "hardware.json",
+  "matches_original": {
+    "cpu_model": true,
+    "cpu_quota": true,
+    "memory_limit": true,
+    "affinity_count": true
+  },
+  "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+  "architecture": "x86_64",
+  "visible_logical_cpus": 5,
+  "affinity_cpu_ids": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "cgroup_cpu_max": "400000 100000",
+  "cpu_quota_equivalent": 4.0,
+  "cgroup_memory_max_bytes": 34359738368,
+  "proc_meminfo": {
+    "MemTotal": "34906040 kB",
+    "SwapTotal": "0 kB"
+  },
+  "os_release": {
+    "PRETTY_NAME": "Debian GNU/Linux 13 (trixie)",
+    "NAME": "Debian GNU/Linux",
+    "VERSION_ID": "13",
+    "VERSION": "13 (trixie)",
+    "VERSION_CODENAME": "trixie",
+    "DEBIAN_VERSION_FULL": "13.6",
+    "ID": "debian",
+    "HOME_URL": "https://www.debian.org/",
+    "SUPPORT_URL": "https://www.debian.org/support",
+    "BUG_REPORT_URL": "https://bugs.debian.org/"
+  },
+  "kernel": "6.18.44",
+  "libc": [
+    "glibc",
+    "2.41"
+  ],
+  "python": "3.12.14",
+  "virtualization": {
+    "Hypervisor vendor": "KVM",
+    "Virtualization type": "full"
+  },
+  "selected_visible_cpu_flags": [
+    "avx2",
+    "avx512_bf16",
+    "avx512_vnni",
+    "avx512f",
+    "avx_vnni"
+  ],
+  "workspace_filesystem_type": "overlayfs",
+  "unmeasured": [
+    "runtime CPU clock",
+    "peak process RSS",
+    "power consumption",
+    "physical storage model and throughput"
+  ]
+}

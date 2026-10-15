@@ -1,0 +1,182 @@
+{
+  "status": "single stage complete; paired/T10 not evaluated by this snapshot",
+  "model": "e2b",
+  "n_predictions": 1230,
+  "n_missing": 0,
+  "metrics": {
+    "T5-word": {
+      "auc": 0.6886111111111111,
+      "n_positive": 60,
+      "n_negative": 60,
+      "n_requested_positive": 60,
+      "matched_win_rate": 1.0,
+      "n_matched_comparisons": 60
+    },
+    "T6-word": {
+      "auc": 0.8895,
+      "n_positive": 300,
+      "n_negative": 300,
+      "n_requested_positive": 300,
+      "matched_win_rate": 1.0,
+      "n_matched_comparisons": 300
+    },
+    "T6-sentence": {
+      "auc": 0.9976,
+      "n_positive": 50,
+      "n_negative": 50,
+      "n_requested_positive": 50,
+      "matched_win_rate": 1.0,
+      "n_matched_comparisons": 50
+    },
+    "T7-word": {
+      "auc": 1.0,
+      "n_positive": 60,
+      "n_negative": 60,
+      "n_requested_positive": 60,
+      "matched_win_rate": 1.0,
+      "n_matched_comparisons": 60
+    },
+    "T7-sentence": {
+      "auc": 1.0,
+      "n_positive": 60,
+      "n_negative": 60,
+      "n_requested_positive": 60,
+      "matched_win_rate": 1.0,
+      "n_matched_comparisons": 60
+    },
+    "T8-sentence": {
+      "auc": 1.0,
+      "n_positive": 60,
+      "n_negative": 60,
+      "n_requested_positive": 60,
+      "matched_win_rate": 1.0,
+      "n_matched_comparisons": 60
+    },
+    "T8-paragraph": {
+      "auc": 1.0,
+      "n_positive": 60,
+      "n_negative": 60,
+      "n_requested_positive": 60,
+      "matched_win_rate": 1.0,
+      "n_matched_comparisons": 60
+    }
+  },
+  "by_language": {
+    "zh": {
+      "T5-word": {
+        "auc": 0.7877777777777778,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T6-word": {
+        "auc": 0.9419111111111111,
+        "n_positive": 150,
+        "n_negative": 150,
+        "n_requested_positive": 150,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 150
+      },
+      "T6-sentence": {
+        "auc": 1.0,
+        "n_positive": 25,
+        "n_negative": 25,
+        "n_requested_positive": 25,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 25
+      },
+      "T7-word": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T7-sentence": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T8-sentence": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T8-paragraph": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      }
+    },
+    "en": {
+      "T5-word": {
+        "auc": 0.8577777777777778,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T6-word": {
+        "auc": 0.9612888888888889,
+        "n_positive": 150,
+        "n_negative": 150,
+        "n_requested_positive": 150,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 150
+      },
+      "T6-sentence": {
+        "auc": 1.0,
+        "n_positive": 25,
+        "n_negative": 25,
+        "n_requested_positive": 25,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 25
+      },
+      "T7-word": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T7-sentence": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T8-sentence": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      },
+      "T8-paragraph": {
+        "auc": 1.0,
+        "n_positive": 30,
+        "n_negative": 30,
+        "n_requested_positive": 30,
+        "matched_win_rate": 1.0,
+        "n_matched_comparisons": 30
+      }
+    }
+  }
+}

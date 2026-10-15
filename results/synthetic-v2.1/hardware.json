@@ -1,0 +1,11 @@
+{
+  "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+  "architecture": "x86_64",
+  "cpu_affinity_count": 5,
+  "cgroup_cpu_max": "400000 100000",
+  "cgroup_memory_max_bytes": 34359738368,
+  "inference_threads": 4,
+  "python": "3.12.14",
+  "captured_utc": "2026-10-14T10:19:14Z",
+  "note": "Same container for EG2, NLI, E2B, and E4B timing; no GPU inference."
+}

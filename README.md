@@ -1,7 +1,9 @@
-# EG2 project status drift — Phase 1
+# EG2 project status drift — synthetic experiments
 
-目前狀態：**已完成 770 組中英規則合成資料的 A／EG2／C／NLI 試驗。**
-結果見 [results/report.md](results/report.md)，完整分析見 [合成試驗報告](results/synthetic-v1/summary.md)。
+目前狀態：**v0.2 與 v0.2.1 J E2B／E4B 全部完成並通過檢核。**
+最新結果見 [v0.2 摘要](results/synthetic-v2/summary.md)、[完整報告](results/synthetic-v2/report.md)；
+J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集，全部通過輸出檢核且無缺值，見 [v0.2.1 摘要](results/synthetic-v2.1/summary.md)與[完整報告](results/synthetic-v2.1/report.md)。
+770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
 
@@ -9,8 +11,8 @@
 
 | 用途 | 模型 | 固定 revision | 狀態 |
 |---|---|---|---|
-| B/C | `google/embeddinggemma-2` | `914f7f89142e33e77833254d9c9b90c3cef7303b` | 770 組推論完成，文字塔 271,002,624 參數、float32 |
-| D | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | 770 組雙向推論完成；**NLI 替代，不是 Decision Maker** |
+| B/C | `google/embeddinggemma-2` | `914f7f89142e33e77833254d9c9b90c3cef7303b` | v0.2 的 1,690 組完成，文字塔 271,002,624 參數、float32 |
+| D1/D2 | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | v0.2 的 1,690 組完成；**NLI 替代，不是 Decision Maker** |
 | 生成／覆核／E | 原規格 `gemini-3.5-flash` | 不適用 | 官方公告已停用並自動轉到 3.6；尚未選擇替代、沒有 API 呼叫 |
 
 EG2：CPU float32；`config_kwargs={"vision_config": null, "audio_config": null}`。
@@ -24,6 +26,8 @@ C 保留兩種 prefix 結果，不用 holdout T7 選設定；段落 Document／�
 
 Python 3.12，CPU 最多 4 threads。PyTorch 2.14.1+cpu、Transformers 5.19.0、
 SentenceTransformers 6.1.0；所有安裝版本見 `requirements.lock`。
+本次硬體 baseline：**Xeon Platinum 8573C、等效 4 CPU 配額、32 GiB RAM、CPU 推論**；
+環境可見 5 個 logical CPU，實驗使用 4 threads。詳見 [硬體、量測設定與延遲 baseline](results/synthetic-v2.1/hardware-baseline.md)。
 即使只載文字塔，這版 EG2 processor 仍需要 torchvision；已安裝相符的 0.29.1+cpu。
 
 ```bash
@@ -119,3 +123,40 @@ API ledger 位於 `results/api-ledger.jsonl`，生成、覆核、E **不可並�
 - 若後續遇到新下載轉址，僅新增實際需要的目的地，不關閉 TLS 或擴成全網路。
 
 網路與套件的成功不代表正式資料、模型分數、發布或新任務還原已驗證。
+
+## v0.2 / v0.2.1 合成實驗
+
+本輪先完成 [v0.2 原規格](docs/protocol-v0.2-original.md)，再接
+[main@fb62b10 的 v0.2.1](docs/protocol-v0.2.md)。使用者允許不用 Gemini，
+因此所有底稿與擾動均由規則生成；LLM 改寫、獨立覆核與真實文件測試未執行。
+v0.2 與 J E2B／E4B 已完成並驗證全部分數；各 run 的 manifest 保存雜湊與執行紀錄。
+
+- 420 段底稿、1,690 組比較；五骨架各中英 42 段。每個 T6 否定形式有 30 個不同底稿。
+- 主表改成同底稿專屬負例。T4/T5 各改一個日期字元；T8 另附把不確定 T9 當負例的敏感度表。
+- C 比較 same／alt／xlang 與兩種前綴；D2 把 NLI hypothesis 換成狀態標籤，保留 paired 與 single 分數。
+- R 只檢查先前未超期、此次是否跨截止日；固定組合為 `max(R, D2_single)`，無日期時用 D2 single。
+- T10 有 40 對文件集，每組三段不同骨架。標註來自明定的三信號待審政策，並非獨立 prompt 判讀，結論僅探索。
+- v0.2.1 的 J 使用 `clarencechien/jevlike@9838918533cf3d88dc975ef19d38122b07df47f7` 原有模板與讀機率介面，
+  不在此 repo 重寫模板。E2B／E4B 採 Q8_0、固定 HF revision，llama.cpp b11371 於本機 CPU 執行。
+- J-single 只讀 new；J-paired 讀 old/new；T10 讀三段 new concat。缺候選選項記 null，不補零。
+
+```bash
+source scripts/env.sh
+bash scripts/run-synthetic-v2.sh results/synthetic-v2-repeat
+# J 需要先完成預設 results/synthetic-v2，另下載約 13.2 GB 權重並編譯本機引擎。
+bash scripts/setup-j.sh
+.venv/bin/python -u -m src.benchmark_v21
+.venv/bin/python -u -m src.run_v21 --model-size e2b
+.venv/bin/python -u -m src.run_v21 --model-size e4b
+.venv/bin/python -m src.report_v21
+```
+
+v0.2 可在相同輸出目錄續跑，前提是 frozen input 與 scoring source 的 SHA256 相同。
+J 也有逐題 checkpoint；請勿修改 frozen 標籤、題目或設定再沿用同一輸出目錄。
+成本比較使用同機、同一批預先選定的 100 筆；測量時不要同時執行其他模型推論或編譯。
+C 的 old 向量和 label 預先快取，但 new embedding 仍需推論，不能把整個管線當成與輸入長度無關的 O(1)。
+
+v0.1 的結果應保留限定：原始 cosine 對編輯幅度敏感，尚不能說它完全不含語意；
+D1 對新增阻礙弱，但不是所有新增都必然偵測不到；T5/T4 的 NLI AUROC 約 0.485，
+而 A/B/C 的高分受到日期編輯幅度不等的干擾，不能據此證明日期推理。
+Gemini 3.5 已停用、自動轉向 3.6 的版本紀錄維持；本輪完全沒有呼叫 Gemini。

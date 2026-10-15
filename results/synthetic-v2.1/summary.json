@@ -1,0 +1,1253 @@
+{
+  "models": {
+    "e2b": {
+      "status": "complete",
+      "model": {
+        "model_id": "unsloth/gemma-4-E2B-it-GGUF",
+        "revision": "0314792d7f1f7e229411f620751375812bb9faf2",
+        "file": "gemma-4-E2B-it-Q8_0.gguf",
+        "quantization": "Q8_0",
+        "backend": "llama.cpp b11371 CPU"
+      },
+      "model_bytes": 5048352864,
+      "metrics": {
+        "T5-word": {
+          "J_e2b_single": {
+            "auc": 0.6886111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T6-word": {
+          "J_e2b_single": {
+            "auc": 0.8895,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "J_e2b_paired": {
+            "auc": 0.9939,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 0.9866666666666667,
+            "n_matched_comparisons": 300
+          }
+        },
+        "T6-sentence": {
+          "J_e2b_single": {
+            "auc": 0.9976,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          }
+        },
+        "T7-word": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T7-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T8-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T8-paragraph": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e2b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        }
+      },
+      "by_language": {
+        "zh": {
+          "T5-word": {
+            "J_e2b_single": {
+              "auc": 0.7877777777777778,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T6-word": {
+            "J_e2b_single": {
+              "auc": 0.9419111111111111,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            },
+            "J_e2b_paired": {
+              "auc": 0.9988444444444444,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            }
+          },
+          "T6-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            }
+          },
+          "T7-word": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T7-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-paragraph": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          }
+        },
+        "en": {
+          "T5-word": {
+            "J_e2b_single": {
+              "auc": 0.8577777777777778,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T6-word": {
+            "J_e2b_single": {
+              "auc": 0.9612888888888889,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            },
+            "J_e2b_paired": {
+              "auc": 0.9921777777777778,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 0.9733333333333334,
+              "n_matched_comparisons": 150
+            }
+          },
+          "T6-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            }
+          },
+          "T7-word": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T7-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-sentence": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-paragraph": {
+            "J_e2b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e2b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          }
+        }
+      },
+      "common_case_vs_D2_alt": {
+        "T5-word": {
+          "J_e2b_single": {
+            "auc": 0.6886111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.5119444444444444,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 0.6333333333333333,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.17666666666666664
+        },
+        "T6-word": {
+          "J_e2b_single": {
+            "auc": 0.8895,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "D2_alt_single": {
+            "auc": 0.9218222222222222,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "J_minus_D2": -0.03232222222222225
+        },
+        "T6-sentence": {
+          "J_e2b_single": {
+            "auc": 0.9976,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "D2_alt_single": {
+            "auc": 0.9896,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "J_minus_D2": 0.008000000000000007
+        },
+        "T7-word": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.9663888888888889,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.03361111111111115
+        },
+        "T7-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.9955555555555555,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.004444444444444473
+        },
+        "T8-sentence": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.951111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.04888888888888898
+        },
+        "T8-paragraph": {
+          "J_e2b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.0
+        }
+      },
+      "T8_with_ambiguous_T9_assumed_negative": {
+        "J_e2b_single": {
+          "auc": 1.0,
+          "n_positive": 60,
+          "n_negative": 120,
+          "n_requested_positive": 60,
+          "matched_win_rate": 1.0,
+          "n_matched_comparisons": 120
+        },
+        "J_e2b_paired": {
+          "auc": 1.0,
+          "n_positive": 60,
+          "n_negative": 120,
+          "n_requested_positive": 60,
+          "matched_win_rate": 1.0,
+          "n_matched_comparisons": 120
+        }
+      },
+      "docset_auc": 0.7725,
+      "docset_n_positive": 40,
+      "docset_n_negative": 40,
+      "missing_single": 0,
+      "missing_paired": 0,
+      "n_scored_pairs": 1230,
+      "n_outside_scope": 460,
+      "option_mass": {
+        "n": 2540,
+        "mean": 0.9998997461335394,
+        "p50": 0.9999961329147784,
+        "p95": 1.0000000022653748
+      },
+      "last_session_seconds": 14212.260954803
+    },
+    "e4b": {
+      "status": "complete",
+      "model": {
+        "model_id": "unsloth/gemma-4-E4B-it-GGUF",
+        "revision": "bfc15c382204943c3a8fff0c750b94ae2364d7a3",
+        "file": "gemma-4-E4B-it-Q8_0.gguf",
+        "quantization": "Q8_0",
+        "backend": "llama.cpp b11371 CPU"
+      },
+      "model_bytes": 8192953472,
+      "metrics": {
+        "T5-word": {
+          "J_e4b_single": {
+            "auc": 0.9386111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e4b_paired": {
+            "auc": 0.7677777777777778,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T6-word": {
+          "J_e4b_single": {
+            "auc": 0.9547444444444446,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "J_e4b_paired": {
+            "auc": 0.9998222222222222,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          }
+        },
+        "T6-sentence": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "J_e4b_paired": {
+            "auc": 1.0,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          }
+        },
+        "T7-word": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e4b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T7-sentence": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e4b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T8-sentence": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e4b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        },
+        "T8-paragraph": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_e4b_paired": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          }
+        }
+      },
+      "by_language": {
+        "zh": {
+          "T5-word": {
+            "J_e4b_single": {
+              "auc": 0.9977777777777778,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 0.84,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T6-word": {
+            "J_e4b_single": {
+              "auc": 0.9860444444444444,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            }
+          },
+          "T6-sentence": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            }
+          },
+          "T7-word": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T7-sentence": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-sentence": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-paragraph": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          }
+        },
+        "en": {
+          "T5-word": {
+            "J_e4b_single": {
+              "auc": 0.92,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 0.7855555555555556,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T6-word": {
+            "J_e4b_single": {
+              "auc": 0.9381333333333334,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 150,
+              "n_negative": 150,
+              "n_requested_positive": 150,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 150
+            }
+          },
+          "T6-sentence": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 25,
+              "n_negative": 25,
+              "n_requested_positive": 25,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 25
+            }
+          },
+          "T7-word": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T7-sentence": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-sentence": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          },
+          "T8-paragraph": {
+            "J_e4b_single": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            },
+            "J_e4b_paired": {
+              "auc": 1.0,
+              "n_positive": 30,
+              "n_negative": 30,
+              "n_requested_positive": 30,
+              "matched_win_rate": 1.0,
+              "n_matched_comparisons": 30
+            }
+          }
+        }
+      },
+      "common_case_vs_D2_alt": {
+        "T5-word": {
+          "J_e4b_single": {
+            "auc": 0.9386111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.5119444444444444,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 0.6333333333333333,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.42666666666666664
+        },
+        "T6-word": {
+          "J_e4b_single": {
+            "auc": 0.9547444444444446,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "D2_alt_single": {
+            "auc": 0.9218222222222222,
+            "n_positive": 300,
+            "n_negative": 300,
+            "n_requested_positive": 300,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 300
+          },
+          "J_minus_D2": 0.03292222222222241
+        },
+        "T6-sentence": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "D2_alt_single": {
+            "auc": 0.9896,
+            "n_positive": 50,
+            "n_negative": 50,
+            "n_requested_positive": 50,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 50
+          },
+          "J_minus_D2": 0.010399999999999965
+        },
+        "T7-word": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.9663888888888889,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.03361111111111115
+        },
+        "T7-sentence": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.9955555555555555,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.004444444444444473
+        },
+        "T8-sentence": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 0.951111111111111,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.04888888888888898
+        },
+        "T8-paragraph": {
+          "J_e4b_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "D2_alt_single": {
+            "auc": 1.0,
+            "n_positive": 60,
+            "n_negative": 60,
+            "n_requested_positive": 60,
+            "matched_win_rate": 1.0,
+            "n_matched_comparisons": 60
+          },
+          "J_minus_D2": 0.0
+        }
+      },
+      "T8_with_ambiguous_T9_assumed_negative": {
+        "J_e4b_single": {
+          "auc": 1.0,
+          "n_positive": 60,
+          "n_negative": 120,
+          "n_requested_positive": 60,
+          "matched_win_rate": 1.0,
+          "n_matched_comparisons": 120
+        },
+        "J_e4b_paired": {
+          "auc": 1.0,
+          "n_positive": 60,
+          "n_negative": 120,
+          "n_requested_positive": 60,
+          "matched_win_rate": 1.0,
+          "n_matched_comparisons": 120
+        }
+      },
+      "docset_auc": 0.989375,
+      "docset_n_positive": 40,
+      "docset_n_negative": 40,
+      "missing_single": 0,
+      "missing_paired": 0,
+      "n_scored_pairs": 1230,
+      "n_outside_scope": 460,
+      "option_mass": {
+        "n": 2540,
+        "mean": 0.9999786480779175,
+        "p50": 0.9999965590733432,
+        "p95": 0.9999998573080174
+      },
+      "last_session_seconds": 29022.208197524997
+    }
+  },
+  "hypotheses": {
+    "e2b": {
+      "H8_numeric": true,
+      "H8_complete": true,
+      "H9_numeric": false,
+      "H9_complete": true,
+      "H10_tie_on_common_cases": true,
+      "H10_J_stronger_all": false,
+      "H11_numeric_exploratory": false,
+      "H11_complete": true
+    },
+    "e4b": {
+      "H8_numeric": true,
+      "H8_complete": true,
+      "H9_numeric": true,
+      "H9_complete": true,
+      "H10_tie_on_common_cases": true,
+      "H10_J_stronger_all": false,
+      "H11_numeric_exploratory": true,
+      "H11_complete": true
+    }
+  },
+  "costs": {
+    "J_e2b": {
+      "latency_ms": {
+        "n": 100,
+        "mean": 7235.8852852799455,
+        "p50": 6576.102295000055,
+        "p95": 10330.065185599686
+      },
+      "prefill_ms": {
+        "n": 100,
+        "mean": 7208.342380000001,
+        "p50": 6558.4465,
+        "p95": 10297.884099999997
+      },
+      "input_tokens": {
+        "n": 100,
+        "mean": 190.78,
+        "p50": 193.5,
+        "p95": 216.05
+      },
+      "model_bytes": 5048352864,
+      "quantization": "Q8_0"
+    },
+    "J_e4b": {
+      "latency_ms": {
+        "n": 100,
+        "mean": 16078.051449679986,
+        "p50": 15301.877596499253,
+        "p95": 22015.816930600155
+      },
+      "prefill_ms": {
+        "n": 100,
+        "mean": 16014.88669,
+        "p50": 15251.4645,
+        "p95": 21961.91995
+      },
+      "input_tokens": {
+        "n": 100,
+        "mean": 190.78,
+        "p50": 193.5,
+        "p95": 216.05
+      },
+      "model_bytes": 8192953472,
+      "quantization": "Q8_0"
+    },
+    "C_alt_classification": {
+      "latency_ms": {
+        "n": 100,
+        "mean": 240.91827615997317,
+        "p50": 231.50090950002777,
+        "p95": 305.9780463993775
+      },
+      "input_tokens": {
+        "n": 100,
+        "mean": 72.61,
+        "p50": 72.0,
+        "p95": 86.05
+      },
+      "parameters": 271002624,
+      "dtype": "float32",
+      "projection_only_ms": {
+        "n": 100,
+        "mean": 0.2575780399456562,
+        "p50": 0.22797099973104196,
+        "p95": 0.49233264926442644
+      }
+    },
+    "D2_alt_single": {
+      "latency_ms": {
+        "n": 100,
+        "mean": 435.7072977499047,
+        "p50": 415.7730429997173,
+        "p95": 605.0774994494532
+      },
+      "input_tokens": {
+        "n": 100,
+        "mean": 287.52,
+        "p50": 283.0,
+        "p95": 343.29999999999995
+      },
+      "parameters": 278811651,
+      "dtype": "float32"
+    }
+  },
+  "plan_sha256": "8dbf209f146ab6f62c521604f39fcb13d07f9349b0553c1d522f827b1ba6eb56",
+  "hardware_baseline": {
+    "record": {
+      "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "architecture": "x86_64",
+      "cpu_affinity_count": 5,
+      "cgroup_cpu_max": "400000 100000",
+      "cgroup_memory_max_bytes": 34359738368,
+      "inference_threads": 4,
+      "python": "3.12.14",
+      "captured_utc": "2026-10-14T10:19:14Z",
+      "note": "Same container for EG2, NLI, E2B, and E4B timing; no GPU inference."
+    },
+    "record_sha256": "09a285ed3713b6222517e6d6d8305a44420e6d30a8e65740bd9dcdd57d5a625f"
+  }
+}

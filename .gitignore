@@ -4,3 +4,5 @@ __pycache__/
 .cache/
 .env
 data/private/
+# Local inference engine logs; structured per-question timings remain in results.
+results/synthetic-v2.1/*/server.log

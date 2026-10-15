@@ -1,0 +1,41 @@
+{
+  "version": "synthetic-v2",
+  "sha256": {
+    "base.jsonl": "eee25f955a30cb48561e77e9c3943bcdf24f9bdc5f7be2bab98b5ae55fa90296",
+    "pairs.jsonl": "6e30c4dd0446d365a93fbaad57c6ae139d8fb5613a3aa6d2794453f9f6e348de",
+    "docsets.jsonl": "3de5b92916e0a6ef7e4865b6f7e10b76fd735f2173bb72e829f4775dd2246dac",
+    "analysis-plan.json": "a56bffd2df59bc02cba6e7e65e91d022fb139c2d304ba2a594c28106cc48769f",
+    "config.json": "abd9dda2e96a3ba59d8a36b41467a7f295586fffe4e5db3f5ab2464c476bb539"
+  },
+  "generator_sha256": "3ac016c4ebac0e594463b4ccde0a8aba58be9ae55639f81ac47eaa9f437c90a3",
+  "n_bases": 420,
+  "n_pairs": 1690,
+  "n_docsets": 80,
+  "counts": {
+    "T3": 460,
+    "T6": 350,
+    "T0": 100,
+    "T1": 60,
+    "T2": 60,
+    "T4": 60,
+    "T5": 60,
+    "T7": 120,
+    "T9": 60,
+    "T8": 120,
+    "T10": 240
+  },
+  "skeleton_language_counts": {
+    "zh/weekly": 42,
+    "zh/adr": 42,
+    "zh/ticket": 42,
+    "zh/meeting": 42,
+    "zh/prd": 42,
+    "en/weekly": 42,
+    "en/adr": 42,
+    "en/ticket": 42,
+    "en/meeting": 42,
+    "en/prd": 42
+  },
+  "generated_with": "deterministic Python rules; zero Gemini calls",
+  "independent_validation": false
+}

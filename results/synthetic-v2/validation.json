@@ -1,0 +1,9 @@
+{
+  "n_scores": 1690,
+  "duplicate_ids": false,
+  "all_scores_finite_or_null": true,
+  "data_hashes_valid": true,
+  "n_r_missing_T4_T5": 0,
+  "scores_sha256": "a7d14e289505bcfa93e1b850e9db374c62b619aabc7d0840c7d401750cdbe319",
+  "report_sha256": "7f392304ab4c97833690818bc8002feaf0dca7bdda0970feb85bdea509896451"
+}

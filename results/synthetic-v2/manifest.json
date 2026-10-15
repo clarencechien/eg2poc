@@ -1,0 +1,182 @@
+{
+  "inputs": {
+    "base.jsonl": "eee25f955a30cb48561e77e9c3943bcdf24f9bdc5f7be2bab98b5ae55fa90296",
+    "pairs.jsonl": "6e30c4dd0446d365a93fbaad57c6ae139d8fb5613a3aa6d2794453f9f6e348de",
+    "docsets.jsonl": "3de5b92916e0a6ef7e4865b6f7e10b76fd735f2173bb72e829f4775dd2246dac",
+    "analysis-plan.json": "a56bffd2df59bc02cba6e7e65e91d022fb139c2d304ba2a594c28106cc48769f",
+    "config.json": "abd9dda2e96a3ba59d8a36b41467a7f295586fffe4e5db3f5ab2464c476bb539"
+  },
+  "source_sha256": {
+    "src/arms.py": "559df3b822d517211d6da5251939484933a2a1e00e71216d60c6e90f5a57554b",
+    "src/run_v2.py": "322eb03cb1f9eee1c94b816f826610ef039ddbfa56e5ed849dd74f06457cada1"
+  },
+  "config": {
+    "seed": 20261014,
+    "embedding": {
+      "model_id": "google/embeddinggemma-2",
+      "revision": "914f7f89142e33e77833254d9c9b90c3cef7303b",
+      "official_source": "https://huggingface.co/google/embeddinggemma-2",
+      "verified": true,
+      "document_template": "title: none | text: {text}",
+      "classification_template": "task: classification | query: {text}",
+      "search_query_template": "task: search result | query: {text}",
+      "temperature": 0.045,
+      "batch_size": 8,
+      "max_seq_length": null,
+      "config_kwargs": {
+        "vision_config": null,
+        "audio_config": null
+      }
+    },
+    "nli": {
+      "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+      "official_source": "https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "verified": true,
+      "batch_size": 4
+    },
+    "gemini": {
+      "model_id": null,
+      "official_source": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash",
+      "verified": false,
+      "thinking_level": "minimal",
+      "max_output_tokens": 512,
+      "max_calls": 2000,
+      "max_total_tokens": 500000,
+      "max_usd": 1.0,
+      "max_usd_per_million_tokens": null,
+      "requested_model_id": "gemini-3.5-flash",
+      "requested_model_status": "Official docs: deprecated; requests automatically routed to gemini-3.6-flash. Replacement not selected or run."
+    },
+    "labels": {
+      "zh": [
+        "專案按計畫進行，進度符合時程，預計如期交付。",
+        "專案進度落後，交付日期延後，無法依原定時程完成。",
+        "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+        "專案已取消，不再繼續執行，也不會交付原定成果。"
+      ],
+      "en": [
+        "The project is on track and progressing as planned. Delivery is expected on schedule.",
+        "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+        "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+        "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+      ]
+    },
+    "labels_same": {
+      "zh": [
+        "專案按計畫進行，進度符合時程，預計如期交付。",
+        "專案進度落後，交付日期延後，無法依原定時程完成。",
+        "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+        "專案已取消，不再繼續執行，也不會交付原定成果。"
+      ],
+      "en": [
+        "The project is on track and progressing as planned. Delivery is expected on schedule.",
+        "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+        "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+        "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+      ]
+    },
+    "labels_alt": {
+      "zh": [
+        "專案運作正常，各項里程碑均能準時達成。",
+        "專案出現延誤，成果將晚於約定時間送達。",
+        "專案陷入停滯，外部相依問題使後續作業受限。",
+        "專案正式終止，原先規劃的成果已遭放棄。"
+      ],
+      "en": [
+        "The project meets its milestones. Delivery remains on schedule.",
+        "The project is slipping. Its delivery will arrive late.",
+        "The project is stalled. An unresolved dependency prevents further progress.",
+        "The project is terminated. The planned output has been abandoned."
+      ]
+    },
+    "labels_xlang": {
+      "zh": [
+        "The project is on track and progressing as planned. Delivery is expected on schedule.",
+        "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+        "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+        "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+      ],
+      "en": [
+        "專案按計畫進行，進度符合時程，預計如期交付。",
+        "專案進度落後，交付日期延後，無法依原定時程完成。",
+        "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+        "專案已取消，不再繼續執行，也不會交付原定成果。"
+      ]
+    },
+    "date_regex": {
+      "zh": {
+        "planned": "預計交付日[為：:]?\\s*(\\d{4}-\\d{2}-\\d{2})",
+        "deadline": "截止日[期為：:]*\\s*(\\d{4}-\\d{2}-\\d{2})"
+      },
+      "en": {
+        "planned": "Planned delivery:\\s*(\\d{4}-\\d{2}-\\d{2})",
+        "deadline": "Deadline:\\s*(\\d{4}-\\d{2}-\\d{2})"
+      }
+    },
+    "v2": {
+      "nli_batch_size": 24,
+      "label_order": [
+        "on_track",
+        "delayed",
+        "blocked",
+        "cancelled"
+      ],
+      "perturbation_lexicon": {
+        "zh": [
+          "沒有",
+          "不再",
+          "尚未",
+          "取消",
+          "暫停",
+          "落後"
+        ],
+        "en": [
+          "no",
+          "no longer",
+          "not yet",
+          "cancel",
+          "pause",
+          "behind"
+        ]
+      },
+      "generator": "rule",
+      "independent_review": false,
+      "llm_status": "Not run: user explicitly waived Gemini for synthetic-v2."
+    }
+  },
+  "fingerprint": "cf44791624dd5d6a12beb2e2b2cc53de4fcf0505d78bb47d5e33befb03701c06",
+  "status": "complete",
+  "started_utc": "2026-10-14T09:29:02Z",
+  "packages": {
+    "torch": "2.14.1+cpu",
+    "torchvision": "0.29.1+cpu",
+    "transformers": "5.19.0",
+    "sentence-transformers": "6.1.0",
+    "numpy": "2.3.5",
+    "scikit-learn": "1.8.0"
+  },
+  "device": "cpu",
+  "dtype": "float32",
+  "threads": 4,
+  "gemini_calls": 0,
+  "D2_DM": "not run (optional; no verified local setup)",
+  "missing_value_policy": "null, never substituted with zero",
+  "nli_id2label": {
+    "0": "entailment",
+    "1": "neutral",
+    "2": "contradiction"
+  },
+  "embedding_parameters": "text-only, 768 dimensions; frozen document and label prefixes; temperature 0.045",
+  "n_pairs": 1690,
+  "n_docsets": 80,
+  "unique_texts": 2010,
+  "nli_unique_tasks": 27400,
+  "finished_utc": "2026-10-14T10:36:24Z",
+  "last_session_seconds": 4041.755666989,
+  "output_sha256": {
+    "scores.jsonl": "a7d14e289505bcfa93e1b850e9db374c62b619aabc7d0840c7d401750cdbe319",
+    "docset-scores.jsonl": "64fec06e32e31afa76532b250bce035e629f1355e004fddf9c6427f1eee554b2",
+    "determinism.json": "1fe67b8edc18b294fb9f36582e35f83e7de4cdba730c99c37f2a0f2d46206c1d"
+  }
+}
