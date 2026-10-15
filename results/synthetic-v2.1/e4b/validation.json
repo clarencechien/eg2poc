@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "model": "e4b",
+  "pairs": 1690,
+  "scoped_pairs": 1230,
+  "docsets": 80,
+  "predictions": 2540,
+  "benchmark": 100,
+  "missing": {
+    "single": 0,
+    "paired": 0,
+    "docset": 0
+  }
+}

@@ -127,6 +127,13 @@ def main():
             lines+=['',f'### {lang} single AUROC','', '| 配對 | AUROC | 正/負 |','|---|---|---|']
             for c in CONTRASTS:
                 m=info['by_language'][lang][c][f'J_{size}_single'];lines.append(f"| {c} | {fmt(m['auc'])} | {m['n_positive']}/{m['n_negative']} |")
+    overview=['','## 日期與跨段落結果','', '| 模型 | T5 single AUROC | T5 paired AUROC | T10 concat AUROC |','|---|---|---|---|']
+    for size,info in summaries.items():
+        if info['status']=='complete':
+            values=[info['metrics']['T5-word'][f'J_{size}_{mode}']['auc'] for mode in ('single','paired')]+[info['docset_auc']]
+            overview.append('| '+size.upper()+' | '+' | '.join('—' if v is None else f'{v:.4f}' for v in values)+' |')
+    overview+=['','single 與 paired 是不同輸入／題型，不能以較高分替換預先指定的主分數。T10 使用未提供給模型的人工政策，未經獨立覆核；只作探索。','']
+    lines+=overview
     lines+=['','## 成本：同一台 CPU、同一批 100 筆','', '| arm | 平均端到端 ms | p95 ms | 平均 prefill ms | 平均輸入 tokens | 模型 | prewarm 後可否固定預算 |','|---|---|---|---|---|---|---|']
     for a in ('C_alt_classification','D2_alt_single','J_e2b','J_e4b'):
         if a not in costs:lines.append(f'| {a} | 尚無完整測量 | — | — | — | — | — |');continue
@@ -145,7 +152,7 @@ def main():
     cost_end=lines.index('## 限制與可追溯性')
     summary=lines[:lines.index('J 缺少候選選項時保留 null。不同 arm 若有效樣本不同，主表不能直接比較；下方提供每格正／負樣本數及 J／D2 共同有效樣本上的差。所有結論限於合成骨架內。')]
     summary+=['J 缺選項記 null；有效樣本數、共同樣本比較與 H8–H11 見完整報告。T10 是未獨立覆核的合成政策任務，不能外推真實文件。','']
-    summary+=lines[cost_start:cost_end]+['[完整結果、H8–H11、限制](report.md)','']
+    summary+=overview+lines[cost_start:cost_end]+['[完整結果、H8–H11、限制](report.md)','']
     if has_figure:summary+=['![AUROC and measured CPU latency](fig/j-quality-cost.png)','']
     (out/'summary.md').write_text('\n'.join(summary))
     print(json.dumps({'hypotheses':hypotheses,'costs':costs},ensure_ascii=False,indent=2))
