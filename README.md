@@ -26,6 +26,8 @@ C 保留兩種 prefix 結果，不用 holdout T7 選設定；段落 Document／�
 
 Python 3.12，CPU 最多 4 threads。PyTorch 2.14.1+cpu、Transformers 5.19.0、
 SentenceTransformers 6.1.0；所有安裝版本見 `requirements.lock`。
+本次硬體 baseline：**Xeon Platinum 8573C、等效 4 CPU 配額、32 GiB RAM、CPU 推論**；
+環境可見 5 個 logical CPU，實驗使用 4 threads。詳見 [硬體、量測設定與延遲 baseline](results/synthetic-v2.1/hardware-baseline.md)。
 即使只載文字塔，這版 EG2 processor 仍需要 torchvision；已安裝相符的 0.29.1+cpu。
 
 ```bash

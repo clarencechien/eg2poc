@@ -34,6 +34,20 @@ single 與 paired 是不同輸入／題型，不能以較高分替換預先指�
 
 ## 成本：同一台 CPU、同一批 100 筆
 
+### 硬體 baseline
+
+| 項目 | 執行環境 |
+|---|---|
+| CPU | INTEL(R) XEON(R) PLATINUM 8573C；x86_64 |
+| CPU 配額／可見 affinity | 等效 4 CPU（cpu.max: `400000 100000`）；5 個 logical CPU |
+| 推論 threads | 4 |
+| 記憶體上限 | 32 GiB（cgroup limit，非峰值用量） |
+| 推論裝置 | CPU；無 GPU 推論 |
+
+來源：[原始硬體紀錄](hardware.json)。可見 logical CPU 數量與 CPU 配額需分開比較。
+
+[完整硬體、系統版本、快取條件與後續比較方式](hardware-baseline.md)。OS／虛擬化等事後補查資訊另標註來源。
+
 | arm | 平均端到端 ms | p95 ms | 平均 prefill ms | 平均輸入 tokens | 模型 | prewarm 後可否固定預算 |
 |---|---|---|---|---|---|---|
 | C_alt_classification | 240.918 | 305.978 | — | 72.610 | 271.0M / float32 | 標籤／old 已預算；new embedding 仍隨長度變動 |

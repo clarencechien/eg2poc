@@ -5,6 +5,7 @@ v0.2.1 的 J E2B／E4B 均已完成；兩者使用 jevlike 的原有判讀介面
 
 - [v0.2 摘要](synthetic-v2/summary.md)、[完整 Q1–Q7／H1–H7 報告](synthetic-v2/report.md)、[資料設計覆核](synthetic-v2/data-audit.md)。
 - [v0.2.1 摘要](synthetic-v2.1/summary.md)、[完整報告](synthetic-v2.1/report.md)、[模型與執行紀錄](synthetic-v2.1/)。
+- [CPU 硬體與效能 baseline](synthetic-v2.1/hardware-baseline.md)：Xeon Platinum 8573C、等效 4 CPU 配額、32 GiB RAM、4 threads、無 GPU 推論。
 - [v0.1 歷史結果](synthetic-v1/summary.md)；[v1 日期對照重新分析](synthetic-v2/v1-date-reanalysis.json)。
 
 在這批合成骨架內，C 的跨語言標籤未使 T6/T7 word 的 AUROC 明顯退步。

@@ -1235,5 +1235,19 @@
       "dtype": "float32"
     }
   },
-  "plan_sha256": "8dbf209f146ab6f62c521604f39fcb13d07f9349b0553c1d522f827b1ba6eb56"
+  "plan_sha256": "8dbf209f146ab6f62c521604f39fcb13d07f9349b0553c1d522f827b1ba6eb56",
+  "hardware_baseline": {
+    "record": {
+      "cpu_model": "INTEL(R) XEON(R) PLATINUM 8573C",
+      "architecture": "x86_64",
+      "cpu_affinity_count": 5,
+      "cgroup_cpu_max": "400000 100000",
+      "cgroup_memory_max_bytes": 34359738368,
+      "inference_threads": 4,
+      "python": "3.12.14",
+      "captured_utc": "2026-10-14T10:19:14Z",
+      "note": "Same container for EG2, NLI, E2B, and E4B timing; no GPU inference."
+    },
+    "record_sha256": "09a285ed3713b6222517e6d6d8305a44420e6d30a8e65740bd9dcdd57d5a625f"
+  }
 }

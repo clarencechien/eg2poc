@@ -97,7 +97,10 @@ def main():
             if [r['pair_id'] for r in values]!=plan['benchmark_pair_ids']:raise ValueError('Small-model cost benchmark differs')
             costs[a]={'latency_ms':describe([r['latency_ms'] for r in values]),'input_tokens':describe([r['input_tokens'] for r in values]),'parameters':smallmanifest[pk],'dtype':'float32'}
             if a.startswith('C_'):costs[a]['projection_only_ms']=describe([r['projection_only_ms'] for r in values])
-    report={'models':summaries,'hypotheses':hypotheses,'costs':costs,'plan_sha256':digest('data/synthetic-v2.1/analysis-plan.json')}
+    hardware_path=out/'hardware.json'
+    hardware=json.loads(hardware_path.read_text()) if hardware_path.exists() else None
+    hardware_baseline={'record':hardware,'record_sha256':digest(hardware_path)} if hardware is not None else None
+    report={'models':summaries,'hypotheses':hypotheses,'costs':costs,'plan_sha256':digest('data/synthetic-v2.1/analysis-plan.json'),'hardware_baseline':hardware_baseline}
     (out/'summary.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     from .plot_v21 import plot_comparison
     has_figure=plot_comparison(report,base_metrics,out)
@@ -134,7 +137,22 @@ def main():
             overview.append('| '+size.upper()+' | '+' | '.join('—' if v is None else f'{v:.4f}' for v in values)+' |')
     overview+=['','single 與 paired 是不同輸入／題型，不能以較高分替換預先指定的主分數。T10 使用未提供給模型的人工政策，未經獨立覆核；只作探索。','']
     lines+=overview
-    lines+=['','## 成本：同一台 CPU、同一批 100 筆','', '| arm | 平均端到端 ms | p95 ms | 平均 prefill ms | 平均輸入 tokens | 模型 | prewarm 後可否固定預算 |','|---|---|---|---|---|---|---|']
+    lines+=['','## 成本：同一台 CPU、同一批 100 筆','']
+    if hardware is not None:
+        quota,period=hardware['cgroup_cpu_max'].split()
+        quota_label='無 cgroup 配額上限' if quota=='max' else f'等效 {int(quota)/int(period):g} CPU'
+        lines+=['### 硬體 baseline','', '| 項目 | 執行環境 |','|---|---|',
+                f"| CPU | {hardware['cpu_model']}；{hardware['architecture']} |",
+                f"| CPU 配額／可見 affinity | {quota_label}（cpu.max: `{hardware['cgroup_cpu_max']}`）；{hardware['cpu_affinity_count']} 個 logical CPU |",
+                f"| 推論 threads | {hardware['inference_threads']} |",
+                f"| 記憶體上限 | {hardware['cgroup_memory_max_bytes']/2**30:g} GiB（cgroup limit，非峰值用量） |",
+                '| 推論裝置 | CPU；無 GPU 推論 |','',
+                '來源：[原始硬體紀錄](hardware.json)。可見 logical CPU 數量與 CPU 配額需分開比較。','']
+        if (out/'hardware-baseline.md').exists():
+            lines+=['[完整硬體、系統版本、快取條件與後續比較方式](hardware-baseline.md)。OS／虛擬化等事後補查資訊另標註來源。','']
+    else:
+        lines+=['本輸出目錄未提供 hardware.json；硬體資訊未記錄。','']
+    lines+=['| arm | 平均端到端 ms | p95 ms | 平均 prefill ms | 平均輸入 tokens | 模型 | prewarm 後可否固定預算 |','|---|---|---|---|---|---|---|']
     for a in ('C_alt_classification','D2_alt_single','J_e2b','J_e4b'):
         if a not in costs:lines.append(f'| {a} | 尚無完整測量 | — | — | — | — | — |');continue
         m=costs[a];model=f"{m['parameters']/1e6:.1f}M / float32" if 'parameters' in m else f"{m['model_bytes']/1e9:.2f} GB / Q8_0"
