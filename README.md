@@ -5,7 +5,7 @@
 J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集，全部通過輸出檢核且無缺值，見 [v0.2.1 摘要](results/synthetic-v2.1/summary.md)與[完整報告](results/synthetic-v2.1/report.md)。
 770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
 2026-11-12 另做了 decision 後端的探索比較：Gemini Decision 1（GD1，雲端），以及 MediaPipe Decision Maker 的 EG2、Laya、GLiNER 三個 backend（D2-DM，本機）。兩者都不在預登記計畫內，見 [docs/decision-backends.md](docs/decision-backends.md)。
-v0.3 規格草稿見 [docs/protocol-v0.3.md](docs/protocol-v0.3.md)（尚未凍結）。
+v0.3 規格已凍結（[docs/protocol-v0.3.md](docs/protocol-v0.3.md)），題目已出完並凍結（[data/synthetic-v3](data/synthetic-v3/MANIFEST.md)，657 段原題），各 arm 尚未評分。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
 
@@ -29,13 +29,15 @@ v0.3 規格草稿見 [docs/protocol-v0.3.md](docs/protocol-v0.3.md)（尚未凍�
    - 改看固定誤報率下的召回，GD1 的排序其實最好：零誤報下 T6 抓到 333/350，GLiNER 304、J-E4B 268。
    - 但 GD1 的分數擠在 0.03 以下，直接用 0.5 當門檻只抓到 220。
    - **T6-word 的 300 筆正例全部還留著「進度領先」句，題目自相矛盾**。GD1 判成 on track 的 129 筆全在這裡，所以剩下的差距有一部分是標註雜訊。
-5. **下一步是 v0.3**（[草稿](docs/protocol-v0.3.md)，尚未凍結）。
+5. **下一步是 v0.3**（[規格](docs/protocol-v0.3.md)已凍結；[資料](data/synthetic-v3/MANIFEST.md)已凍結，尚未評分）。
    - 照 jevlike 的難例撰寫規範，做每段都有單一可判定狀態的四選一難題，共 10 個難題型、660 段。
    - 用預先寫死的階梯規則，分出 Gemma 4 E2B／E4B／26B、GD1、GLiNER 的差距。
    - 要回答：本機判讀層用 GLiNER 還是 26B、日期要不要程式先算、GD1 值不值得當覆核層。
    - 已定案：Claude 撰寫、另一個 Claude 實例盲判；26B 用 Modal L4；題量 660 段。
    - 題量依據見[檢定力估算](results/power-v3/summary.md)：整體對 8 點差距的檢定力約 0.97；推論改以三個題型群組為單位，單一題型只做描述。
-   - 還剩 3 項待決（31B、GD1 預算、真實文件），見草稿 §12。
+   - 其餘定案：不加 31B、GD1 照跑、只用合成資料。
+   - 資料：657 段原題，以及日期題「先算好」版本、改寫子集、171 組變更正例與 200 組負例。
+   - 盲判不一致率 0.4%，有歧義的 3 段已刪除；規則基線測試集 0.353，兩條擋線都通過。詳見 [MANIFEST](data/synthetic-v3/MANIFEST.md)。
 
 ## 已確認的模型
 
