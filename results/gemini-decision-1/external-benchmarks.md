@@ -72,7 +72,7 @@ Google 部落格的 benchmark 只有**圖片**，沒有文字表格、model card
 | GLiNER（僅支援英文） | 84.7% | 1.2 s |
 | Gemma 4 | 85.2% | 2.4 s |
 
-方向與本 repo 的 [DM-EG2 試跑](../mediapipe-decision-eg2/summary.md)一致：EG2 backend 最快、最小，但判讀最弱。
+排序方向與本 repo 的試跑一致：[EG2](../mediapipe-decision-eg2/summary.md) 最快、最小但判讀弱；[GLiNER](../mediapipe-decision-gliner/summary.md) 最強（本 repo T6-word AUROC 0.982、負例零誤報）。差別在 Laya：外部測試中 Laya 介於兩者之間，本 repo 的 [Laya](../mediapipe-decision-laya/summary.md) 則比 EG2 更弱。
 
 ## (c) 限制與使用心得
 

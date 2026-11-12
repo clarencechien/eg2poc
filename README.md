@@ -4,7 +4,7 @@
 最新結果見 [v0.2 摘要](results/synthetic-v2/summary.md)、[完整報告](results/synthetic-v2/report.md)；
 J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集，全部通過輸出檢核且無缺值，見 [v0.2.1 摘要](results/synthetic-v2.1/summary.md)與[完整報告](results/synthetic-v2.1/report.md)。
 770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
-2026-11-12 另做了 decision 後端的探索比較：Gemini Decision 1（GD1，雲端）與 MediaPipe Decision Maker 的 EG2 backend（D2-DM，本機）。兩者都不在預登記計畫內，見 [docs/decision-backends.md](docs/decision-backends.md)。
+2026-11-12 另做了 decision 後端的探索比較：Gemini Decision 1（GD1，雲端），以及 MediaPipe Decision Maker 的 EG2、Laya、GLiNER 三個 backend（D2-DM，本機）。兩者都不在預登記計畫內，見 [docs/decision-backends.md](docs/decision-backends.md)。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
 
@@ -16,7 +16,7 @@ J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集�
 | D1/D2 | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | v0.2 的 1,690 組完成；**NLI 替代，不是 Decision Maker** |
 | 生成／覆核／E | 原規格 `gemini-3.5-flash` | 不適用 | 官方公告已停用並自動轉到 3.6；尚未選擇替代，生成與覆核沒有 API 呼叫 |
 | 探索：GD1 | `gemini-decision-1`（Gemini Decisions API v1beta，雲端） | 託管，無法釘 | 2026-11-12 在 v2.1 J 範圍跑完 1,230 對＋80 文件集，見 [summary](results/gemini-decision-1/summary.md)；不在預登記計畫內 |
-| 探索：D2-DM | MediaPipe Decision Maker `mediapipe==1.2.3`＋`litert-community/embeddinggemma-2-text-270m-litert-lm` | `9be6e8b90982095dc05c2bd162e4b954ee4dbac7` | 2026-11-12 在 v2.1 J 範圍跑完，見 [summary](results/mediapipe-decision-eg2/summary.md)；Laya／GLiNER／Gemma 4 backend 未跑 |
+| 探索：D2-DM | MediaPipe Decision Maker `mediapipe==1.2.3`，三個 backend：EG2 text 270M（`litert-community/embeddinggemma-2-text-270m-litert-lm`）、`laya_s512.task`、`gliner_s512.task` | EG2：HF `9be6e8b90982095dc05c2bd162e4b954ee4dbac7`；Laya／GLiNER：Google bucket 只有 `latest`，以 SHA256 固定（見 `scripts/setup-mp-decision.sh`） | 2026-11-12 三者都在 v2.1 J 範圍跑完，見 [EG2](results/mediapipe-decision-eg2/summary.md)、[Laya](results/mediapipe-decision-laya/summary.md)、[GLiNER](results/mediapipe-decision-gliner/summary.md)；Gemma 4 backend 未跑 |
 
 EG2：CPU float32；`config_kwargs={"vision_config": null, "audio_config": null}`。
 Document：`title: none | text: {text}`；Classification：`task: classification | query: {text}`；
@@ -137,7 +137,13 @@ API ledger 位於 `results/api-ledger.jsonl`，生成、覆核、E **不可並�
 **重點：**
 
 - MediaPipe Decision Maker **沒有被棄用**。v1.2.3 在 Gemini Decision 1 發佈當天（2026-11-11）推出，仍在修 DecisionMaker。被棄用的是 Model Maker。
-- **DM-EG2** 是本機方案，每筆約 45 ms、模型 165 MB。但單邊判讀品質低於 D2 NLI（T6-word：0.781 對 0.922），T5 與 T10 約等於隨機。
+- **DM-GLiNER 是本機單邊判讀的最佳結果。**
+  - T6、T7、T8 的 single AUROC 為 0.982–1.000，每一格都不低於 D2 NLI；T6-word 也高於 J-E4B 的 0.955。
+  - 負例 argmax 零誤報；每筆約 1.5 s。
+  - model card 寫只支援英文，但中文在這批合成資料上同樣有效，需要真實文件驗證。
+- **DM-EG2** 最快：每筆約 45 ms、模型 165 MB。但單邊判讀低於 NLI（T6-word：0.781 對 0.922）。
+- **DM-Laya** 最弱：負例 argmax 約一半誤報，paired 方向相反。
+- **三個 DM backend 在 T5 日期與 T10 跨段落組合上都約等於隨機**；paired 題（OLD/NEW 串接）只有 GLiNER 的 T8 有效。
 - **GD1** 在 T5（0.999）與 T10（1.000）接近滿分，p50 277 ms。代價是資料要送上雲、無法釘版本。
 
 GD1 需要 API key，從環境變數 `GEMINI_API_KEY`、`GOOGLE_API_KEY` 或 `gemini_key` 讀取，不會寫入 repo 或輸出檔：
@@ -151,26 +157,40 @@ GD1 需要 API key，從環境變數 `GEMINI_API_KEY`、`GOOGLE_API_KEY` 或 `ge
 - 遇到 429 或 5xx 會自動退避重試；`predictions.jsonl` 會逐筆落盤，中斷後用同一個輸出目錄可以續跑。
 
 D2-DM 使用獨立的 `.mpvenv`，不影響 `.venv` 已固定的 torch 套件組合。
-安裝腳本會裝 `mediapipe==1.2.3`、下載固定 revision 的模型到 `.cache/models/` 並驗證 SHA256：
+安裝腳本會裝 `mediapipe==1.2.3`，下載模型到 `.cache/models/` 並逐一驗證 SHA256。
+可以指定 backend，例如 `bash scripts/setup-mp-decision.sh gliner`；不指定時三個都裝：
 
 ```bash
 bash scripts/setup-mp-decision.sh
 ```
 
 ```bash
-.mpvenv/bin/python -m src.run_mp_decision --model .cache/models/embeddinggemma-2-text-270m.litertlm \
+.mpvenv/bin/python -m src.run_mp_decision --backend eg2 --model .cache/models/embeddinggemma-2-text-270m.litertlm \
   --output results/mediapipe-decision-eg2-repeat
 ```
 
+```bash
+.mpvenv/bin/python -m src.run_mp_decision --backend laya --model .cache/models/laya_s512.task \
+  --output results/mediapipe-decision-laya-repeat
+```
+
+```bash
+.mpvenv/bin/python -m src.run_mp_decision --backend gliner --model .cache/models/gliner_s512.task \
+  --output results/mediapipe-decision-gliner-repeat
+```
+
 - Linux 需要系統套件 `libegl1`；即使只用 CPU delegate，shared library 仍會連結 `libEGL.so.1`。以 root 執行時，腳本會自動安裝。
-- 整批約 2,600 次評估，每次約 45 ms，在 4 CPU 上只需幾分鐘。
-- 同時會重量 v2.1 成本表的同一批 100 筆延遲。
+- Laya 與 GLiNER 的 Google bucket 只提供 `latest`。若 SHA256 不符，代表 Google 換了檔案：應記成新版本另跑，不要覆寫既有結果。
+- 4 CPU 上的整批耗時（約 2,600 次評估）：EG2 約 3 分鐘、Laya 約 28 分鐘、GLiNER 約 67 分鐘。
+- runner 會逐對寫入 `checkpoint.jsonl`；容器重啟後用同一個輸出目錄重跑即可接續。
+- 每次執行也會重量 v2.1 成本表的同一批 100 筆延遲。
 
 **本次延遲數字的限制：**
 
-- DM-EG2 是在 Intel Xeon @2.1 GHz、4 CPU 的雲端容器上量的，**與 v2.1 baseline（Xeon 8573C）不是同一台機器**。
+- 三個 DM backend 都是在同一個雲端容器（Intel Xeon @2.1 GHz、4 CPU）上量的，彼此可以直接比較。
+- 但它們**與 v2.1 baseline（Xeon 8573C）不是同一台機器**。
 - GD1 的延遲包含網路往返。
-- 兩者只能看量級，不符合 §11.4「同機」的規定。
+- 跨機器的比較只能看量級，不符合 §11.4「同機」的規定。
 
 ## v0.2 / v0.2.1 合成實驗
 

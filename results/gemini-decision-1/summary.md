@@ -61,7 +61,7 @@ AUROC 只量排序。若直接看 single 題的 argmax：
 - 合成資料已經接近天花板，多數格子都是 1.000，不足以區分方法優劣。
 - 託管模型隨時可能更新，結果無法固定重現。
 - 資料會送到 Google 雲端，與 J 以及 MediaPipe Decision Maker 的本機、離線定位不同。
-- 本次未跑 MediaPipe Decision Maker（EG2、Laya、GLiNER backend），D2-DM 仍是「未跑」。
+- MediaPipe Decision Maker（D2-DM）的 EG2、Laya、GLiNER 三個 backend 已另外跑完，見 [docs/decision-backends.md](../../docs/decision-backends.md)。
 
 設計對照與三種 decision 後端的綜合解讀見 [docs/decision-backends.md](../../docs/decision-backends.md)。
 
