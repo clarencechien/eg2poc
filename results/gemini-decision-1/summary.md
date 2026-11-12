@@ -17,7 +17,7 @@
 重跑指令（需要 `GEMINI_API_KEY`、`GOOGLE_API_KEY` 或 `gemini_key` 其中一個環境變數）：
 
 ```bash
-python3 src/run_decision1.py --output results/gemini-decision-1-repeat
+.mpvenv/bin/python src/run_decision1.py --output results/gemini-decision-1-repeat
 ```
 
 ## 主表：專屬負例配對 AUROC
@@ -62,5 +62,7 @@ AUROC 只量排序。若直接看 single 題的 argmax：
 - 託管模型隨時可能更新，結果無法固定重現。
 - 資料會送到 Google 雲端，與 J 以及 MediaPipe Decision Maker 的本機、離線定位不同。
 - 本次未跑 MediaPipe Decision Maker（EG2、Laya、GLiNER backend），D2-DM 仍是「未跑」。
+
+設計對照與三種 decision 後端的綜合解讀見 [docs/decision-backends.md](../../docs/decision-backends.md)。
 
 原始輸出：`predictions.jsonl`（每次請求的機率、usage、延遲；不含金鑰）、`scores.jsonl`、`docset-scores.jsonl`、`summary.json`。

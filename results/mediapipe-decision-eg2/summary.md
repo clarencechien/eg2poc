@@ -20,10 +20,9 @@
 重跑指令：
 
 ```bash
-python3 -m venv .mpvenv && .mpvenv/bin/pip install mediapipe==1.2.3 requests
-curl -L -o embeddinggemma-2-text-270m.litertlm \
-  https://huggingface.co/litert-community/embeddinggemma-2-text-270m-litert-lm/resolve/9be6e8b90982095dc05c2bd162e4b954ee4dbac7/embeddinggemma-2-text-270m.litertlm
-.mpvenv/bin/python -m src.run_mp_decision --model embeddinggemma-2-text-270m.litertlm --output results/mediapipe-decision-eg2-repeat
+bash scripts/setup-mp-decision.sh   # 建 .mpvenv、裝 mediapipe==1.2.3、下載模型並驗證 SHA256、必要時裝 libegl1
+.mpvenv/bin/python -m src.run_mp_decision --model .cache/models/embeddinggemma-2-text-270m.litertlm \
+  --output results/mediapipe-decision-eg2-repeat
 ```
 
 ## 主表：專屬負例配對 AUROC（中英合併）
