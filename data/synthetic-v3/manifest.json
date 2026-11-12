@@ -1,0 +1,117 @@
+{
+  "version": "v0.3",
+  "frozen_utc": "2026-11-12T04:03:07Z",
+  "review": {
+    "texts_reviewed": 950,
+    "disagreements": 4,
+    "disagreement_rate": 0.004210526315789474,
+    "kill_threshold": 0.1,
+    "adjudication_verdicts": {
+      "neither": 4
+    },
+    "removed_items": [
+      "s-h-dat-021",
+      "s-h-dat-052",
+      "s-h-imp-005"
+    ],
+    "dropped_variants": {
+      "s-h-dat-021": [
+        {
+          "variant": "precomputed",
+          "verdict": "neither",
+          "note": "The deciding fact is whether the July-August data needed for retraining was exported before the 8/31 expiry closed the export account. The phrase 用院方匯出的 7、8 月新資料 does not say, and the renewal is still pending with no reply date. Read as not yet exported, the closed account blocks the work (C). Read as already in hand, ~3 weeks ends ~9/28, before 10/30 (A). Both readings are reasonable, so the item has no single defensible answer."
+        },
+        {
+          "variant": "original",
+          "verdict": "neither",
+          "note": "Same text as a0001 without the computed helper lines, and the ambiguity is the same: it is not stated whether the July-August data was exported before the account closed on 8/31. C (blocked by the closed account and the pending renewal) and A (data in hand, ~9/28 finish before 10/30) are both reasonable readings."
+        }
+      ],
+      "s-h-imp-005": [
+        {
+          "variant": "original",
+          "verdict": "neither",
+          "note": "The committee put the project on hold: no staff for now, and whether to do it at all will be decided after next year's reorganisation. None of the options describes an on-hold project. 'Delayed' (B) fits the postponement, 'blocked pending a decision' (C) fits the dependency on the reorg, and some readers would even pick D. B and C are both defensible, so the item is ambiguous."
+        }
+      ],
+      "s-h-dat-052": [
+        {
+          "variant": "original",
+          "verdict": "neither",
+          "note": "The policy engine and tag backfill finish on 10/2, which is after the permission freeze that starts ~9/28 (two weeks before the 10/12 go-live). That suggests the plan cannot be met (B). But nothing has slipped yet, no new date is stated, the 'judge current status' rule favours A, and the text does not say this build work counts as a frozen 'permission change'. Both A and B are defensible."
+        }
+      ]
+    },
+    "reviewer_flagged_ambiguous": {
+      "file": "review/reviewer-flagged.json",
+      "texts": 55,
+      "source_items": 41,
+      "use": "descriptive sensitivity table only"
+    }
+  },
+  "counts": {
+    "status_rows": 945,
+    "originals": 657,
+    "by_type": {
+      "H-bor": 60,
+      "H-dat": 88,
+      "H-dis": 60,
+      "H-imp": 59,
+      "H-inc": 60,
+      "H-inv": 60,
+      "H-lng": 90,
+      "H-noi": 60,
+      "H-res": 60,
+      "H-tmp": 60
+    },
+    "by_split": {
+      "calibration": 232,
+      "test": 425
+    },
+    "by_gold": {
+      "A": 157,
+      "B": 174,
+      "C": 164,
+      "D": 162
+    },
+    "pairs": 371,
+    "pair_positives": 171,
+    "test_by_group": {
+      "G1": 126,
+      "G2": 188,
+      "G3": 111
+    }
+  },
+  "sha256": {
+    "status.jsonl": "7f71146ebcf577392cb62cc2f144fd47440e7361397334ac246ba5b87a78adc2",
+    "pairs.jsonl": "8a2fdd31c45224603e0aba2535ef261619bdce8e74b0d60824658d327e1cdd42",
+    "rules.json": "4a88066dae0cae1633afa82dbdacf02c9a81f8a537fd3020b7c10260ffe216ee",
+    "analysis-plan.json": "517e2872cc45884ced4848c8907e284d4c9eaa6e4a4cb4b59a1b32554a6bc8f4",
+    "AUTHORING.md": "513577dccf7501049238ba143c6c5d5d16afcc5a3bda74eda7e47ce619da53f4"
+  },
+  "raw_sha256": {
+    "H-bor.jsonl": "b6ebb3ca88f2fbbd7186e0832b02531cd9a783df778c28ab30632c685a240da0",
+    "H-dat.jsonl": "a65eed2775a89e2a428d39081ef30f6be936c03285d6c78cd42c39856dbfcc77",
+    "H-dis.jsonl": "2fda561f199b403dbdf9c62c1f094c12168a5e15bf18bf0c7a2259cfe447bd24",
+    "H-imp.jsonl": "087460fea9bb6abaf773b06280c8050692591b16ce333d9a658946596055f470",
+    "H-inc.jsonl": "d4062152a77f1fe4cc6acc4c903b53fee6f90ce19ef1d926fb77504d2e814386",
+    "H-inv.jsonl": "2542eef1b78dbb5cd3f8c03cc482334c21162e19dd382915d2b33d61a5d25224",
+    "H-lng.jsonl": "aa4e5ac3d1a78504c1576c46bea4c3ad02cd1216252148f3a7b13f39d1bd00bb",
+    "H-noi.jsonl": "742f0a88233e316cc144cb0f42d91c41fb0bf97027f77c0925be7c8a908b9eb0",
+    "H-res.jsonl": "5f2fc68af79b72a98873ecde7bf3b7fa8714e689ab915db5a822ebd1168a4169",
+    "H-tmp.jsonl": "c4098b3c59ecbb9a7a232e2a1189e03722382d678c6e713a22bef32472bf0d10"
+  },
+  "kill_checks": {
+    "review_disagreement_rate": {
+      "value": 0.004210526315789474,
+      "threshold": 0.1,
+      "pass": true
+    },
+    "rule_baseline_test_accuracy": {
+      "value": 0.3529,
+      "threshold": 0.85,
+      "pass": true,
+      "note": "calibration 80/232 = 0.345; authors had seen rules.json (protocol §13)"
+    }
+  }
+}

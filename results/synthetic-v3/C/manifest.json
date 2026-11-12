@@ -1,0 +1,31 @@
+{
+ "nli": {
+  "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+  "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+  "official_source": "https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+  "verified": true,
+  "batch_size": 4
+ },
+ "embedding": {
+  "model_id": "google/embeddinggemma-2",
+  "revision": "914f7f89142e33e77833254d9c9b90c3cef7303b",
+  "official_source": "https://huggingface.co/google/embeddinggemma-2",
+  "verified": true,
+  "document_template": "title: none | text: {text}",
+  "classification_template": "task: classification | query: {text}",
+  "search_query_template": "task: search result | query: {text}",
+  "temperature": 0.045,
+  "batch_size": 8,
+  "max_seq_length": null,
+  "config_kwargs": {
+   "vision_config": null,
+   "audio_config": null
+  }
+ },
+ "source_sha256": {
+  "src/run_v3_nli_c.py": "913380d00f134283d68d4f8991a831555bf9d3a532183a375c6a6bea5f56182a",
+  "src/arms.py": "559df3b822d517211d6da5251939484933a2a1e00e71216d60c6e90f5a57554b",
+  "src/v3_common.py": "530b13170d2d88f30a898b3b624cfda07b3ffca1ce716a13d31ec677c48441e5"
+ },
+ "torch": "2.14.1+cpu"
+}

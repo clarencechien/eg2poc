@@ -4,9 +4,71 @@
 最新結果見 [v0.2 摘要](results/synthetic-v2/summary.md)、[完整報告](results/synthetic-v2/report.md)；
 J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集，全部通過輸出檢核且無缺值，見 [v0.2.1 摘要](results/synthetic-v2.1/summary.md)與[完整報告](results/synthetic-v2.1/report.md)。
 770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
-2026-11-12 另做了 decision 後端的探索比較：Gemini Decision 1（GD1，雲端）與 MediaPipe Decision Maker 的 EG2 backend（D2-DM，本機）。兩者都不在預登記計畫內，見 [docs/decision-backends.md](docs/decision-backends.md)。
+2026-11-12 另做了 decision 後端的探索比較：Gemini Decision 1（GD1，雲端），以及 MediaPipe Decision Maker 的 EG2、Laya、GLiNER 三個 backend（D2-DM，本機）。兩者都不在預登記計畫內，見 [docs/decision-backends.md](docs/decision-backends.md)。
+v0.3 規格與資料都已凍結並完成評分，見 [v0.3 摘要](results/synthetic-v3/summary.md)：26B 97.4%、GD1 98.4%、E4B 92.5%，MediaPipe GLiNER 只有 34.5%。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
+
+## 目前停在這裡（2026-11-12）
+
+- **已完成**：v0.1、v0.2、v0.2.1 的合成試驗；decision 後端探索（MediaPipe 三個後端、Gemini Decision 1）；v0.3 的規格、出題、盲判、凍結、全部 arm 評分；E4B → 26B 級聯試算；三方比較與盲點。
+- **公開報告**已更新到 v0.3：<https://imitator.ai-apps.work/r/eg2-which-jev>，原始檔是 `docs/eg2-which-jev.html`。
+  - 發佈方式：對 `https://imitator.ai-apps.work/v1/a/eg2-which-jev` 做 PUT，token 從環境變數 `IMITATOR_TOKEN` 讀取。
+- **還沒做**：
+  - 真實文件與人工覆核的 gold（Phase 1）。
+  - 直接量 Jev。
+  - 把題量加到約 1,100 段，以確認 26B 與 GD1 之間 1 點左右的差距。
+  - 所有 arm 在同一台機器上量延遲；GB10 實測。
+- **重跑 v0.3 需要的環境**（都不進 git）：
+  - `.venv`：torch，給 NLI 與 C。
+  - `.mpvenv`：MediaPipe，用 `scripts/setup-mp-decision.sh` 建立。
+  - `.modalvenv`：Modal CLI。
+  - 環境變數：`gemini_key`、`modal`、`modal_secret`。
+  - 各 arm 的入口：`src/run_v3_dm.py`、`src/run_v3_gd1.py`、`src/run_v3_nli_c.py`、`src/modal_v3_j.py`。報表：`src/report_v3.py`、`src/render_v3.py`。
+
+## 目前結論（2026-11-12）
+
+以下根據 v0.1、v0.2、v0.2.1 的合成試驗與 decision 後端探索。全部是規則生成的合成資料，不能宣稱真實文件的準確率。
+
+1. **偵測「狀態改變」的方法排序。**
+   - 原始 cosine（B）量的是改動量，不是意義。
+   - 用 EG2 比較 old 與 new 在狀態標籤上的分布（C），在否定、反義、新增阻礙上的 AUROC 接近 1。
+   - 日期超期（T5）與跨段落組合（T10），所有語意方法都看不見；日期交給規則（R），跨段落交給 Gemma 4 E4B（J）。
+2. **本機只看新版段落時，MediaPipe Decision Maker 的 GLiNER backend 最強。**
+   - T6、T7、T8 的 single AUROC 為 0.982–1.000，負例 argmax 零誤報，每筆約 1.5 s。
+   - 同一個 API 的 EG2 backend 最快（45 ms）但比 NLI 弱；Laya 最弱。
+   - MediaPipe Decision Maker 沒有被棄用，但只能在本機或裝置上跑，沒有 Google 託管的雲端版。
+3. **在 v2.1 的題目上，Gemini Decision 1（GD1）是唯一在 T5、T10 都接近滿分的方法。**（26B 沒有在 v2.1 上跑過；v0.3 顯示 26B 的日期題有 90.7%。）
+   - 但它要把資料送上雲、無法釘版本；外部評測顯示它對問法改寫的一致性偏弱。
+   - 目前只當上限參考，不進管線。
+4. **現有題目已經量不出 GD1、GLiNER、J 的差別**（[天花板分析](results/decision-ceiling/summary.md)）。
+   - 主表 AUROC 已頂到 0.98–1.000。
+   - 改看固定誤報率下的召回，GD1 的排序其實最好：零誤報下 T6 抓到 333/350，GLiNER 304、J-E4B 268。
+   - 但 GD1 的分數擠在 0.03 以下，直接用 0.5 當門檻只抓到 220。
+   - **T6-word 的 300 筆正例全部還留著「進度領先」句，題目自相矛盾**。GD1 判成 on track 的 129 筆全在這裡，所以剩下的差距有一部分是標註雜訊。
+5. **v0.3 已完成評分**（[摘要](results/synthetic-v3/summary.md)、[表格](results/synthetic-v3/report.md)；規格與資料都在評分前凍結）。
+   - 測試集共 425 段，是 Claude 出題、另一個 Claude 模型盲判的四選一難題。各 arm 準確率：
+     - E2B 80.2%、E4B 92.5%、**26B 97.4%**、**GD1 98.4%**
+     - MediaPipe EG2 48.4%、NLI 45.8%、規則 35.3%、MediaPipe GLiNER 34.5%
+   - 26B 對 E4B 整體 +4.9 點（p = 0.0001），比預先登記的 5 點門檻少 0.1 點，依規則不能寫「明顯較強」。日期＋長文件群組（G3）+5.4 點，判讀為明顯較高。
+   - GD1 對 26B 只多 +0.9 點，差距不顯著，判讀為相當。
+   - 日期先用程式算好，對 26B 只有 +1.9 點，代表 26B 自己會比較日期。
+   - 建議架構：判讀層用 26B；GD1 只當上限參考；GLiNER、EG2、NLI 退出判讀層。
+   - E4B → 26B 級聯用既有預測計算（[cascade](results/synthetic-v3/cascade.md)）：不損失準確率就沒有時間優勢；可接受少 0.7 點時，用 τ = 0.999 可以快約 36%。
+   - 限制：合成資料、gold 沒有人工覆核、GD1 無法鎖定版本。
+
+6. **jevlike 26B、GD1、Jev 的關係**（[三方比較與盲點](results/synthetic-v3/jevlike-vs-gd1.md)）。
+   - **jevlike 26B 對 GD1**（本 repo 同題直接量測）：測試集 97.4% 對 98.4%，GD1 +0.9 點，95% CI 為 −0.7 到 +2.6 點，分不出高下。657 段全算：錯誤數 18 對 11。兩者 97.4% 的題答案相同；都錯的 6 段選的是同一個錯答案，集中在日期運算與時間順序。
+   - **jevlike 26B 對 Jev**：jevlike 沒有直接跑過 Jev。間接數字是 JevBench 公開子集 +2.1 點、Bespoke Labs 3,880 題 −2.0 點，方向不一致。
+   - **GD1 對 Jev**：外部二手資料。Artificial Analysis 綜合指數打平（65.98 對 66.23）；Google 自己的圖表上 GD1 高約 2 點。
+   - **立論方向對，但要寫得保守**：「在專案狀態這類短文字判斷題上，jevlike 26B 與 GD1 差約 1 點、資料分不出高下；選地端是因為資料不外流、版本可鎖定，不是因為準確率已證明相等。」
+   - **主要盲點**：
+     - 三條邊只有一條是直接量測，不能串成等式。
+     - 兩者都接近滿分，只能排除 GD1 高出 2.6 點以上；要確認 1 點的差距約需 1,100 段題目。
+     - 只測了一種任務；jevlike 在 JevBench 的弱項（數值、機率推理）沒有測到。
+     - 題目由 Claude 出、Claude 盲判，沒有人工覆核。
+     - GD1 的多模態與長 context 沒有測。
+     - 地端的前提是有 L4 級 GPU（26B 佔 18.3 GB 顯存）。
 
 ## 已確認的模型
 
@@ -16,7 +78,7 @@ J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集�
 | D1/D2 | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | v0.2 的 1,690 組完成；**NLI 替代，不是 Decision Maker** |
 | 生成／覆核／E | 原規格 `gemini-3.5-flash` | 不適用 | 官方公告已停用並自動轉到 3.6；尚未選擇替代，生成與覆核沒有 API 呼叫 |
 | 探索：GD1 | `gemini-decision-1`（Gemini Decisions API v1beta，雲端） | 託管，無法釘 | 2026-11-12 在 v2.1 J 範圍跑完 1,230 對＋80 文件集，見 [summary](results/gemini-decision-1/summary.md)；不在預登記計畫內 |
-| 探索：D2-DM | MediaPipe Decision Maker `mediapipe==1.2.3`＋`litert-community/embeddinggemma-2-text-270m-litert-lm` | `9be6e8b90982095dc05c2bd162e4b954ee4dbac7` | 2026-11-12 在 v2.1 J 範圍跑完，見 [summary](results/mediapipe-decision-eg2/summary.md)；Laya／GLiNER／Gemma 4 backend 未跑 |
+| 探索：D2-DM | MediaPipe Decision Maker `mediapipe==1.2.3`，三個 backend：EG2 text 270M（`litert-community/embeddinggemma-2-text-270m-litert-lm`）、`laya_s512.task`、`gliner_s512.task` | EG2：HF `9be6e8b90982095dc05c2bd162e4b954ee4dbac7`；Laya／GLiNER：Google bucket 只有 `latest`，以 SHA256 固定（見 `scripts/setup-mp-decision.sh`） | 2026-11-12 三者都在 v2.1 J 範圍跑完，見 [EG2](results/mediapipe-decision-eg2/summary.md)、[Laya](results/mediapipe-decision-laya/summary.md)、[GLiNER](results/mediapipe-decision-gliner/summary.md)；Gemma 4 backend 未跑 |
 
 EG2：CPU float32；`config_kwargs={"vision_config": null, "audio_config": null}`。
 Document：`title: none | text: {text}`；Classification：`task: classification | query: {text}`；
@@ -137,7 +199,13 @@ API ledger 位於 `results/api-ledger.jsonl`，生成、覆核、E **不可並�
 **重點：**
 
 - MediaPipe Decision Maker **沒有被棄用**。v1.2.3 在 Gemini Decision 1 發佈當天（2026-11-11）推出，仍在修 DecisionMaker。被棄用的是 Model Maker。
-- **DM-EG2** 是本機方案，每筆約 45 ms、模型 165 MB。但單邊判讀品質低於 D2 NLI（T6-word：0.781 對 0.922），T5 與 T10 約等於隨機。
+- **DM-GLiNER 是本機單邊判讀的最佳結果。**
+  - T6、T7、T8 的 single AUROC 為 0.982–1.000，每一格都不低於 D2 NLI；T6-word 也高於 J-E4B 的 0.955。
+  - 負例 argmax 零誤報；每筆約 1.5 s。
+  - model card 寫只支援英文，但中文在這批合成資料上同樣有效，需要真實文件驗證。
+- **DM-EG2** 最快：每筆約 45 ms、模型 165 MB。但單邊判讀低於 NLI（T6-word：0.781 對 0.922）。
+- **DM-Laya** 最弱：負例 argmax 約一半誤報，paired 方向相反。
+- **三個 DM backend 在 T5 日期與 T10 跨段落組合上都約等於隨機**；paired 題（OLD/NEW 串接）只有 GLiNER 的 T8 有效。
 - **GD1** 在 T5（0.999）與 T10（1.000）接近滿分，p50 277 ms。代價是資料要送上雲、無法釘版本。
 
 GD1 需要 API key，從環境變數 `GEMINI_API_KEY`、`GOOGLE_API_KEY` 或 `gemini_key` 讀取，不會寫入 repo 或輸出檔：
@@ -151,26 +219,40 @@ GD1 需要 API key，從環境變數 `GEMINI_API_KEY`、`GOOGLE_API_KEY` 或 `ge
 - 遇到 429 或 5xx 會自動退避重試；`predictions.jsonl` 會逐筆落盤，中斷後用同一個輸出目錄可以續跑。
 
 D2-DM 使用獨立的 `.mpvenv`，不影響 `.venv` 已固定的 torch 套件組合。
-安裝腳本會裝 `mediapipe==1.2.3`、下載固定 revision 的模型到 `.cache/models/` 並驗證 SHA256：
+安裝腳本會裝 `mediapipe==1.2.3`，下載模型到 `.cache/models/` 並逐一驗證 SHA256。
+可以指定 backend，例如 `bash scripts/setup-mp-decision.sh gliner`；不指定時三個都裝：
 
 ```bash
 bash scripts/setup-mp-decision.sh
 ```
 
 ```bash
-.mpvenv/bin/python -m src.run_mp_decision --model .cache/models/embeddinggemma-2-text-270m.litertlm \
+.mpvenv/bin/python -m src.run_mp_decision --backend eg2 --model .cache/models/embeddinggemma-2-text-270m.litertlm \
   --output results/mediapipe-decision-eg2-repeat
 ```
 
+```bash
+.mpvenv/bin/python -m src.run_mp_decision --backend laya --model .cache/models/laya_s512.task \
+  --output results/mediapipe-decision-laya-repeat
+```
+
+```bash
+.mpvenv/bin/python -m src.run_mp_decision --backend gliner --model .cache/models/gliner_s512.task \
+  --output results/mediapipe-decision-gliner-repeat
+```
+
 - Linux 需要系統套件 `libegl1`；即使只用 CPU delegate，shared library 仍會連結 `libEGL.so.1`。以 root 執行時，腳本會自動安裝。
-- 整批約 2,600 次評估，每次約 45 ms，在 4 CPU 上只需幾分鐘。
-- 同時會重量 v2.1 成本表的同一批 100 筆延遲。
+- Laya 與 GLiNER 的 Google bucket 只提供 `latest`。若 SHA256 不符，代表 Google 換了檔案：應記成新版本另跑，不要覆寫既有結果。
+- 4 CPU 上的整批耗時（約 2,600 次評估）：EG2 約 3 分鐘、Laya 約 28 分鐘、GLiNER 約 67 分鐘。
+- runner 會逐對寫入 `checkpoint.jsonl`；容器重啟後用同一個輸出目錄重跑即可接續。
+- 每次執行也會重量 v2.1 成本表的同一批 100 筆延遲。
 
 **本次延遲數字的限制：**
 
-- DM-EG2 是在 Intel Xeon @2.1 GHz、4 CPU 的雲端容器上量的，**與 v2.1 baseline（Xeon 8573C）不是同一台機器**。
+- 三個 DM backend 都是在同一個雲端容器（Intel Xeon @2.1 GHz、4 CPU）上量的，彼此可以直接比較。
+- 但它們**與 v2.1 baseline（Xeon 8573C）不是同一台機器**。
 - GD1 的延遲包含網路往返。
-- 兩者只能看量級，不符合 §11.4「同機」的規定。
+- 跨機器的比較只能看量級，不符合 §11.4「同機」的規定。
 
 ## v0.2 / v0.2.1 合成實驗
 

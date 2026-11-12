@@ -1,0 +1,16 @@
+{
+ "arm": "DM_eg2",
+ "mediapipe": "1.2.3",
+ "model": {
+  "file": "embeddinggemma-2-text-270m.litertlm",
+  "url": "https://huggingface.co/litert-community/embeddinggemma-2-text-270m-litert-lm/resolve/9be6e8b90982095dc05c2bd162e4b954ee4dbac7/embeddinggemma-2-text-270m.litertlm",
+  "revision": "HF 9be6e8b90982095dc05c2bd162e4b954ee4dbac7",
+  "sha256": "2d079ee2f6f066b1f368e8d7c819f55214eaef1d0513b312321901f30ab286fb",
+  "note": "EmbeddingGemma 2 text 270M bi-encoder, int4"
+ },
+ "source_sha256": {
+  "src/run_v3_dm.py": "88b67f16a717a959a724e76c21b7ac914dd6518e10d5500fbdf384a4d499789a",
+  "src/v3_common.py": "530b13170d2d88f30a898b3b624cfda07b3ffca1ce716a13d31ec677c48441e5"
+ },
+ "note": "latencies in predictions.jsonl were measured while other jobs shared the CPU; use benchmark.jsonl for cost"
+}

@@ -20,8 +20,8 @@
 重跑指令：
 
 ```bash
-bash scripts/setup-mp-decision.sh   # 建 .mpvenv、裝 mediapipe==1.2.3、下載模型並驗證 SHA256、必要時裝 libegl1
-.mpvenv/bin/python -m src.run_mp_decision --model .cache/models/embeddinggemma-2-text-270m.litertlm \
+bash scripts/setup-mp-decision.sh eg2   # 建 .mpvenv、裝 mediapipe==1.2.3、下載模型並驗證 SHA256、必要時裝 libegl1
+.mpvenv/bin/python -m src.run_mp_decision --backend eg2 --model .cache/models/embeddinggemma-2-text-270m.litertlm \
   --output results/mediapipe-decision-eg2-repeat
 ```
 
@@ -100,5 +100,5 @@ T10 三段串接 AUROC：**DM-EG2 0.482（等同隨機）**、J-E2B 0.773、J-E4
 ## 限制
 
 - 合成資料、單一題目措辭、預設溫度；沒有針對 EG2 調整 `instructions`，也沒有試 `normalize_prior`。
-- 只跑了 270M 文字模型。440M、740M（多模態）、Laya、GLiNER、Gemma 4 backend 都未跑。
+- 只跑了 EG2 270M 文字模型；440M、740M（多模態）與 Gemma 4 backend 未跑。Laya 與 GLiNER 已另外跑完，見 [Laya](../mediapipe-decision-laya/summary.md)、[GLiNER](../mediapipe-decision-gliner/summary.md)。
 - 硬體與 v2.1 baseline 不同。

@@ -1,0 +1,649 @@
+{
+  "arm": "DM_laya (MediaPipe Decision Maker, CPU delegate)",
+  "backend": "laya",
+  "mediapipe_version": "1.2.3",
+  "model": {
+    "file": "laya_s512.task",
+    "url": "https://storage.googleapis.com/mediapipe-models/decision_maker/laya/float32/laya_s512/latest/laya_s512.task",
+    "revision": "GCS generation 1791232006884043 (latest at 2026-11-12)",
+    "sha256": "e9f1693861c9a79a541d6f716648142ee844fd2e7119c9ed48d166f4b85a15df",
+    "note": "Laya multilingual (mmBERT-base, convaiinnovations/laya@1c5edc17) cross-encoder, 512-token window",
+    "bytes": 679395348,
+    "sha256_verified": true
+  },
+  "source_sha256": "6372b7f0dc91fdb80ab2323c79561aea90167eb52180a8b16167b97c11ab87c5",
+  "host": {
+    "cpu": "x86_64",
+    "python": "3.13.18"
+  },
+  "run_utc": "2026-11-12T01:40:59Z",
+  "load_ms": 2123.92861599983,
+  "prewarm_ms_both_langs": 0.46642900042570545,
+  "benchmark_100": {
+    "mean_ms": 678.8223021999511,
+    "p50_ms": 673.4674360000099,
+    "p95_ms": 730.3404899998895,
+    "n_ok": 100,
+    "method": "same 100 paragraphs as v2.1 cost table; sequential; one untimed warmup; new text only"
+  },
+  "all_eval_latency_ms": {
+    "mean": 640.5382102353699,
+    "n": 2460
+  },
+  "n_pairs": 1230,
+  "n_docsets": 80,
+  "n_errors": 0,
+  "error_samples": [],
+  "missing_single": 0,
+  "missing_paired": 0,
+  "auroc": {
+    "T5-word": {
+      "DM_laya_single": {
+        "auc": 0.45611111111111113,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "C_alt_classification": {
+        "auc": 0.31666666666666665,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_single": {
+        "auc": 0.5119444444444444,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 0.6886111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 0.9386111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_single": {
+        "auc": 0.9986111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_single": {
+        "auc": 0.5052777777777778,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_laya_paired": {
+        "auc": 0.47555555555555556,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_paired": {
+        "auc": 0.6416666666666667,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 0.7677777777777778,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 0.8719444444444444,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_paired": {
+        "auc": 0.43527777777777776,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T6-word": {
+      "DM_laya_single": {
+        "auc": 0.7055666666666667,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "C_alt_classification": {
+        "auc": 0.9970333333333333,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "D2_alt_single": {
+        "auc": 0.9218222222222222,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e2b_single": {
+        "auc": 0.8894944444444445,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e4b_single": {
+        "auc": 0.9547444444444444,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "GD1_single": {
+        "auc": 0.9979222222222223,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "DM_eg2_single": {
+        "auc": 0.7815,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "DM_laya_paired": {
+        "auc": 0.30775555555555556,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "D2_alt_paired": {
+        "auc": 0.9979111111111111,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e2b_paired": {
+        "auc": 0.9939,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e4b_paired": {
+        "auc": 0.9998222222222222,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "DM_eg2_paired": {
+        "auc": 0.7170333333333333,
+        "n_pos": 300,
+        "n_neg": 300
+      }
+    },
+    "T6-sentence": {
+      "DM_laya_single": {
+        "auc": 0.7424,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "C_alt_classification": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "D2_alt_single": {
+        "auc": 0.9896,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e2b_single": {
+        "auc": 0.9976,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "DM_eg2_single": {
+        "auc": 0.9812,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "DM_laya_paired": {
+        "auc": 0.3892,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "D2_alt_paired": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "DM_eg2_paired": {
+        "auc": 0.7352,
+        "n_pos": 50,
+        "n_neg": 50
+      }
+    },
+    "T7-word": {
+      "DM_laya_single": {
+        "auc": 0.8836111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "C_alt_classification": {
+        "auc": 0.9994444444444445,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_single": {
+        "auc": 0.9663888888888889,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_single": {
+        "auc": 0.8433333333333334,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_laya_paired": {
+        "auc": 0.12,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_paired": {
+        "auc": 0.6672222222222223,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T7-sentence": {
+      "DM_laya_single": {
+        "auc": 0.9363888888888889,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "C_alt_classification": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_single": {
+        "auc": 0.9955555555555555,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_single": {
+        "auc": 0.9533333333333334,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_laya_paired": {
+        "auc": 0.2791666666666667,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_paired": {
+        "auc": 0.7430555555555556,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T8-sentence": {
+      "DM_laya_single": {
+        "auc": 0.7652777777777777,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "C_alt_classification": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_single": {
+        "auc": 0.9511111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_single": {
+        "auc": 0.9855555555555555,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_laya_paired": {
+        "auc": 0.5891666666666666,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_paired": {
+        "auc": 0.9852777777777778,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_paired": {
+        "auc": 0.6411111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T8-paragraph": {
+      "DM_laya_single": {
+        "auc": 0.88,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "C_alt_classification": {
+        "auc": 0.9991666666666666,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_single": {
+        "auc": 0.9988888888888889,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_laya_paired": {
+        "auc": 0.6636111111111112,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "D2_alt_paired": {
+        "auc": 0.9586111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "DM_eg2_paired": {
+        "auc": 0.5911111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    }
+  },
+  "auroc_by_lang": {
+    "zh": {
+      "T5-word": {
+        "DM_laya_single": 0.4177777777777778,
+        "D2_alt_single": 0.52
+      },
+      "T6-word": {
+        "DM_laya_single": 0.7065333333333333,
+        "D2_alt_single": 0.9092444444444444
+      },
+      "T6-sentence": {
+        "DM_laya_single": 0.8128,
+        "D2_alt_single": 1.0
+      },
+      "T7-word": {
+        "DM_laya_single": 0.7755555555555556,
+        "D2_alt_single": 1.0
+      },
+      "T7-sentence": {
+        "DM_laya_single": 0.9722222222222222,
+        "D2_alt_single": 1.0
+      },
+      "T8-sentence": {
+        "DM_laya_single": 0.9122222222222223,
+        "D2_alt_single": 0.9777777777777777
+      },
+      "T8-paragraph": {
+        "DM_laya_single": 0.8766666666666667,
+        "D2_alt_single": 1.0
+      }
+    },
+    "en": {
+      "T5-word": {
+        "DM_laya_single": 0.49333333333333335,
+        "D2_alt_single": 0.5233333333333333
+      },
+      "T6-word": {
+        "DM_laya_single": 0.7097777777777777,
+        "D2_alt_single": 0.9819555555555556
+      },
+      "T6-sentence": {
+        "DM_laya_single": 0.6688,
+        "D2_alt_single": 1.0
+      },
+      "T7-word": {
+        "DM_laya_single": 0.9855555555555555,
+        "D2_alt_single": 1.0
+      },
+      "T7-sentence": {
+        "DM_laya_single": 0.9133333333333333,
+        "D2_alt_single": 1.0
+      },
+      "T8-sentence": {
+        "DM_laya_single": 0.6533333333333333,
+        "D2_alt_single": 1.0
+      },
+      "T8-paragraph": {
+        "DM_laya_single": 0.88,
+        "D2_alt_single": 1.0
+      }
+    }
+  },
+  "docset_auroc": {
+    "auc": 0.7075,
+    "n_pos": 40,
+    "n_neg": 40
+  },
+  "argmax_non_on_track": {
+    "T3-en": {
+      "n": 230,
+      "non_on_track": 129,
+      "missing": 0
+    },
+    "T3-zh": {
+      "n": 230,
+      "non_on_track": 120,
+      "missing": 0
+    },
+    "T4-en": {
+      "n": 30,
+      "non_on_track": 15,
+      "missing": 0
+    },
+    "T4-zh": {
+      "n": 30,
+      "non_on_track": 16,
+      "missing": 0
+    },
+    "T5-en": {
+      "n": 30,
+      "non_on_track": 16,
+      "missing": 0
+    },
+    "T5-zh": {
+      "n": 30,
+      "non_on_track": 13,
+      "missing": 0
+    },
+    "T6-en": {
+      "n": 175,
+      "non_on_track": 148,
+      "missing": 0
+    },
+    "T6-zh": {
+      "n": 175,
+      "non_on_track": 127,
+      "missing": 0
+    },
+    "T7-en": {
+      "n": 60,
+      "non_on_track": 60,
+      "missing": 0
+    },
+    "T7-zh": {
+      "n": 60,
+      "non_on_track": 59,
+      "missing": 0
+    },
+    "T8-en": {
+      "n": 60,
+      "non_on_track": 54,
+      "missing": 0
+    },
+    "T8-zh": {
+      "n": 60,
+      "non_on_track": 60,
+      "missing": 0
+    },
+    "T9-en": {
+      "n": 30,
+      "non_on_track": 18,
+      "missing": 0
+    },
+    "T9-zh": {
+      "n": 30,
+      "non_on_track": 19,
+      "missing": 0
+    }
+  }
+}
