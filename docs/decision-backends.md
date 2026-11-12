@@ -114,6 +114,16 @@ paired 題（把 OLD/NEW 串成一段問「狀態是否改變」）對三個 DM 
 
 DM 三列是在同一個容器上量的，彼此可以直接比較；它們和 v2.1 的列**不在同一台機器上**，不符合 §11.4 的規定，只能看量級。
 
+### 4.4 天花板：現有題目分不出 GD1、GLiNER、J
+
+事後分析見 [results/decision-ceiling](../results/decision-ceiling/summary.md)，重跑指令：`python3 -m src.analyze_ceiling`。
+
+- **AUROC 已經頂到天花板。** 在負例上設零誤報門檻後，T6 召回為 GD1 333/350、DM-GLiNER 304、J-E4B 268；T5 為 GD1 59/60、J-E4B 36、GLiNER 0。
+- **GD1 要重新校準門檻。** 它的分數擠在低區段，負例最高只有 0.033；直接用 0.5 當門檻，T6 只抓到 220。
+- **T6 有標註雜訊。** T6-word 的 300 筆新版段落全部還留著「進度領先／ahead of schedule」，題目自相矛盾。GD1 判成 on track 的 129 筆全在這裡。
+
+v0.3 要用新題目解決這兩件事，見 [protocol-v0.3.md](protocol-v0.3.md)。
+
 ## 5. 外部數據摘要
 
 完整來源見 [external-benchmarks](../results/gemini-decision-1/external-benchmarks.md)。
@@ -149,7 +159,10 @@ DM 三列是在同一個容器上量的，彼此可以直接比較；它們和 v
 
 ## 7. 未做與下一步
 
+- **下一步是 [v0.3](protocol-v0.3.md)**（草稿）：每段都有單一可判定狀態的四選一難題。
+  - 包含 10 個難題型，題目設計借用 jevlike 的難例規範。
+  - 比較對象：Gemma 4 E2B／E4B／26B 階梯、GD1、DM-GLiNER、DM-EG2、NLI 與規則基線。
 - MediaPipe 還沒跑的 backend：Gemma 4 E2B／E4B、EG2 440M／740M、Laya 英文版與 s256、GLiNER s256／s128／fp32。
 - DM 的 `instructions` 措辭、`normalize_prior`、溫度都沒有調整。
 - 所有 arm 還沒在同一台機器上重量延遲。
-- 合成資料已接近天花板，要分出方法高下需要真實文件；Phase 1 真實資料仍未提供。
+- 真實文件仍未提供（Phase 1）。

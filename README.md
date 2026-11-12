@@ -5,8 +5,35 @@
 J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集，全部通過輸出檢核且無缺值，見 [v0.2.1 摘要](results/synthetic-v2.1/summary.md)與[完整報告](results/synthetic-v2.1/report.md)。
 770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
 2026-11-12 另做了 decision 後端的探索比較：Gemini Decision 1（GD1，雲端），以及 MediaPipe Decision Maker 的 EG2、Laya、GLiNER 三個 backend（D2-DM，本機）。兩者都不在預登記計畫內，見 [docs/decision-backends.md](docs/decision-backends.md)。
+v0.3 規格草稿見 [docs/protocol-v0.3.md](docs/protocol-v0.3.md)（尚未凍結）。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
+
+## 目前結論（2026-11-12）
+
+以下根據 v0.1、v0.2、v0.2.1 的合成試驗與 decision 後端探索。全部是規則生成的合成資料，不能宣稱真實文件的準確率。
+
+1. **偵測「狀態改變」的方法排序。**
+   - 原始 cosine（B）量的是改動量，不是意義。
+   - 用 EG2 比較 old 與 new 在狀態標籤上的分布（C），在否定、反義、新增阻礙上的 AUROC 接近 1。
+   - 日期超期（T5）與跨段落組合（T10），所有語意方法都看不見；日期交給規則（R），跨段落交給 Gemma 4 E4B（J）。
+2. **本機只看新版段落時，MediaPipe Decision Maker 的 GLiNER backend 最強。**
+   - T6、T7、T8 的 single AUROC 為 0.982–1.000，負例 argmax 零誤報，每筆約 1.5 s。
+   - 同一個 API 的 EG2 backend 最快（45 ms）但比 NLI 弱；Laya 最弱。
+   - MediaPipe Decision Maker 沒有被棄用，但只能在本機或裝置上跑，沒有 Google 託管的雲端版。
+3. **Gemini Decision 1（GD1）是唯一在 T5、T10 都接近滿分的方法。**
+   - 但它要把資料送上雲、無法釘版本；外部評測顯示它對問法改寫的一致性偏弱。
+   - 目前只當上限參考，不進管線。
+4. **現有題目已經量不出 GD1、GLiNER、J 的差別**（[天花板分析](results/decision-ceiling/summary.md)）。
+   - 主表 AUROC 已頂到 0.98–1.000。
+   - 改看固定誤報率下的召回，GD1 的排序其實最好：零誤報下 T6 抓到 333/350，GLiNER 304、J-E4B 268。
+   - 但 GD1 的分數擠在 0.03 以下，直接用 0.5 當門檻只抓到 220。
+   - **T6-word 的 300 筆正例全部還留著「進度領先」句，題目自相矛盾**。GD1 判成 on track 的 129 筆全在這裡，所以剩下的差距有一部分是標註雜訊。
+5. **下一步是 v0.3**（[草稿](docs/protocol-v0.3.md)，尚未凍結）。
+   - 照 jevlike 的難例撰寫規範，做每段都有單一可判定狀態的四選一難題，共 10 個難題型 × 60 段。
+   - 用預先寫死的階梯規則，分出 Gemma 4 E2B／E4B／26B、GD1、GLiNER 的差距。
+   - 要回答：本機判讀層用 GLiNER 還是 26B、日期要不要程式先算、GD1 值不值得當覆核層。
+   - 凍結前有 6 項待決事項，見草稿 §12。
 
 ## 已確認的模型
 
