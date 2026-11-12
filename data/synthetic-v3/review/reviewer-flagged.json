@@ -1,0 +1,433 @@
+{
+ "note": "items the blind reviewers themselves listed as genuinely ambiguous in their hand-back reports (they still answered); used only for a descriptive sensitivity table",
+ "texts": [
+  {
+   "rid": "r0017",
+   "reviewer": "rev1",
+   "src_id": "s-h-imp-048",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0034",
+   "reviewer": "rev1",
+   "src_id": "s-h-dat-030",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0512",
+   "reviewer": "rev1",
+   "src_id": "s-h-dat-030",
+   "variant": "r2",
+   "gold": "B"
+  },
+  {
+   "rid": "r0032",
+   "reviewer": "rev1",
+   "src_id": "s-h-bor-035",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0059",
+   "reviewer": "rev1",
+   "src_id": "s-h-dat-070",
+   "variant": "r1",
+   "gold": "A"
+  },
+  {
+   "rid": "r0527",
+   "reviewer": "rev1",
+   "src_id": "s-h-dat-007",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0041",
+   "reviewer": "rev1",
+   "src_id": "s-h-tmp-017",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0539",
+   "reviewer": "rev1",
+   "src_id": "s-h-imp-057",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0532",
+   "reviewer": "rev1",
+   "src_id": "s-h-bor-055",
+   "variant": "r2",
+   "gold": "C"
+  },
+  {
+   "rid": "r0487",
+   "reviewer": "rev1",
+   "src_id": "s-h-bor-047",
+   "variant": "r1",
+   "gold": "A"
+  },
+  {
+   "rid": "r0508",
+   "reviewer": "rev1",
+   "src_id": "s-h-bor-047",
+   "variant": "r2",
+   "gold": "A"
+  },
+  {
+   "rid": "r0535",
+   "reviewer": "rev1",
+   "src_id": "s-h-imp-053",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0105",
+   "reviewer": "rev2",
+   "src_id": "s-h-inc-050",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0069",
+   "reviewer": "rev2",
+   "src_id": "s-h-inv-004",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0107",
+   "reviewer": "rev2",
+   "src_id": "s-h-dat-044",
+   "variant": "original",
+   "gold": "A"
+  },
+  {
+   "rid": "r0080",
+   "reviewer": "rev2",
+   "src_id": "s-h-dat-021",
+   "variant": "precomputed",
+   "gold": "C"
+  },
+  {
+   "rid": "r0563",
+   "reviewer": "rev2",
+   "src_id": "s-h-dat-021",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0542",
+   "reviewer": "rev2",
+   "src_id": "s-h-imp-019",
+   "variant": "r2",
+   "gold": "A"
+  },
+  {
+   "rid": "r0596",
+   "reviewer": "rev2",
+   "src_id": "s-h-dat-030",
+   "variant": "precomputed",
+   "gold": "B"
+  },
+  {
+   "rid": "r0137",
+   "reviewer": "rev3",
+   "src_id": "s-h-dat-061",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0162",
+   "reviewer": "rev3",
+   "src_id": "s-h-dat-031",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0643",
+   "reviewer": "rev3",
+   "src_id": "s-h-lng-012",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0631",
+   "reviewer": "rev3",
+   "src_id": "s-h-bor-049",
+   "variant": "r2",
+   "gold": "A"
+  },
+  {
+   "rid": "r0618",
+   "reviewer": "rev3",
+   "src_id": "s-h-dat-039",
+   "variant": "r1",
+   "gold": "A"
+  },
+  {
+   "rid": "r0660",
+   "reviewer": "rev3",
+   "src_id": "s-h-imp-042",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0609",
+   "reviewer": "rev3",
+   "src_id": "s-h-imp-001",
+   "variant": "original",
+   "gold": "A"
+  },
+  {
+   "rid": "r0181",
+   "reviewer": "rev4",
+   "src_id": "s-h-dat-049",
+   "variant": "precomputed",
+   "gold": "B"
+  },
+  {
+   "rid": "r0231",
+   "reviewer": "rev4",
+   "src_id": "s-h-dat-061",
+   "variant": "precomputed",
+   "gold": "C"
+  },
+  {
+   "rid": "r0679",
+   "reviewer": "rev4",
+   "src_id": "s-h-dat-052",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0672",
+   "reviewer": "rev4",
+   "src_id": "s-h-inc-023",
+   "variant": "original",
+   "gold": "A"
+  },
+  {
+   "rid": "r0693",
+   "reviewer": "rev4",
+   "src_id": "s-h-dat-063",
+   "variant": "original",
+   "gold": "A"
+  },
+  {
+   "rid": "r0746",
+   "reviewer": "rev5",
+   "src_id": "s-h-dat-052",
+   "variant": "precomputed",
+   "gold": "B"
+  },
+  {
+   "rid": "r0770",
+   "reviewer": "rev5",
+   "src_id": "s-h-bor-005",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0257",
+   "reviewer": "rev5",
+   "src_id": "s-h-dat-061",
+   "variant": "r1",
+   "gold": "C"
+  },
+  {
+   "rid": "r0735",
+   "reviewer": "rev5",
+   "src_id": "s-h-dat-061",
+   "variant": "r2",
+   "gold": "C"
+  },
+  {
+   "rid": "r0285",
+   "reviewer": "rev5",
+   "src_id": "s-h-dat-055",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0301",
+   "reviewer": "rev6",
+   "src_id": "s-h-imp-005",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0351",
+   "reviewer": "rev6",
+   "src_id": "s-h-dat-055",
+   "variant": "precomputed",
+   "gold": "C"
+  },
+  {
+   "rid": "r0789",
+   "reviewer": "rev6",
+   "src_id": "s-h-bor-016",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0805",
+   "reviewer": "rev6",
+   "src_id": "s-h-bor-049",
+   "variant": "r1",
+   "gold": "A"
+  },
+  {
+   "rid": "r0322",
+   "reviewer": "rev6",
+   "src_id": "s-h-tmp-046",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0375",
+   "reviewer": "rev7",
+   "src_id": "s-h-dat-083",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0403",
+   "reviewer": "rev7",
+   "src_id": "s-h-dat-040",
+   "variant": "precomputed",
+   "gold": "B"
+  },
+  {
+   "rid": "r0887",
+   "reviewer": "rev7",
+   "src_id": "s-h-dat-026",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0439",
+   "reviewer": "rev8",
+   "src_id": "s-h-bor-055",
+   "variant": "r1",
+   "gold": "C"
+  },
+  {
+   "rid": "r0454",
+   "reviewer": "rev8",
+   "src_id": "s-h-res-046",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0450",
+   "reviewer": "rev8",
+   "src_id": "s-h-dat-069",
+   "variant": "original",
+   "gold": "C"
+  },
+  {
+   "rid": "r0424",
+   "reviewer": "rev8",
+   "src_id": "s-h-dat-070",
+   "variant": "precomputed",
+   "gold": "A"
+  },
+  {
+   "rid": "r0471",
+   "reviewer": "rev8",
+   "src_id": "s-h-dat-022",
+   "variant": "precomputed",
+   "gold": "A"
+  },
+  {
+   "rid": "r0912",
+   "reviewer": "rev8",
+   "src_id": "s-h-dat-010",
+   "variant": "precomputed",
+   "gold": "A"
+  },
+  {
+   "rid": "r0456",
+   "reviewer": "rev8",
+   "src_id": "s-h-bor-047",
+   "variant": "original",
+   "gold": "A"
+  },
+  {
+   "rid": "r0927",
+   "reviewer": "rev8",
+   "src_id": "s-h-res-003",
+   "variant": "r2",
+   "gold": "B"
+  },
+  {
+   "rid": "r0910",
+   "reviewer": "rev8",
+   "src_id": "s-h-dat-030",
+   "variant": "r1",
+   "gold": "B"
+  },
+  {
+   "rid": "r0931",
+   "reviewer": "rev8",
+   "src_id": "s-h-dat-068",
+   "variant": "original",
+   "gold": "B"
+  },
+  {
+   "rid": "r0908",
+   "reviewer": "rev8",
+   "src_id": "s-h-imp-041",
+   "variant": "original",
+   "gold": "A"
+  }
+ ],
+ "src_ids": [
+  "s-h-bor-005",
+  "s-h-bor-016",
+  "s-h-bor-035",
+  "s-h-bor-047",
+  "s-h-bor-049",
+  "s-h-bor-055",
+  "s-h-dat-007",
+  "s-h-dat-010",
+  "s-h-dat-021",
+  "s-h-dat-022",
+  "s-h-dat-026",
+  "s-h-dat-030",
+  "s-h-dat-031",
+  "s-h-dat-039",
+  "s-h-dat-040",
+  "s-h-dat-044",
+  "s-h-dat-049",
+  "s-h-dat-052",
+  "s-h-dat-055",
+  "s-h-dat-061",
+  "s-h-dat-063",
+  "s-h-dat-068",
+  "s-h-dat-069",
+  "s-h-dat-070",
+  "s-h-dat-083",
+  "s-h-imp-001",
+  "s-h-imp-005",
+  "s-h-imp-019",
+  "s-h-imp-041",
+  "s-h-imp-042",
+  "s-h-imp-048",
+  "s-h-imp-053",
+  "s-h-imp-057",
+  "s-h-inc-023",
+  "s-h-inc-050",
+  "s-h-inv-004",
+  "s-h-lng-012",
+  "s-h-res-003",
+  "s-h-res-046",
+  "s-h-tmp-017",
+  "s-h-tmp-046"
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "a0001": {
+  "rid": "r0080",
+  "src_id": "s-h-dat-021",
+  "variant": "precomputed"
+ },
+ "a0002": {
+  "rid": "r0301",
+  "src_id": "s-h-imp-005",
+  "variant": "original"
+ },
+ "a0003": {
+  "rid": "r0563",
+  "src_id": "s-h-dat-021",
+  "variant": "original"
+ },
+ "a0004": {
+  "rid": "r0679",
+  "src_id": "s-h-dat-052",
+  "variant": "original"
+ }
+}

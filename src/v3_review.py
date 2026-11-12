@@ -114,11 +114,11 @@ def cmd_build(a):
     print(f'{len(rows)} texts in {len(batches)} batches; key written (keep away from reviewers)')
 
 
-def answers(folder):
+def answers(folder, field='rid'):
     out = {}
     for p in sorted(Path(folder).glob('*.jsonl')):
         for r in read_jsonl(p):
-            out[r['rid']] = r
+            out[r[field]] = r
     return out
 
 
@@ -171,7 +171,7 @@ def cmd_finalize(_):
     key = json.loads((REVIEW / 'key.json').read_text())
     dis = read_jsonl(REVIEW / 'disagreements.jsonl')
     adj_key = json.loads((REVIEW / 'adjudication' / 'key.json').read_text()) if dis else {}
-    adj = answers(REVIEW / 'adjudication' / 'answers') if dis else {}
+    adj = answers(REVIEW / 'adjudication' / 'answers', 'aid') if dis else {}
     if dis and set(adj_key) - set(adj):
         raise SystemExit('adjudication incomplete')
     dropped = defaultdict(list)  # src_id -> variants dropped
