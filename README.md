@@ -9,6 +9,23 @@ v0.3 規格與資料都已凍結並完成評分，見 [v0.3 摘要](results/synt
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
 
+## 目前停在這裡（2026-11-12）
+
+- **已完成**：v0.1、v0.2、v0.2.1 的合成試驗；decision 後端探索（MediaPipe 三個後端、Gemini Decision 1）；v0.3 的規格、出題、盲判、凍結、全部 arm 評分；E4B → 26B 級聯試算；三方比較與盲點。
+- **公開報告**已更新到 v0.3：<https://imitator.ai-apps.work/r/eg2-which-jev>，原始檔是 `docs/eg2-which-jev.html`。
+  - 發佈方式：對 `https://imitator.ai-apps.work/v1/a/eg2-which-jev` 做 PUT，token 從環境變數 `IMITATOR_TOKEN` 讀取。
+- **還沒做**：
+  - 真實文件與人工覆核的 gold（Phase 1）。
+  - 直接量 Jev。
+  - 把題量加到約 1,100 段，以確認 26B 與 GD1 之間 1 點左右的差距。
+  - 所有 arm 在同一台機器上量延遲；GB10 實測。
+- **重跑 v0.3 需要的環境**（都不進 git）：
+  - `.venv`：torch，給 NLI 與 C。
+  - `.mpvenv`：MediaPipe，用 `scripts/setup-mp-decision.sh` 建立。
+  - `.modalvenv`：Modal CLI。
+  - 環境變數：`gemini_key`、`modal`、`modal_secret`。
+  - 各 arm 的入口：`src/run_v3_dm.py`、`src/run_v3_gd1.py`、`src/run_v3_nli_c.py`、`src/modal_v3_j.py`。報表：`src/report_v3.py`、`src/render_v3.py`。
+
 ## 目前結論（2026-11-12）
 
 以下根據 v0.1、v0.2、v0.2.1 的合成試驗與 decision 後端探索。全部是規則生成的合成資料，不能宣稱真實文件的準確率。
