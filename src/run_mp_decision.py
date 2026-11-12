@@ -106,10 +106,18 @@ def main():
         bench.append({'pair_id': pid, 'arm': f'{arm}_single', 'latency_ms': r['latency_ms'], 'score': r['score']})
     lat = sorted(b['latency_ms'] for b in bench if b['score'] is not None)
 
+    # Per-pair checkpoint so a restarted container resumes instead of starting over.
+    checkpoint = out / 'checkpoint.jsonl'
+    done = {r['pair_id']: r for r in read_jsonl(checkpoint)} if checkpoint.exists() else {}
     preds, scores = [], {}
     for i, pid in enumerate(scope):
         p = rowmap[pid]
-        s, q = single(p['new_text'], p['lang']), paired(p['old_text'], p['new_text'], p['lang'])
+        if pid in done:
+            s, q = done[pid]['single'], done[pid]['paired']
+        else:
+            s, q = single(p['new_text'], p['lang']), paired(p['old_text'], p['new_text'], p['lang'])
+            with checkpoint.open('a') as f:
+                f.write(json.dumps({'pair_id': pid, 'single': s, 'paired': q}, ensure_ascii=False) + '\n')
         preds.append({'pair_id': pid, 'single': s, 'paired': q})
         scores[pid] = {f'{arm}_single': s['score'], f'{arm}_paired': q['score'], f'{arm}_choice': s.get('choice')}
         if (i + 1) % 200 == 0:
@@ -197,6 +205,9 @@ def main():
                 f.write(json.dumps({'docset_id': k, f'{arm}_single': v['score'], 'choice': v.get('choice'),
                                     'latency_ms': v['latency_ms'], **({'error': v['error']} if 'error' in v else {})},
                                    ensure_ascii=False) + '\n')
+    summary['resumed_pairs'] = len([pid for pid in scope if pid in done])
+    (out / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
+    checkpoint.unlink(missing_ok=True)
     print(json.dumps({k: summary[k] for k in ('load_ms', 'prewarm_ms_both_langs', 'benchmark_100', 'docset_auroc',
                                               'n_errors', 'error_samples', 'missing_single', 'missing_paired')}, indent=1, ensure_ascii=False))
     for c, t in table.items():
