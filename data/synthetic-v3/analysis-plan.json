@@ -1,0 +1,294 @@
+{
+  "version": "v0.3",
+  "protocol": "docs/protocol-v0.3.md",
+  "protocol_git_commit": "c2f5d3a20191f469f0330ecf796bf8408713a83b",
+  "protocol_sha256": "ceebc9d7536aca0aeeb40af73f5373fa87da6062356b04ea7617f4b822e00b9e",
+  "task_S": {
+    "label_keys": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "label_meaning": {
+      "A": "on_track",
+      "B": "delayed",
+      "C": "blocked",
+      "D": "cancelled"
+    },
+    "options": {
+      "zh": {
+        "A": "專案按計畫進行，進度符合時程，預計如期交付。",
+        "B": "專案進度落後，交付日期延後，無法依原定時程完成。",
+        "C": "專案遭遇阻礙，工作卡關，需要先排除問題才能繼續。",
+        "D": "專案已取消，不再繼續執行，也不會交付原定成果。"
+      },
+      "en": {
+        "A": "The project is on track and progressing as planned. Delivery is expected on schedule.",
+        "B": "The project is delayed and behind schedule. Delivery will miss the original deadline.",
+        "C": "The project is blocked by an unresolved dependency. Work cannot proceed until it is resolved.",
+        "D": "The project has been cancelled. Work will not resume and the planned deliverable will not be shipped."
+      }
+    },
+    "instructions": {
+      "zh": "依據目前文字，專案現在最符合下列哪一種狀態？判斷規則：以最新的明確狀態陳述為準；條件尚未發生時，判斷目前的狀態；只有本專案被終止才算取消，其他專案或子項目被取消不算；已經排除的阻礙不算卡關；日期以第一行的「今天」為準。",
+      "en": "Based on the current text, which project status is best supported? Rules: the latest explicit status statement wins; if a condition has not happened yet, judge the current status; only termination of this project counts as cancelled, not other projects or sub-items; a blocker that has been resolved is not blocked; dates are judged against the \"Today\" line."
+    },
+    "render_state": {
+      "zh": "今天：{today}\n{state}",
+      "en": "Today: {today}\n{state}"
+    },
+    "option_order": "fixed A-D except the Q6 order-permutation runs",
+    "nli_note": "D2 NLI receives only the rendered state and the option texts; it cannot receive instructions"
+  },
+  "hard_types": [
+    {
+      "code": "H-noi",
+      "name": "noisy",
+      "group": "G1",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-dis",
+      "name": "distractor",
+      "group": "G1",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-inv",
+      "name": "inverted",
+      "group": "G1",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-inc",
+      "name": "incomplete",
+      "group": "G2",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-bor",
+      "name": "borderline",
+      "group": "G2",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-imp",
+      "name": "implicit",
+      "group": "G2",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-res",
+      "name": "resolved",
+      "group": "G2",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-tmp",
+      "name": "temporal",
+      "group": "G2",
+      "n_items": 60,
+      "min_twin_pairs": 15,
+      "per_label_min": 10,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-dat",
+      "name": "date",
+      "group": "G3",
+      "n_items": 90,
+      "min_twin_pairs": 20,
+      "per_label_min": 15,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    },
+    {
+      "code": "H-lng",
+      "name": "long",
+      "group": "G3",
+      "n_items": 90,
+      "min_twin_pairs": 20,
+      "per_label_min": 15,
+      "max_share_A": 0.4,
+      "lang_split": "exactly half zh, half en"
+    }
+  ],
+  "groups": {
+    "G1": [
+      "H-noi",
+      "H-dis",
+      "H-inv"
+    ],
+    "G2": [
+      "H-inc",
+      "H-bor",
+      "H-imp",
+      "H-res",
+      "H-tmp"
+    ],
+    "G3": [
+      "H-dat",
+      "H-lng"
+    ]
+  },
+  "h_dat_precomputed": "each H-dat record also carries state_precomputed (same facts, comparisons stated in parentheses); scored as a separate variant, same gold",
+  "h_lng_min_tokens": {
+    "tokenizer": "GLiNER2.5-Decide tokenizer.json inside gliner_s512.task (sha256 23a02e1b...)",
+    "min_tokens_rendered_state": 520
+  },
+  "q6_paraphrase": {
+    "n_originals": 100,
+    "sampling": "seeded, stratified by hard type over all types except H-lng, test and calibration in proportion",
+    "n_rewrites": 2,
+    "order_permutation": "each original and rewrite also asked with options in reversed order D-A (keys keep meaning)",
+    "consistency": "all four argmax identical"
+  },
+  "task_P": {
+    "positives": "every twin pair (same pair_id, different gold); old = lower id",
+    "negatives": "each Q6 original paired with each of its two rewrites (same gold)",
+    "derived_score": "1 - sum_k P(old=k) * P(new=k)",
+    "direct": "v2.1 paired question (OLD/NEW layout) for arms that support it"
+  },
+  "split": {
+    "unit": "pair_id if present else id",
+    "rule": "int(sha256('v0.3-split:' + unit).hexdigest(), 16) % 3 == 0 -> calibration else test",
+    "paraphrases_follow": "their original's split"
+  },
+  "review": {
+    "author": "this Claude Code session and its authoring subagents (protocol §3.4)",
+    "blind_reviewer": "separate Claude subagent with no shared context, a different Claude model tier than the author; sees rendered state + instructions + options only; items shuffled",
+    "adjudicator": "third separate Claude subagent; sees both answers and reasons, not hard_type",
+    "kill_disagreement_rate": 0.1,
+    "unresolved": "deleted and counted in MANIFEST",
+    "limitation": "no human review of gold"
+  },
+  "rule_baseline": {
+    "file": "data/synthetic-v3/rules.json",
+    "written_before_items": true,
+    "kill_if_test_accuracy_at_least": 0.85
+  },
+  "arms": {
+    "J": {
+      "jevlike_revision": "9838918533cf3d88dc975ef19d38122b07df47f7",
+      "llama_cpp": "b11371 (99b95488cac0f00ce3f05af113a8c1e287753f87)",
+      "server_flags": [
+        "--swa-full"
+      ],
+      "bos": "required (jevlike v6)",
+      "hardware": "Modal L4 for the ladder; tokens from env modal / modal_secret via jevlike scripts/modal.sh",
+      "models": {
+        "e2b": {
+          "model_id": "unsloth/gemma-4-E2B-it-GGUF",
+          "revision": "0314792d7f1f7e229411f620751375812bb9faf2",
+          "file": "gemma-4-E2B-it-Q8_0.gguf"
+        },
+        "e4b": {
+          "model_id": "unsloth/gemma-4-E4B-it-GGUF",
+          "revision": "bfc15c382204943c3a8fff0c750b94ae2364d7a3",
+          "file": "gemma-4-E4B-it-Q8_0.gguf"
+        },
+        "26b": {
+          "model_id": "unsloth/gemma-4-26B-A4B-it-GGUF",
+          "revision": "c099eb48e663fd284577b04978a94ffccb261841",
+          "file": "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf"
+        }
+      },
+      "readout": "first-token letter probabilities via jevlike decide/ (unchanged)"
+    },
+    "GD1": {
+      "model": "gemini-decision-1",
+      "endpoint": "POST https://generativelanguage.googleapis.com/v1beta/decisions",
+      "question": "choice with option keys A-D",
+      "client": "src/run_decision1.py Client"
+    },
+    "DM_gliner": {
+      "file": "gliner_s512.task",
+      "sha256": "23a02e1b286fab7573ef2a00acbd8bf80fd2b1284de25eb8fafcd74f8bccd7ec",
+      "mediapipe": "1.2.3",
+      "rejected_inputs": "null, counted"
+    },
+    "DM_eg2": {
+      "file": "embeddinggemma-2-text-270m.litertlm",
+      "sha256": "2d079ee2f6f066b1f368e8d7c819f55214eaef1d0513b312321901f30ab286fb",
+      "mediapipe": "1.2.3",
+      "truncation": "flagged when rendered input exceeds 512 tokens"
+    },
+    "D2_NLI": {
+      "model_id": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "revision": "b5113eb38ab63efdd7f280f8c144ea8b13f978ce",
+      "score": "v2 D2 single over the four option texts"
+    },
+    "C": {
+      "description": "v2 C_same_classification on P only (EG2 float32 label-distribution distance)"
+    },
+    "R": {
+      "description": "v2 date rule, H-dat only"
+    },
+    "Rule": {
+      "file": "data/synthetic-v3/rules.json"
+    }
+  },
+  "metrics": {
+    "bootstrap": {
+      "reps": 1000,
+      "unit": "pair_id",
+      "seed": 20261112
+    },
+    "mcnemar": "exact two-sided",
+    "inference_levels": [
+      "overall",
+      "group"
+    ],
+    "descriptive_only": [
+      "hard_type",
+      "lang"
+    ],
+    "calibration": "one temperature per arm fit on calibration split; ECE (10 bins) and Brier on test",
+    "p_thresholds": "fixed on calibration split at 0% and 1% FPR; test reports realised FPR"
+  },
+  "decision_rule": {
+    "clearly_lower": "gap >= 0.05 and exact McNemar p < 0.05",
+    "comparable": "bootstrap CIs overlap and p >= 0.05",
+    "power_note": "overall test ~440 detects >= 8 points at ~0.97; 5-8 point gaps that fail are reported as underpowered, not comparable"
+  },
+  "hypotheses": {
+    "H12": "overall test: J-26B clearly higher than J-E4B; also judged per group",
+    "H13": "hard type with J-E2B >= 0.95 is too easy; removed from group judgement and group recomputed",
+    "H14": "DM-GLiNER vs J-26B on G1+G2 combined: upper 95% CI of (26B - GLiNER) < 0.05 -> GLiNER replaces D2 as local single-side judge",
+    "H15": "H-dat precomputed minus raw for J-26B >= 0.08",
+    "H16": "GD1 clearly higher than J-26B and Q6 consistency >= 0.9 -> GD1 as reviewer layer",
+    "H17": "P derived >= P direct, per arm",
+    "H18": "calibration-split thresholds give realised test FPR <= 2x target"
+  },
+  "seed": 20261112
+}

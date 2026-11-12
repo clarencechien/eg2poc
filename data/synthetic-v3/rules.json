@@ -1,0 +1,12 @@
+{
+  "task": "status",
+  "written": "2026-11-12, before any v0.3 item was authored",
+  "match": "first rule whose pattern matches the rendered state wins; Python regex, case-insensitive",
+  "default": "A",
+  "rules": [
+    {"pattern": "取消|終止|中止|停辦|喊停|砍掉|不做了|cancel|terminat|scrap|discontinu|shut down|kill(ed)? the project", "label": "D", "note": "cancelled"},
+    {"pattern": "卡關|卡住|阻礙|擋住|停擺|停滯|暫停|無法(進行|推進|繼續)|等待.{0,6}(核准|審查|回覆|批准)|blocked|blocker|stuck|on hold|paused|waiting (on|for)|cannot proceed|can't proceed", "label": "C", "note": "blocked"},
+    {"pattern": "延後|延期|延誤|落後|順延|來不及|趕不上|晚於|逾期|delay|behind|slip|postpon|pushed back|overdue|late|miss(ed)? the", "label": "B", "note": "delayed"},
+    {"pattern": "如期|順利|按計畫|照計畫|提前|領先|超前|on track|on schedule|ahead|as planned", "label": "A", "note": "on track"}
+  ]
+}
