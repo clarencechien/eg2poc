@@ -459,7 +459,7 @@ button, summary { transition: transform var(--dur-fast) var(--ease-out); }
 
 
 /* REGISTER:  檢定書 — 拿 1,690 組受控擾動去量一把「相似度尺」，寫下它能判什麼、不能判什麼，
-              給 Gemma 4 讀 logit 的階梯補一格。讀者是要在 GB10 上決定哪題交給哪個引擎的人。
+              給先前實驗的階梯補一格。讀者是要在 GB10 上決定哪題交給哪個引擎的人。
    REFERENCE: 1980 年代度量衡檢定所的檢定合格證書 — 編號的檢定項目、一欄欄量測值、
               「合格」「不合格」各一枚章，證書紙本身帶一點黃。
    PAPER:     檢定證書的淡黃證書紙 — hsl(50 45% 93%)。帶黃因為這是一張要留底的證明文件，不是草稿。
@@ -559,7 +559,7 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 <div class="cert reveal">
 <dl>
 <dt>受檢物</dt><dd>EmbeddingGemma 2 文字塔（270M，revision 914f7f8…），當 Decision Maker 的 bi-encoder 後端用</dd>
-<dt>對照引擎</dt><dd>mDeBERTa-v3 多語 NLI cross-encoder（Decision Maker 的 Laya 替代）；讀 logit 的 Gemma 4 E2B／E4B（Q8_0，llama.cpp b11371）；一條日期 regex</dd>
+<dt>對照引擎</dt><dd>mDeBERTa-v3 多語 NLI cross-encoder（Decision Maker 的 Laya 替代）；先前實驗用的 Gemma 4 E2B／E4B（Q8_0，llama.cpp b11371）；一條日期 regex</dd>
 <dt>試件</dt><dd>420 段合成底稿（五個骨架、中英各半）、1,690 組段落對、40 對三段文件集。全部規則生成，Gemini 呼叫 0 次，資料評分前凍結</dd>
 <dt>量測環境</dt><dd>Xeon Platinum 8573C，配額 4 CPU、32 GiB，4 threads，float32；無 GPU</dd>
 <dt>問題</dt><dd>兩版專案文件之間，狀態有沒有變？哪種擾動看得見、哪種看不見？</dd>
@@ -568,8 +568,8 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 </div>
 
 <p class="eyebrow">項目 01 · 為什麼要量這一把</p>
-<h2>前一份問「讀機率能判什麼」，這份問「比向量能判什麼」</h2>
-<p>讀 logit 這條路先前已經走了十九輪：讀 Gemma 4 選項字母的第一個 token 機率當決策 API，十類產線判斷題七類零標註 ≥ 98%。Google 的 MediaPipe Decision Maker 把同一種「typed decision」包成 API，底下列了三種引擎：bi-encoder（EmbeddingGemma）、cross-encoder（Laya、GLiNER）、生成模型單次 prefill 讀 logit（Gemma 4）。先前做的是第三種。</p>
+<h2>先前的實驗問「生成模型能判什麼」，這份問「比向量能判什麼」</h2>
+<p>先前的實驗已經走了十九輪：用 Gemma 4 做 typed decision，十類產線判斷題七類零標註 ≥ 98%。Google 的 MediaPipe Decision Maker 把同一種「typed decision」包成 API，底下列了三種引擎：bi-encoder（EmbeddingGemma）、cross-encoder（Laya、GLiNER）、生成模型（Gemma 4）。先前的實驗用的是第三種。</p>
 <p>第一種便宜到不像話：選項向量算好存著，之後每次決策只算一個查詢向量，幾毫秒。先前有一輪試過它當十類選擇器，平均 0.637，被判定只能當粗篩。但那是十個細類。這份檢定換一題問：如果題目只有四個粗類、而且問的是「狀態有沒有變」，這把尺到底能量到什麼？</p>
 <p class="pull">一個 bi-encoder 能回答的唯一一種問題是：這段輸入跟那段描述有多接近。所有 Choice、Boolean、Score，最後都是這一件事。</p>
 
@@ -610,7 +610,7 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 
 <p class="eyebrow">項目 04 · 同一張表，三個引擎</p>
 <h2>它贏在哪裡、輸在哪裡、慢多少</h2>
-<p>第二輪加了讀 logit 的 Gemma 4 E2B 與 E4B 進來，用既有的四選一題型，只看新版段落、不給舊版。下表是同底稿專屬負例的配對 AUROC；「單邊」表示不需要舊版。</p>
+<p>第二輪加了先前實驗的 Gemma 4 E2B 與 E4B 進來，用既有的四選一題型，只看新版段落、不給舊版。下表是同底稿專屬負例的配對 AUROC；「單邊」表示不需要舊版。</p>
 <div class="table-scroll">
 <table>
 <thead><tr><th>配對</th><th class="nowrap">EG2 投影</th><th class="nowrap">NLI 單邊</th><th class="nowrap">E2B 單邊</th><th class="nowrap">E4B 單邊</th><th class="nowrap">日期 regex</th></tr></thead>
@@ -625,7 +625,7 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 </div>
 <p>三件事從表裡看出來。</p>
 <p><strong>類別題，尺和大模型打平。</strong>否定、反義、新增這三種，EG2 投影和 E4B 的差都在平手線 0.05 之內。四個粗類、互斥、題目是「這段話像哪一類」，bi-encoder 的舒適區就是這裡。</p>
-<p><strong>值的題，只有規則和 E4B 能做。</strong>「預計交付 2027-01-30，截止 2026-11-28」要算日期才知道超期。EG2 投影 0.32（比亂猜還低，因為它把日期數字的距離當訊號）、NLI 0.51、E2B 0.69。E4B 0.94，regex 1.0。這格把讀 logit 的階梯又切開一級：類別題 E2B 就夠，讀值推理要 E4B。</p>
+<p><strong>值的題，只有規則和 E4B 能做。</strong>「預計交付 2027-01-30，截止 2026-11-28」要算日期才知道超期。EG2 投影 0.32（比亂猜還低，因為它把日期數字的距離當訊號）、NLI 0.51、E2B 0.69。E4B 0.94，regex 1.0。這格把先前實驗的階梯又切開一級：類別題 E2B 就夠，讀值推理要 E4B。</p>
 <p><strong>瀰散型，尺反而比 NLI 強。</strong>三段各改一點、沒有任何一句單獨構成狀態改變，EG2 投影每段單獨觸發率是 0%，三段加總後 AUROC 0.93–0.97；NLI 單邊只有 0.55。這格是探索性的（政策寫死、沒獨立判讀），但方向值得記：向量可以加，矛盾判斷不能加。</p>
 
 <div class="tiles wide stagger">
@@ -636,12 +636,12 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 </div>
 <p class="verdict">同一台 4 核 CPU、同一批 100 筆、關閉 prompt cache。這是無 GPU 的下限；到 GB10 上整張表要重量，比例不能用 CPU 數字換算，小模型的固定開銷佔比會變。</p>
 
-<p class="eyebrow">項目 05 · 三種呼叫長什麼樣</p>
+<p class="eyebrow">項目 05 · 兩種呼叫長什麼樣</p>
 <h2>差別不在模型大小，在 text 和選項有沒有見過面</h2>
-<p>同一個題目——「這段文字的專案狀態是 A 如期／B 延後／C 卡關／D 取消」——100 筆資料，三種引擎各自怎麼呼叫。先看圖，再看 pseudo code。</p>
+<p>同一個題目——「這段文字的專案狀態是 A 如期／B 延後／C 卡關／D 取消」——100 筆資料，生成模型和 EG2 各自怎麼呼叫。先看圖，再看 pseudo code。</p>
 
 <figure class="diagram chart wide reveal">
-<svg viewBox="0 0 640 400" role="img" aria-label="三種呼叫的輸入輸出結構：LLM 與讀 logit 把 text 和選項放進同一個 prompt，EG2 各自編碼後在模型外做矩陣乘法">
+<svg viewBox="0 0 640 268" role="img" aria-label="兩種呼叫的輸入輸出結構：LLM 把 text 和選項放進同一個 prompt，EG2 各自編碼後在模型外做矩陣乘法">
 <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0.5 L7.5 4 L0 7.5 z" fill="currentColor" style="color:var(--ink-2)"/></marker></defs>
 
 <!-- lane 1: LLM -->
@@ -666,29 +666,9 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 
 <line class="sep" x1="12" y1="132" x2="628" y2="132"/>
 
-<!-- lane 2: logit readout -->
-<text class="lane" x="12" y="154">LOGIT CALL</text>
-<rect class="box" x="12" y="166" width="190" height="64" rx="3"/>
-<text class="k" x="22" y="184">prompt</text>
-<text x="22" y="200">[text] + [題目] + [A B C D]</text>
-<text class="dim" x="22" y="216">text 與選項在同一個 context</text>
-<path class="arr" d="M202 198 H236"/>
-<rect class="box model" x="238" y="172" width="112" height="52" rx="3"/>
-<text class="k" x="250" y="194">prefill</text>
-<text x="250" y="210">選項與 text 互看</text>
-<path class="arr" d="M350 198 H380"/>
-<rect class="box ext" x="382" y="172" width="96" height="52" rx="3"/>
-<text class="k" x="394" y="194">讀 logits</text>
-<text x="394" y="210">只看 A B C D</text>
-<path class="arr" d="M478 198 H508"/>
-<rect class="box" x="510" y="172" width="118" height="52" rx="3"/>
-<text class="k" x="520" y="194" style="font-size:10px">p=[.02 .11 .85 .02]</text>
-<text class="dim" x="520" y="210">有校準的機率</text>
-<text class="dim" x="12" y="250">100 筆 = 100 × prefill（decode 歸零）　多一題 = 再 100 次</text>
+<!-- lane 2: EG2 -->
+<g transform="translate(0,-132)">
 
-<line class="sep" x1="12" y1="264" x2="628" y2="264"/>
-
-<!-- lane 3: EG2 -->
 <text class="lane" x="12" y="286">EG2 CALL</text>
 <rect class="box" x="12" y="296" width="110" height="34" rx="3"/>
 <text class="k" x="22" y="318">4 個標籤描述</text>
@@ -719,8 +699,9 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 <text class="k" x="530" y="357">P  100×4</text>
 <text class="dim" x="530" y="372">softmax(S/0.045)</text>
 <text class="dim" x="398" y="396">text 與標籤從未同框，只剩 cosine</text>
+</g>
 </svg>
-<figcaption>實線＝每批都跑；虛線＝只跑一次。藍框＝模型內的 forward；虛線框＝模型外的讀取或矩陣運算。</figcaption>
+<figcaption>實線＝每批都跑；虛線＝只跑一次。藍框＝模型內的 forward；虛線框＝模型外的矩陣運算。</figcaption>
 </figure>
 
 <div class="calls">
@@ -731,17 +712,7 @@ for text in texts_100:
     out    = llm.generate(prompt)      <span class="cm"># prefill + 逐 token decode</span>
     status = parse_json(out)           <span class="cm"># 可能多話、可能不照格式、沒有信心值</span></code></pre>
 
-<h3>2 · logit call：讀第一個 token 的機率，不生成</h3>
-<pre><code><span class="cm"># 每筆一個 prompt，text 與選項同框，但只做一次 forward、讀四格 logit</span>
-for text in texts_100:
-    prompt = f"{text}\n請判斷專案狀態：\nA. 如期  B. 延後  C. 卡關  D. 取消\n答案："
-    logits = llm.prefill(prompt)                       <span class="cm"># 不 decode</span>
-    p      = softmax([logits[tok("A")], logits[tok("B")],
-                      logits[tok("C")], logits[tok("D")]])
-    status, conf = argmax(p), calibrate(p)             <span class="cm"># 有信心值</span>
-<span class="cm"># 多一題 = 再 100 次 prefill；prefix cache 只省題目模板那段</span></code></pre>
-
-<h3>3 · EG2 call：沒有 prompt，比對在模型外面</h3>
+<h3>2 · EG2 call：沒有 prompt，比對在模型外面</h3>
 <pre><code><span class="cm"># ── prewarm：標籤各自 encode 一次，永久留用 ──</span>
 labels = ["專案如期進行…", "專案延後…", "專案卡關…", "專案已取消…"]
 L = eg2.encode(labels, prefix="task: classification | query: ")   <span class="cm"># 4 × 768</span>
@@ -761,20 +732,19 @@ status = argmax(P, axis=1)
 <thead><tr><th></th><th>text 與選項同一個 context？</th><th class="nowrap">輸出</th><th class="nowrap">多一題的代價</th></tr></thead>
 <tbody>
 <tr><td>LLM</td><td>是，attention 互看</td><td>文字，要 parse</td><td class="nowrap">100 × (prefill + decode)</td></tr>
-<tr><td>讀 logit</td><td>是，attention 互看</td><td>4 個機率</td><td class="nowrap">100 × prefill</td></tr>
 <tr><td>EG2</td><td><strong>否</strong>，各自變向量，只剩 cosine</td><td>4 個機率</td><td class="nowrap">0（L 多一列）</td></tr>
 </tbody>
 </table>
 </div>
-<p>讀 logit 和 LLM 的差別在<strong>輸出端</strong>：不 decode、直接讀 logit，所以快、穩、有信心值，但模型看到的東西一樣，能推理的程度一樣。EG2 和前兩者的差別在<strong>輸入端</strong>：text 和標籤從來沒見過面。這是它快 30 到 67 倍、多一題零成本的原因，也是它只能答「像不像」的原因。「日期超期了但文字還寫領先」這種題，讀 logit 那條路的 attention 可以把「2027-01-30」和「截止 2026-11-28」對起來看；EG2 的 <code>x</code> 裡那兩個日期已經被壓成 768 個數字的一部分，<code>L</code> 裡的「延後」描述根本沒有日期可以對。</p>
-<p>Google 的 Decision Maker 就是把第二張圖和第三張圖包在同一個 <code>evaluate()</code> 後面：<code>prewarm()</code> 對 EG2 後端是算 <code>L</code>，對 Gemma 4 後端是算 KV cache 前綴；<code>evaluate()</code> 對 EG2 是 <code>X @ Lᵀ</code>，對 Gemma 4 是一次 prefill 讀 logit。API 一樣，底下看不看得到選項不一樣——這也是它的 pitfalls 要分後端寫的原因。</p>
+<p>EG2 和生成模型的差別在<strong>輸入端</strong>：text 和標籤從來沒見過面。這是它比先前實驗用的 Gemma 4 快 30 到 67 倍、多一題零成本的原因，也是它只能答「像不像」的原因。「日期超期了但文字還寫領先」這種題，生成模型的 attention 可以把「2027-01-30」和「截止 2026-11-28」對起來看；EG2 的 <code>x</code> 裡那兩個日期已經被壓成 768 個數字的一部分，<code>L</code> 裡的「延後」描述根本沒有日期可以對。</p>
+<p>Google 的 Decision Maker 把這兩種引擎包在同一個 <code>evaluate()</code> 後面。對 EG2 後端，<code>prewarm()</code> 是算 <code>L</code>，<code>evaluate()</code> 是 <code>X @ Lᵀ</code>；對生成模型後端，text 和選項仍然放進同一個 context。API 一樣，底下看不看得到選項不一樣——這也是它的 pitfalls 要分後端寫的原因。</p>
 
 <p class="eyebrow">項目 06 · 裁決</p>
 <h2>所以它是 Jev，又不是</h2>
-<p><strong>是 Jev。</strong>TypeSafe 的 Jev API 本來就有兩種引擎，Jev-Gemma 讀生成模型的 logit、Jev-Embed 算 bi-encoder 內積；Google 自己的 Decision Maker 把 EmbeddingGemma 列為後端一號。EG2 投影回答的題型（Choice、Boolean、Score）、輸出的形狀（校準過的機率分布）、用法（選項 prewarm 之後每次一個 forward），跟讀 logit 那條路完全是同一件事。這份檢定證明了：在四個粗類、狀態翻轉這種題上，它的準確度跟 Gemma 4 讀 logit 打平，速度快 30 到 67 倍。</p>
-<p><strong>又不是。</strong>Gemma 4 讀 logit 的時候，模型已經把題目和選項一起讀過，可以推理；EG2 的段落和標籤是分開編碼的，決策只剩下 cosine 距離。所以它只能回答「像不像」，回答不了「是不是」。三條邊界，三個實驗各自量到一條：</p>
+<p><strong>是 Jev。</strong>TypeSafe 的 Jev API 本來就有兩種引擎，Jev-Gemma 用生成模型、Jev-Embed 算 bi-encoder 內積；Google 自己的 Decision Maker 把 EmbeddingGemma 列為後端一號。EG2 投影回答的題型（Choice、Boolean、Score）和輸出的形狀（校準過的機率分布），跟先前的實驗是同一種 typed decision。這份檢定證明了：在四個粗類、狀態翻轉這種題上，它的準確度跟 Gemma 4 打平，速度快 30 到 67 倍。</p>
+<p><strong>又不是。</strong>Gemma 4 作答的時候，模型已經把題目和選項一起讀過，可以推理；EG2 的段落和標籤是分開編碼的，決策只剩下 cosine 距離。所以它只能回答「像不像」，回答不了「是不是」。三條邊界，三個實驗各自量到一條：</p>
 <ul>
-<li><strong>否定要靠標籤軸救。</strong>純距離看不見「沒有阻礙→有阻礙」（本檢定項目 02）；投影到「卡關」這個方向才看得見（項目 03）。先前的實驗量到的是同一件事的另一面：連 26B 零樣本遇到否定形問法都讀不準。否定在這整條線上都是硬傷，差別只在 EG2 有一個便宜的繞法。</li>
+<li><strong>否定要靠標籤軸救。</strong>純距離看不見「沒有阻礙→有阻礙」（本檢定項目 02）；投影到「卡關」這個方向才看得見（項目 03）。先前的實驗量到的是同一件事的另一面：連 26B 零樣本遇到否定形問法都判不準。否定在這整條線上都是硬傷，差別只在 EG2 有一個便宜的繞法。</li>
 <li><strong>值完全看不見。</strong>日期、數量、料號，尺量不出大小關係。這類交給規則，規則做不到的交給 E4B（項目 04）。</li>
 <li><strong>類別要粗、要互斥。</strong>四類狀態 0.99，先前的十類產線判斷 0.637、100 份 SOP 路由 top-1 0.527。類別一細、一近，相似度尺就分不開。這不矛盾，是同一把尺的兩端。</li>
 </ul>
@@ -821,9 +791,9 @@ status = argmax(P, axis=1)
 <thead><tr><th>引擎</th><th class="nowrap">答對</th><th class="nowrap">語言表面</th><th class="nowrap">推論</th><th class="nowrap">日期＋長文件</th><th class="nowrap">換說法後答案不變</th><th class="nowrap">每筆</th></tr></thead>
 <tbody>
 <tr><td>Gemini Decision 1（雲端）</td><td class="nowrap best">98.4%</td><td class="nowrap">99.2</td><td class="nowrap">98.9</td><td class="nowrap">96.4</td><td class="nowrap">98.0%</td><td class="nowrap">272 ms（含網路）</td></tr>
-<tr><td>Gemma 4 26B 讀 logit</td><td class="nowrap best">97.4%</td><td class="nowrap">99.2</td><td class="nowrap">97.3</td><td class="nowrap">95.5</td><td class="nowrap">96.0%</td><td class="nowrap">210 ms（L4）</td></tr>
-<tr><td>Gemma 4 E4B 讀 logit</td><td class="nowrap">92.5%</td><td class="nowrap">94.4</td><td class="nowrap">92.6</td><td class="nowrap">90.1</td><td class="nowrap">89.5%</td><td class="nowrap">102 ms（L4）</td></tr>
-<tr><td>Gemma 4 E2B 讀 logit</td><td class="nowrap">80.2%</td><td class="nowrap">87.3</td><td class="nowrap">75.5</td><td class="nowrap">80.2</td><td class="nowrap">71.5%</td><td class="nowrap">62 ms（L4）</td></tr>
+<tr><td>Gemma 4 26B</td><td class="nowrap best">97.4%</td><td class="nowrap">99.2</td><td class="nowrap">97.3</td><td class="nowrap">95.5</td><td class="nowrap">96.0%</td><td class="nowrap">210 ms（L4）</td></tr>
+<tr><td>Gemma 4 E4B</td><td class="nowrap">92.5%</td><td class="nowrap">94.4</td><td class="nowrap">92.6</td><td class="nowrap">90.1</td><td class="nowrap">89.5%</td><td class="nowrap">102 ms（L4）</td></tr>
+<tr><td>Gemma 4 E2B</td><td class="nowrap">80.2%</td><td class="nowrap">87.3</td><td class="nowrap">75.5</td><td class="nowrap">80.2</td><td class="nowrap">71.5%</td><td class="nowrap">62 ms（L4）</td></tr>
 <tr><td>DM · EG2</td><td class="nowrap">48.4%</td><td class="nowrap">50.0</td><td class="nowrap">48.4</td><td class="nowrap dim">44.4</td><td class="nowrap">84.5%</td><td class="nowrap">60 ms（CPU）</td></tr>
 <tr><td>NLI</td><td class="nowrap">45.8%</td><td class="nowrap">51.6</td><td class="nowrap">44.1</td><td class="nowrap dim">38.2</td><td class="nowrap">78.0%</td><td class="nowrap">373 ms（CPU）</td></tr>
 <tr><td>關鍵字規則</td><td class="nowrap">35.3%</td><td class="nowrap">34.9</td><td class="nowrap">37.2</td><td class="nowrap">32.4</td><td class="dim">—</td><td class="dim">—</td></tr>
@@ -832,7 +802,7 @@ status = argmax(P, axis=1)
 </table>
 </div>
 <p class="verdict">測試集 425 段，四選一亂猜是 25%。灰字：長文件超過 512 token 的視窗，這三個引擎只有一半的題有答案。延遲在三種機器上量，只有同一種機器的列可以互比。</p>
-<p><strong>尺和 cross-encoder 一起掉到 35–48%。</strong>項目 08 裡最準的 GLiNER，在這裡和關鍵字規則同一級，而且七成的題都答「取消」。原因不是它變差了，是題目變了：十月的題只要排出「哪一段比較像出事」，這套題要讀懂「以最新的為準」「別的專案取消不算」再四選一。連項目 03 合格的 EG2 投影，拿來比這套題的新舊兩版，AUROC 也只剩 0.68；讀 logit 的 26B 是 0.99。<span class="mark">「像不像」的引擎答不了「是不是」，這次連 cross-encoder 也在線的同一邊。</span></p>
+<p><strong>尺和 cross-encoder 一起掉到 35–48%。</strong>項目 08 裡最準的 GLiNER，在這裡和關鍵字規則同一級，而且七成的題都答「取消」。原因不是它變差了，是題目變了：十月的題只要排出「哪一段比較像出事」，這套題要讀懂「以最新的為準」「別的專案取消不算」再四選一。連項目 03 合格的 EG2 投影，拿來比這套題的新舊兩版，AUROC 也只剩 0.68；Gemma 4 26B 是 0.99。<span class="mark">「像不像」的引擎答不了「是不是」，這次連 cross-encoder 也在線的同一邊。</span></p>
 <p><strong>Gemma 4 的階梯這次分得開。</strong>E2B 80、E4B 92.5、26B 97.4，沒有一種難法能讓 E2B 拿到 95。26B 比 E4B 高 4.9 點，統計上很清楚（p = 0.0001），但事先寫死的門檻是 5 點，差 0.1 點，所以只能寫「顯著，未達門檻」；日期與長文件那一組高 5.4 點，過了。</p>
 <p><strong>裝置端的 26B 和雲端的 Gemini Decision 1 分不出高下。</strong>差 0.9 點，95% 信賴區間從 −0.7 到 +2.6。657 段全算，26B 錯 18 題、雲端錯 11 題；兩者有 97.4% 的題答案相同，都答錯的 6 題選的是同一個錯答案，全在工作天推算、sprint 推算和沒照時間順序排的紀錄上。兩個引擎的弱點是同一種。</p>
 <p><strong>日期不必先替 26B 算好。</strong>把「預計交付日晚於期限 5 天：是」這種比較結果先寫進段落，26B 只多 1.9 點。它自己會比。</p>
@@ -843,7 +813,7 @@ status = argmax(P, axis=1)
 <div class="stat"><p class="label">E4B 先答，沒把握再給 26B</p><div class="value">134 ms</div><div class="delta">答對 96.7% · 16% 的題交給 26B</div></div>
 <div class="stat"><p class="label">Gemini Decision 1 · 每筆</p><div class="value">272 ms</div><div class="delta">答對 98.4% · 含網路 · 資料上雲</div></div>
 </div>
-<p class="verdict">級聯那一格是用存下來的機率算的，門檻 0.999 是先前就在用的值。要求完全不輸 26B 的話，門檻得拉到 0.99999，過半的題要交給 26B，反而比只用 26B 慢。</p>
+<p class="verdict">級聯那一格是用存下來的信心值算的，門檻 0.999 是先前就在用的值。要求完全不輸 26B 的話，門檻得拉到 0.99999，過半的題要交給 26B，反而比只用 26B 慢。</p>
 
 <h3>補測後的階梯</h3>
 <ol class="ladder">
@@ -853,7 +823,7 @@ status = argmax(P, axis=1)
 <li><span class="rung">第 3 格</span><div><strong>26B</strong> — 97.4%，L4 上 210 ms。這套題的判讀層就是它；資料不出門、版本可以鎖定。</div></li>
 <li><span class="rung">雲端</span><div><strong>Gemini Decision 1</strong> — 98.4%。當上限參考。資料要送上雲、版本不能鎖定，而它沒有明顯贏過第 3 格。</div></li>
 </ol>
-<p><span class="chip">合格</span> <span class="verdict">Gemma 4 26B 讀 logit，當裝置端的狀態判讀器，在這套題上成立；與雲端 Decision API 的差距在 −0.7 到 +2.6 點之間。</span></p>
+<p><span class="chip">合格</span> <span class="verdict">Gemma 4 26B，當裝置端的狀態判讀器，在這套題上成立；與雲端 Decision API 的差距在 −0.7 到 +2.6 點之間。</span></p>
 <p><span class="chip no">不合格</span> <span class="verdict">MediaPipe Decision Maker 的 EG2、GLiNER 後端與 NLI，當四選一的狀態判讀器。預設設定，沒有調參。</span></p>
 
 <p class="eyebrow">項目 10 · 本檢定不保證的事</p>
