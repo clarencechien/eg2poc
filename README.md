@@ -21,7 +21,7 @@ v0.3 規格與資料都已凍結並完成評分，見 [v0.3 摘要](results/synt
    - T6、T7、T8 的 single AUROC 為 0.982–1.000，負例 argmax 零誤報，每筆約 1.5 s。
    - 同一個 API 的 EG2 backend 最快（45 ms）但比 NLI 弱；Laya 最弱。
    - MediaPipe Decision Maker 沒有被棄用，但只能在本機或裝置上跑，沒有 Google 託管的雲端版。
-3. **Gemini Decision 1（GD1）是唯一在 T5、T10 都接近滿分的方法。**
+3. **在 v2.1 的題目上，Gemini Decision 1（GD1）是唯一在 T5、T10 都接近滿分的方法。**（26B 沒有在 v2.1 上跑過；v0.3 顯示 26B 的日期題有 90.7%。）
    - 但它要把資料送上雲、無法釘版本；外部評測顯示它對問法改寫的一致性偏弱。
    - 目前只當上限參考，不進管線。
 4. **現有題目已經量不出 GD1、GLiNER、J 的差別**（[天花板分析](results/decision-ceiling/summary.md)）。
@@ -39,6 +39,19 @@ v0.3 規格與資料都已凍結並完成評分，見 [v0.3 摘要](results/synt
    - 建議架構：判讀層用 26B；GD1 只當上限參考；GLiNER、EG2、NLI 退出判讀層。
    - E4B → 26B 級聯用既有預測計算（[cascade](results/synthetic-v3/cascade.md)）：不損失準確率就沒有時間優勢；可接受少 0.7 點時，用 τ = 0.999 可以快約 36%。
    - 限制：合成資料、gold 沒有人工覆核、GD1 無法鎖定版本。
+
+6. **jevlike 26B、GD1、Jev 的關係**（[三方比較與盲點](results/synthetic-v3/jevlike-vs-gd1.md)）。
+   - **jevlike 26B 對 GD1**（本 repo 同題直接量測）：測試集 97.4% 對 98.4%，GD1 +0.9 點，95% CI 為 −0.7 到 +2.6 點，分不出高下。657 段全算：錯誤數 18 對 11。兩者 97.4% 的題答案相同；都錯的 6 段選的是同一個錯答案，集中在日期運算與時間順序。
+   - **jevlike 26B 對 Jev**：jevlike 沒有直接跑過 Jev。間接數字是 JevBench 公開子集 +2.1 點、Bespoke Labs 3,880 題 −2.0 點，方向不一致。
+   - **GD1 對 Jev**：外部二手資料。Artificial Analysis 綜合指數打平（65.98 對 66.23）；Google 自己的圖表上 GD1 高約 2 點。
+   - **立論方向對，但要寫得保守**：「在專案狀態這類短文字判斷題上，jevlike 26B 與 GD1 差約 1 點、資料分不出高下；選地端是因為資料不外流、版本可鎖定，不是因為準確率已證明相等。」
+   - **主要盲點**：
+     - 三條邊只有一條是直接量測，不能串成等式。
+     - 兩者都接近滿分，只能排除 GD1 高出 2.6 點以上；要確認 1 點的差距約需 1,100 段題目。
+     - 只測了一種任務；jevlike 在 JevBench 的弱項（數值、機率推理）沒有測到。
+     - 題目由 Claude 出、Claude 盲判，沒有人工覆核。
+     - GD1 的多模態與長 context 沒有測。
+     - 地端的前提是有 L4 級 GPU（26B 佔 18.3 GB 顯存）。
 
 ## 已確認的模型
 

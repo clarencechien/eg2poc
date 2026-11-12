@@ -1,0 +1,134 @@
+{
+ "test": {
+  "n": 425,
+  "acc_gd1": 0.9835294117647059,
+  "acc_26b": 0.9741176470588235,
+  "errors_gd1": 7,
+  "errors_26b": 11,
+  "gap_gd1_minus_26b": 0.009411764705882352,
+  "ci95": [
+   -0.00683371298405467,
+   0.026442307692307692
+  ],
+  "mcnemar_p": 0.3876953125,
+  "gd1_only_right": 8,
+  "26b_only_right": 4,
+  "same_answer": 0.971764705882353,
+  "both_wrong": 3,
+  "both_wrong_same_answer": 3
+ },
+ "all_originals": {
+  "n": 657,
+  "acc_gd1": 0.9832572298325724,
+  "acc_26b": 0.9726027397260274,
+  "errors_gd1": 11,
+  "errors_26b": 18,
+  "gap_gd1_minus_26b": 0.0106544901065449,
+  "ci95": [
+   0.0,
+   0.02406015037593985
+  ],
+  "mcnemar_p": 0.143463134765625,
+  "gd1_only_right": 12,
+  "26b_only_right": 5,
+  "same_answer": 0.974124809741248,
+  "both_wrong": 6,
+  "both_wrong_same_answer": 6
+ },
+ "errors_by_type_all_originals": {
+  "H-bor": {
+   "n": 60,
+   "GD1": 2,
+   "J_26b": 3
+  },
+  "H-dat": {
+   "n": 88,
+   "GD1": 6,
+   "J_26b": 8
+  },
+  "H-dis": {
+   "n": 60,
+   "GD1": 1,
+   "J_26b": 0
+  },
+  "H-imp": {
+   "n": 59,
+   "GD1": 0,
+   "J_26b": 3
+  },
+  "H-inc": {
+   "n": 60,
+   "GD1": 0,
+   "J_26b": 0
+  },
+  "H-inv": {
+   "n": 60,
+   "GD1": 0,
+   "J_26b": 0
+  },
+  "H-lng": {
+   "n": 90,
+   "GD1": 0,
+   "J_26b": 0
+  },
+  "H-noi": {
+   "n": 60,
+   "GD1": 0,
+   "J_26b": 1
+  },
+  "H-res": {
+   "n": 60,
+   "GD1": 1,
+   "J_26b": 2
+  },
+  "H-tmp": {
+   "n": 60,
+   "GD1": 1,
+   "J_26b": 1
+  }
+ },
+ "both_wrong_items": [
+  {
+   "id": "s-h-bor-005",
+   "gold": "C",
+   "GD1": "B",
+   "J_26b": "B",
+   "J_e4b": "D"
+  },
+  {
+   "id": "s-h-dat-002",
+   "gold": "B",
+   "GD1": "A",
+   "J_26b": "A",
+   "J_e4b": "A"
+  },
+  {
+   "id": "s-h-dat-018",
+   "gold": "B",
+   "GD1": "A",
+   "J_26b": "A",
+   "J_e4b": "A"
+  },
+  {
+   "id": "s-h-dat-044",
+   "gold": "A",
+   "GD1": "C",
+   "J_26b": "C",
+   "J_e4b": "C"
+  },
+  {
+   "id": "s-h-res-006",
+   "gold": "C",
+   "GD1": "B",
+   "J_26b": "B",
+   "J_e4b": "D"
+  },
+  {
+   "id": "s-h-tmp-018",
+   "gold": "A",
+   "GD1": "C",
+   "J_26b": "C",
+   "J_e4b": "C"
+  }
+ ]
+}
