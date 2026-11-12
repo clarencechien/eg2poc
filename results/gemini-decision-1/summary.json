@@ -1,0 +1,249 @@
+{
+  "model": "gemini-decision-1",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta/decisions",
+  "run_utc": "2026-11-12T00:43:15Z",
+  "n_requests": 2540,
+  "n_ok": 2540,
+  "n_errors": 0,
+  "error_samples": [],
+  "latency_ms": {
+    "mean": 280.40474875669275,
+    "p50": 277.2920074999945,
+    "p95": 374.54652454998717
+  },
+  "total_input_tokens": 648092,
+  "est_usd_at_0.10_per_M": 0.0648092,
+  "auroc": {
+    "T5-word": {
+      "GD1_single": {
+        "auc": 0.9986111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 0.6886111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 0.9386111111111111,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 0.8719444444444444,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 0.7677777777777778,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T6-word": {
+      "GD1_single": {
+        "auc": 0.9979222222222223,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e2b_single": {
+        "auc": 0.8894944444444445,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e4b_single": {
+        "auc": 0.9547444444444444,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e2b_paired": {
+        "auc": 0.9939,
+        "n_pos": 300,
+        "n_neg": 300
+      },
+      "J_e4b_paired": {
+        "auc": 0.9998222222222222,
+        "n_pos": 300,
+        "n_neg": 300
+      }
+    },
+    "T6-sentence": {
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e2b_single": {
+        "auc": 0.9976,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 50,
+        "n_neg": 50
+      }
+    },
+    "T7-word": {
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T7-sentence": {
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T8-sentence": {
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    },
+    "T8-paragraph": {
+      "GD1_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_single": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "GD1_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e2b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      },
+      "J_e4b_paired": {
+        "auc": 1.0,
+        "n_pos": 60,
+        "n_neg": 60
+      }
+    }
+  },
+  "docset_auroc": {
+    "GD1": 1.0,
+    "J_e2b": 0.7725,
+    "J_e4b": 0.989375
+  },
+  "missing_single": 0,
+  "missing_paired": 0
+}

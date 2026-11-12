@@ -4,6 +4,7 @@
 最新結果見 [v0.2 摘要](results/synthetic-v2/summary.md)、[完整報告](results/synthetic-v2/report.md)；
 J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集，全部通過輸出檢核且無缺值，見 [v0.2.1 摘要](results/synthetic-v2.1/summary.md)與[完整報告](results/synthetic-v2.1/report.md)。
 770 組 v0.1 歷史結果見 [原合成試驗](results/synthetic-v1/summary.md)。
+2026-11-12 另做了 decision 後端的探索比較：Gemini Decision 1（GD1，雲端）與 MediaPipe Decision Maker 的 EG2 backend（D2-DM，本機）。兩者都不在預登記計畫內，見 [docs/decision-backends.md](docs/decision-backends.md)。
 原始真實文件＋雙生成器 Phase 1 尚未完成。原始交接規格保存在
 [docs/protocol-v0.1.md](docs/protocol-v0.1.md)。不要將 `tests/fixtures` 人工例句當成真實文件底稿。
 
@@ -13,7 +14,9 @@ J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集�
 |---|---|---|---|
 | B/C | `google/embeddinggemma-2` | `914f7f89142e33e77833254d9c9b90c3cef7303b` | v0.2 的 1,690 組完成，文字塔 271,002,624 參數、float32 |
 | D1/D2 | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | v0.2 的 1,690 組完成；**NLI 替代，不是 Decision Maker** |
-| 生成／覆核／E | 原規格 `gemini-3.5-flash` | 不適用 | 官方公告已停用並自動轉到 3.6；尚未選擇替代、沒有 API 呼叫 |
+| 生成／覆核／E | 原規格 `gemini-3.5-flash` | 不適用 | 官方公告已停用並自動轉到 3.6；尚未選擇替代，生成與覆核沒有 API 呼叫 |
+| 探索：GD1 | `gemini-decision-1`（Gemini Decisions API v1beta，雲端） | 託管，無法釘 | 2026-11-12 在 v2.1 J 範圍跑完 1,230 對＋80 文件集，見 [summary](results/gemini-decision-1/summary.md)；不在預登記計畫內 |
+| 探索：D2-DM | MediaPipe Decision Maker `mediapipe==1.2.3`＋`litert-community/embeddinggemma-2-text-270m-litert-lm` | `9be6e8b90982095dc05c2bd162e4b954ee4dbac7` | 2026-11-12 在 v2.1 J 範圍跑完，見 [summary](results/mediapipe-decision-eg2/summary.md)；Laya／GLiNER／Gemma 4 backend 未跑 |
 
 EG2：CPU float32；`config_kwargs={"vision_config": null, "audio_config": null}`。
 Document：`title: none | text: {text}`；Classification：`task: classification | query: {text}`；
@@ -124,6 +127,51 @@ API ledger 位於 `results/api-ledger.jsonl`，生成、覆核、E **不可並�
 
 網路與套件的成功不代表正式資料、模型分數、發布或新任務還原已驗證。
 
+## 探索：decision 後端比較（GD1、D2-DM）
+
+設計、結果與解讀見 [docs/decision-backends.md](docs/decision-backends.md)。
+外部公開數據見 [external-benchmarks](results/gemini-decision-1/external-benchmarks.md)。
+這兩個 arm 都**不在預登記計畫內**，不能替換 H1–H11 的判讀。
+兩者都沿用 v2.1 J 的凍結範圍、題目與 `labels_alt`；AUROC 與 J 用同一套專屬負例算法，可以並排比較。
+
+**重點：**
+
+- MediaPipe Decision Maker **沒有被棄用**。v1.2.3 在 Gemini Decision 1 發佈當天（2026-11-11）推出，仍在修 DecisionMaker。被棄用的是 Model Maker。
+- **DM-EG2** 是本機方案，每筆約 45 ms、模型 165 MB。但單邊判讀品質低於 D2 NLI（T6-word：0.781 對 0.922），T5 與 T10 約等於隨機。
+- **GD1** 在 T5（0.999）與 T10（1.000）接近滿分，p50 277 ms。代價是資料要送上雲、無法釘版本。
+
+GD1 需要 API key，從環境變數 `GEMINI_API_KEY`、`GOOGLE_API_KEY` 或 `gemini_key` 讀取，不會寫入 repo 或輸出檔：
+
+```bash
+.mpvenv/bin/python src/run_decision1.py --output results/gemini-decision-1-repeat
+```
+
+- 只需要 `requests` 與 `numpy`。`scripts/setup-mp-decision.sh` 建的 `.mpvenv` 兩者都有；`.venv` 則要先跑過 `setup-j.sh` 才有 `requests`。
+- 共 2,540 次請求、約 65 萬輸入 tokens（約 US$0.065）。
+- 遇到 429 或 5xx 會自動退避重試；`predictions.jsonl` 會逐筆落盤，中斷後用同一個輸出目錄可以續跑。
+
+D2-DM 使用獨立的 `.mpvenv`，不影響 `.venv` 已固定的 torch 套件組合。
+安裝腳本會裝 `mediapipe==1.2.3`、下載固定 revision 的模型到 `.cache/models/` 並驗證 SHA256：
+
+```bash
+bash scripts/setup-mp-decision.sh
+```
+
+```bash
+.mpvenv/bin/python -m src.run_mp_decision --model .cache/models/embeddinggemma-2-text-270m.litertlm \
+  --output results/mediapipe-decision-eg2-repeat
+```
+
+- Linux 需要系統套件 `libegl1`；即使只用 CPU delegate，shared library 仍會連結 `libEGL.so.1`。以 root 執行時，腳本會自動安裝。
+- 整批約 2,600 次評估，每次約 45 ms，在 4 CPU 上只需幾分鐘。
+- 同時會重量 v2.1 成本表的同一批 100 筆延遲。
+
+**本次延遲數字的限制：**
+
+- DM-EG2 是在 Intel Xeon @2.1 GHz、4 CPU 的雲端容器上量的，**與 v2.1 baseline（Xeon 8573C）不是同一台機器**。
+- GD1 的延遲包含網路往返。
+- 兩者只能看量級，不符合 §11.4「同機」的規定。
+
 ## v0.2 / v0.2.1 合成實驗
 
 本輪先完成 [v0.2 原規格](docs/protocol-v0.2-original.md)，再接
@@ -159,4 +207,4 @@ C 的 old 向量和 label 預先快取，但 new embedding 仍需推論，不能
 v0.1 的結果應保留限定：原始 cosine 對編輯幅度敏感，尚不能說它完全不含語意；
 D1 對新增阻礙弱，但不是所有新增都必然偵測不到；T5/T4 的 NLI AUROC 約 0.485，
 而 A/B/C 的高分受到日期編輯幅度不等的干擾，不能據此證明日期推理。
-Gemini 3.5 已停用、自動轉向 3.6 的版本紀錄維持；本輪完全沒有呼叫 Gemini。
+Gemini 3.5 已停用、自動轉向 3.6 的版本紀錄維持；v0.2／v0.2.1 完全沒有呼叫 Gemini。2026-11-12 的 Decisions API 探索另計，見上節。
