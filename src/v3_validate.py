@@ -1,6 +1,7 @@
 """Validate v0.3 authored items (data/synthetic-v3/raw/<code>.jsonl) against protocol-v0.3 §3.
 
 Usage: .mpvenv/bin/python -m src.v3_validate H-noi [H-dis ...]   (no args = all present files)
+       .mpvenv/bin/python -m src.v3_validate --partial H-lng path/to/part.jsonl   (per-item checks only)
 Token counts use the GLiNER tokenizer inside .cache/models/gliner_s512.task (needs `tokenizers`).
 Exit code 1 if any file has errors. Does not score items and never shows the rule baseline.
 """
@@ -37,9 +38,9 @@ def render(item, field='state'):
     return PLAN['task_S']['render_state'][item['lang']].format(today=item['today'], state=item[field])
 
 
-def validate(code):
+def validate(code, path=None, partial=False):
     spec = next(t for t in PLAN['hard_types'] if t['code'] == code)
-    path = ROOT / 'raw' / f'{code}.jsonl'
+    path = Path(path) if path else ROOT / 'raw' / f'{code}.jsonl'
     errors, warnings = [], []
     if not path.exists():
         return [f'{path} missing'], []
@@ -108,6 +109,8 @@ def validate(code):
                 errors.append(f'{iid}: state_precomputed exceeds 480 GLiNER tokens')
 
     n = len(items)
+    if partial:
+        return errors, [f'{code} (partial {path}): n={n} gold={dict(sorted(Counter(it.get("gold") for it in items).items()))}']
     if n != spec['n_items']:
         errors.append(f'{code}: has {n} items, needs exactly {spec["n_items"]}')
     langs = Counter(it.get('lang') for it in items)
@@ -147,6 +150,13 @@ def validate(code):
 
 
 def main():
+    if sys.argv[1:2] == ['--partial']:
+        errors, info = validate(sys.argv[2], sys.argv[3], partial=True)
+        print(*info, sep='\n')
+        for e in errors:
+            print('  ERROR', e)
+        print('  OK' if not errors else f'  {len(errors)} errors')
+        sys.exit(1 if errors else 0)
     codes = sys.argv[1:] or [t['code'] for t in PLAN['hard_types'] if (ROOT / 'raw' / f"{t['code']}.jsonl").exists()]
     bad = False
     for code in codes:
