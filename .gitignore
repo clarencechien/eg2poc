@@ -8,3 +8,4 @@ data/private/
 results/synthetic-v2.1/*/server.log
 .mpvenv/
 results/*/checkpoint.jsonl
+.modalvenv/
