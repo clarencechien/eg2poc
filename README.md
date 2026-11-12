@@ -15,6 +15,7 @@ J E2B／E4B 各完成 single／paired 各 1,230 筆及 T10 共 80 個文件集�
 | D1/D2 | `MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7` | `b5113eb38ab63efdd7f280f8c144ea8b13f978ce` | v0.2 的 1,690 組完成；**NLI 替代，不是 Decision Maker** |
 | 生成／覆核／E | 原規格 `gemini-3.5-flash` | 不適用 | 官方公告已停用並自動轉到 3.6；尚未選擇替代、沒有 API 呼叫 |
 | 探索：雲端 decision | `gemini-decision-1`（Decisions API v1beta） | 託管，無法釘 | 2026-11-12 在 v2.1 J 範圍試跑，見 [summary](results/gemini-decision-1/summary.md)；不在預登記計畫內 |
+| 探索：D2-DM | MediaPipe Decision Maker `mediapipe==1.2.3` + `embeddinggemma-2-text-270m.litertlm` | `9be6e8b90982095dc05c2bd162e4b954ee4dbac7` | 2026-11-12 在 v2.1 J 範圍試跑，見 [summary](results/mediapipe-decision-eg2/summary.md)；Linux 需 `libegl1`；外部數據見 [external-benchmarks](results/gemini-decision-1/external-benchmarks.md) |
 
 EG2：CPU float32；`config_kwargs={"vision_config": null, "audio_config": null}`。
 Document：`title: none | text: {text}`；Classification：`task: classification | query: {text}`；

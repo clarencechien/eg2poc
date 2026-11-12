@@ -150,14 +150,14 @@ def main():
     # compact the append-only cache to one line per request
     cache_path.write_text(''.join(json.dumps(cache[j[0]], ensure_ascii=False) + '\n' for j in jobs if j[0] in cache))
 
-    scores = {pid: {'D1_single': score_of('single', cache.get(f'{pid}|single', {})),
-                    'D1_paired': score_of('paired', cache.get(f'{pid}|paired', {}))} for pid in scope}
+    scores = {pid: {'GD1_single': score_of('single', cache.get(f'{pid}|single', {})),
+                    'GD1_paired': score_of('paired', cache.get(f'{pid}|paired', {}))} for pid in scope}
     j = {}
     for size in ('e2b', 'e4b'):
         for r in read_jsonl(f'results/synthetic-v2.1/{size}/scores.jsonl'):
             j.setdefault(r['pair_id'], {}).update({f'J_{size}_single': r[f'J_{size}_single'], f'J_{size}_paired': r[f'J_{size}_paired']})
     merged = {pid: {**j.get(pid, {}), **scores[pid]} for pid in scope}
-    arms = ('D1_single', 'J_e2b_single', 'J_e4b_single', 'D1_paired', 'J_e2b_paired', 'J_e4b_paired')
+    arms = ('GD1_single', 'J_e2b_single', 'J_e4b_single', 'GD1_paired', 'J_e2b_paired', 'J_e4b_paired')
     table = {c: {a: matched(rows, merged, c, a) for a in arms} for c in CONTRASTS}
 
     docscore = {}
@@ -169,7 +169,7 @@ def main():
             pos = [src[d['docset_id']] for d in docs if d['label'] == 1 and src.get(d['docset_id']) is not None]
             neg = [src[d['docset_id']] for d in docs if d['label'] == 0 and src.get(d['docset_id']) is not None]
             return auc(pos, neg)
-        docset_auc = {'D1': dauc(docscore), 'J_e2b': dauc(jd['e2b']), 'J_e4b': dauc(jd['e4b'])}
+        docset_auc = {'GD1': dauc(docscore), 'J_e2b': dauc(jd['e2b']), 'J_e4b': dauc(jd['e4b'])}
     else:
         docset_auc = None
 
@@ -184,8 +184,8 @@ def main():
                'total_input_tokens': tokens, 'est_usd_at_0.10_per_M': tokens / 1e6 * 0.10,
                'auroc': {c: {a: {'auc': v[0], 'n_pos': v[1], 'n_neg': v[2]} for a, v in t.items()} for c, t in table.items()},
                'docset_auroc': docset_auc,
-               'missing_single': sum(scores[p]['D1_single'] is None for p in scope),
-               'missing_paired': sum(scores[p]['D1_paired'] is None for p in scope)}
+               'missing_single': sum(scores[p]['GD1_single'] is None for p in scope),
+               'missing_paired': sum(scores[p]['GD1_paired'] is None for p in scope)}
     (out / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
     with (out / 'scores.jsonl').open('w') as f:
         for pid in scope:
@@ -193,7 +193,7 @@ def main():
     if docscore:
         with (out / 'docset-scores.jsonl').open('w') as f:
             for k, v in docscore.items():
-                f.write(json.dumps({'docset_id': k, 'D1_single': v}) + '\n')
+                f.write(json.dumps({'docset_id': k, 'GD1_single': v}) + '\n')
     print(json.dumps({k: summary[k] for k in ('n_requests', 'n_ok', 'n_errors', 'latency_ms', 'total_input_tokens', 'est_usd_at_0.10_per_M', 'docset_auroc')}, indent=1))
     for c, t in table.items():
         print(c, '  '.join(f"{a}={'—' if v[0] is None else f'{v[0]:.3f}'}({v[1]}/{v[2]})" for a, v in t.items()))

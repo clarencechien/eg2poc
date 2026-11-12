@@ -15,7 +15,7 @@
   "est_usd_at_0.10_per_M": 0.0648092,
   "auroc": {
     "T5-word": {
-      "D1_single": {
+      "GD1_single": {
         "auc": 0.9986111111111111,
         "n_pos": 60,
         "n_neg": 60
@@ -30,7 +30,7 @@
         "n_pos": 60,
         "n_neg": 60
       },
-      "D1_paired": {
+      "GD1_paired": {
         "auc": 0.8719444444444444,
         "n_pos": 60,
         "n_neg": 60
@@ -47,7 +47,7 @@
       }
     },
     "T6-word": {
-      "D1_single": {
+      "GD1_single": {
         "auc": 0.9979222222222223,
         "n_pos": 300,
         "n_neg": 300
@@ -62,7 +62,7 @@
         "n_pos": 300,
         "n_neg": 300
       },
-      "D1_paired": {
+      "GD1_paired": {
         "auc": 1.0,
         "n_pos": 300,
         "n_neg": 300
@@ -79,7 +79,7 @@
       }
     },
     "T6-sentence": {
-      "D1_single": {
+      "GD1_single": {
         "auc": 1.0,
         "n_pos": 50,
         "n_neg": 50
@@ -94,7 +94,7 @@
         "n_pos": 50,
         "n_neg": 50
       },
-      "D1_paired": {
+      "GD1_paired": {
         "auc": 1.0,
         "n_pos": 50,
         "n_neg": 50
@@ -111,7 +111,7 @@
       }
     },
     "T7-word": {
-      "D1_single": {
+      "GD1_single": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -126,7 +126,7 @@
         "n_pos": 60,
         "n_neg": 60
       },
-      "D1_paired": {
+      "GD1_paired": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -143,7 +143,7 @@
       }
     },
     "T7-sentence": {
-      "D1_single": {
+      "GD1_single": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -158,7 +158,7 @@
         "n_pos": 60,
         "n_neg": 60
       },
-      "D1_paired": {
+      "GD1_paired": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -175,7 +175,7 @@
       }
     },
     "T8-sentence": {
-      "D1_single": {
+      "GD1_single": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -190,7 +190,7 @@
         "n_pos": 60,
         "n_neg": 60
       },
-      "D1_paired": {
+      "GD1_paired": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -207,7 +207,7 @@
       }
     },
     "T8-paragraph": {
-      "D1_single": {
+      "GD1_single": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -222,7 +222,7 @@
         "n_pos": 60,
         "n_neg": 60
       },
-      "D1_paired": {
+      "GD1_paired": {
         "auc": 1.0,
         "n_pos": 60,
         "n_neg": 60
@@ -240,7 +240,7 @@
     }
   },
   "docset_auroc": {
-    "D1": 1.0,
+    "GD1": 1.0,
     "J_e2b": 0.7725,
     "J_e4b": 0.989375
   },

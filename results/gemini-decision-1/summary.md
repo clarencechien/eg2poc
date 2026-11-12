@@ -22,7 +22,7 @@ python3 src/run_decision1.py --output results/gemini-decision-1-repeat
 
 ## 主表：專屬負例配對 AUROC
 
-| 配對 | D1 single | J-E2B single | J-E4B single | D1 paired | J-E2B paired | J-E4B paired |
+| 配對 | GD1 single | J-E2B single | J-E4B single | GD1 paired | J-E2B paired | J-E4B paired |
 |---|---|---|---|---|---|---|
 | T5-word | **0.999** | 0.689 | 0.939 | 0.872 | 1.000 | 0.768 |
 | T6-word | **0.998** | 0.889 | 0.955 | 1.000 | 0.994 | 1.000 |
@@ -32,7 +32,7 @@ python3 src/run_decision1.py --output results/gemini-decision-1-repeat
 | T8-sentence | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 | T8-paragraph | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
 
-T10 三段串接（40 正／40 負）的 AUROC：D1 1.000、J-E2B 0.773、J-E4B 0.989。
+T10 三段串接（40 正／40 負）的 AUROC：GD1 1.000、J-E2B 0.773、J-E4B 0.989。
 
 ## argmax 不等於排序
 
