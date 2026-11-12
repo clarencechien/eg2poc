@@ -131,6 +131,8 @@ def verdict(d, ci_a=None, ci_b=None):
     overlap = ci_a is not None and ci_b is not None and ci_a[0] <= ci_b[1] and ci_b[0] <= ci_a[1]
     if d['mcnemar_p'] >= 0.05 and overlap and abs(d['gap']) < 0.05:
         return 'comparable'
+    if d['mcnemar_p'] < 0.05:
+        return 'significant but below the 5-point threshold'
     return 'not distinguishable (underpowered)'
 
 
@@ -250,7 +252,7 @@ def main():
         for a in arms:
             items = [(u(r), ok(a, pre[r['id']]), ok(a, r)) for r in dat if pre[r['id']] and ok(a, r) is not None and ok(a, pre[r['id']]) is not None]
             dd = diff_ci(items)
-            hyp['H15_all_arms'][a] = None if dd is None else {k: dd[k] for k in ('gap', 'n', 'mcnemar_p')}
+            hyp['H15_all_arms'][a] = None if dd is None else {k: dd[k] for k in ('gap', 'n', 'mcnemar_p', 'a_only', 'b_only')}
     # Q6 consistency
     q6 = q6_ids()
     cons = {}
@@ -326,7 +328,7 @@ def main():
         tp = res['test']
         a_ = auroc([sc[p['pair']] for p in tp if p['label']], [sc[p['pair']] for p in tp if not p['label']])
         neg_cal = sorted(sc[p['pair']] for p in res['calibration'] if not p['label'])
-        out = {'auroc_test': a_, 'n_test': len(tp), 'coverage': len(tp) / max(1, sum(p['split'] == 'test' for p in prs))}
+        out = {'n_cal_negatives': len(neg_cal), 'auroc_test': a_, 'n_test': len(tp), 'coverage': len(tp) / max(1, sum(p['split'] == 'test' for p in prs))}
         for target, q in (('fpr0', 1.0), ('fpr1', 0.99)):
             if not neg_cal:
                 continue

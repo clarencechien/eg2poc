@@ -1,0 +1,33 @@
+{
+ "model": "26b",
+ "file": "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+ "sha256": "f2c28b3dc4776931ac6f879e11f203dec637ea0f14267a86ec8f6165f63f293f",
+ "sha256_check_s": 57.2,
+ "server_cmd": [
+  "/models/llama-b11371/bin/llama-server",
+  "-m",
+  "/models/gemma-4-26B-A4B-it-UD-Q4_K_M.gguf",
+  "-ngl",
+  "99",
+  "-c",
+  "8192",
+  "-np",
+  "1",
+  "--port",
+  "8080",
+  "--host",
+  "127.0.0.1",
+  "--jinja",
+  "--reasoning-budget",
+  "0",
+  "--swa-full"
+ ],
+ "server_start_s": 8.0,
+ "server_version": "version: 0.5.0-dev (build 1, commit 99b9548)\nbuilt with GNU 11.4.0 for Linux x86_64",
+ "gpu": "NVIDIA L4, 18337 MiB",
+ "n_probs": 256,
+ "template_server_honored_kwargs": true,
+ "n_S": 1245,
+ "n_P": 371,
+ "ts": "2026-11-12T04:55:42Z"
+}

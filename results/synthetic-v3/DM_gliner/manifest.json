@@ -1,0 +1,16 @@
+{
+ "arm": "DM_gliner",
+ "mediapipe": "1.2.3",
+ "model": {
+  "file": "gliner_s512.task",
+  "url": "https://storage.googleapis.com/mediapipe-models/decision_maker/gliner/float16/gliner_s512/latest/gliner_s512.task",
+  "revision": "GCS generation 1791242707069212 (latest at 2026-11-12)",
+  "sha256": "23a02e1b286fab7573ef2a00acbd8bf80fd2b1284de25eb8fafcd74f8bccd7ec",
+  "note": "GLiNER2.5-Decide (DeBERTa-v3 large) cross-encoder, English-only per model card, 512-token window"
+ },
+ "source_sha256": {
+  "src/run_v3_dm.py": "88b67f16a717a959a724e76c21b7ac914dd6518e10d5500fbdf384a4d499789a",
+  "src/v3_common.py": "530b13170d2d88f30a898b3b624cfda07b3ffca1ce716a13d31ec677c48441e5"
+ },
+ "note": "latencies in predictions.jsonl were measured while other jobs shared the CPU; use benchmark.jsonl for cost"
+}
